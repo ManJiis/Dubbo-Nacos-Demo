@@ -1,0 +1,88 @@
+server:
+  port: 8050
+# spring
+spring:
+  application:
+    name: dubbo-provide
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+#    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      #自动提交
+      auto-commit: true
+      connection-test-query: SELECT 1
+      #等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLException， 缺省:30秒 -->
+      connection-timeout: 30000
+      # 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟 -->
+      idle-timeout: 300000
+      #一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟
+      max-lifetime: 1800000
+      #连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count) -->
+      maximum-pool-size: 20
+      #池中维护的最小空闲连接数，如果当连接池空闲连接少于 minimumIdle，
+      #而且总共连接数不大于 maximumPoolSize 时，HikariCP 会尽力补充新的连接。为了性能考虑，不建议设置此值，而是让 HikariCP 把连接池当做固定大小的处理，默认 minimumIdle 与 maximumPoolSize 一样。
+      minimum-idle: 5
+      pool-name: DatebookHikariCP
+      read-only: false
+      #验证与数据库连接的有效时间
+      validation-timeout: 5000
+    #redis相关配置
+  redis:
+    database: 5
+    # 配置redis的主机地址，需要修改成自己的
+    host: 127.0.0.1
+    port: 6379
+    password: root@123
+    timeout: 5000
+    jedis:
+      pool:
+        # 连接池中的最大空闲连接，默认值也是8。
+        max-idle: 500
+        # 连接池中的最小空闲连接，默认值也是0。
+        min-idle: 50
+        # 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
+        max-active: 1000
+        # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException
+        max-wait: 2000
+# mybatis-plus
+mybatis-plus:
+  #多个package用逗号或者分号分隔
+  typeAliasesPackage: cn.tlh.ex.common.entity
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true  # 是否开启自动驼峰命名规则（camel case）映射
+    local-cache-scope: statement   #  STATEMENT 关闭一级缓存
+    call-setters-on-nulls: true
+    cache-enabled: false
+  global-config:
+    banner: false
+    db-config:
+      db-type: mysql
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+# Dubbo
+dubbo:
+  application:
+    name: ${spring.application.name}
+    qos-enable: false
+    qos-accept-foreign-ip: false
+  registry:
+    address: nacos://127.0.0.1:8848
+#    address: nacos://134.175.47:8848
+  scan:
+    basePackages: cn.tlh.ex.service.impl
+  provider:
+    timeout: 30000  #方法调用的超时时间
+    retries: 3      # 失败重试次数，缺省是 2
+    loadbalance: random  # 负载均衡算法 , 缺省是随机 random。还可以配置轮询 roundrobin、最不活跃优先 4 leastactive 和一致性哈希 consistenthash 等
+  protocol:
+    port: 20881
+    name: dubbo
+service:
+  version: 1.0
+

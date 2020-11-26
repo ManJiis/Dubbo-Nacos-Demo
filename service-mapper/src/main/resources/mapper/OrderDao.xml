@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tlh.ex.dao.OrderDao">
+
+    <resultMap type="cn.tlh.ex.common.entity.Order" id="OrderMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="orderSource" column="order_source" jdbcType="TINYINT"/>
+        <result property="tradeWay" column="trade_way" jdbcType="TINYINT"/>
+        <result property="tradeType" column="trade_type" jdbcType="TINYINT"/>
+        <result property="state" column="state" jdbcType="TINYINT"/>
+        <result property="refundState" column="refund_state" jdbcType="TINYINT"/>
+        <result property="settleSt" column="settle_st" jdbcType="TINYINT"/>
+        <result property="applyCustomer" column="apply_customer" jdbcType="TINYINT"/>
+        <result property="markSt" column="mark_st" jdbcType="TINYINT"/>
+        <result property="checkSt" column="check_st" jdbcType="TINYINT"/>
+        <result property="amount" column="amount" jdbcType="NUMERIC"/>
+        <result property="amountSettle" column="amount_settle" jdbcType="NUMERIC"/>
+        <result property="respCode" column="resp_code" jdbcType="VARCHAR"/>
+        <result property="isRisk" column="is_risk" jdbcType="TINYINT"/>
+        <result property="cardNo" column="card_no" jdbcType="VARCHAR"/>
+        <result property="merOperatorName" column="mer_operator_name" jdbcType="VARCHAR"/>
+        <result property="merNo" column="mer_no" jdbcType="VARCHAR"/>
+        <result property="merName" column="mer_name" jdbcType="VARCHAR"/>
+        <result property="appMerId" column="app_mer_id" jdbcType="VARCHAR"/>
+        <result property="terminalNo" column="terminal_no" jdbcType="VARCHAR"/>
+        <result property="supOperatorName" column="sup_operator_name" jdbcType="VARCHAR"/>
+        <result property="supId" column="sup_id" jdbcType="VARCHAR"/>
+        <result property="supName" column="sup_name" jdbcType="VARCHAR"/>
+        <result property="appSupId" column="app_sup_id" jdbcType="VARCHAR"/>
+        <result property="merCard" column="mer_card" jdbcType="VARCHAR"/>
+        <result property="supCard" column="sup_card" jdbcType="VARCHAR"/>
+        <result property="body" column="body" jdbcType="VARCHAR"/>
+        <result property="errorMsg" column="error_msg" jdbcType="VARCHAR"/>
+        <result property="bankCode" column="bank_code" jdbcType="VARCHAR"/>
+        <result property="bankName" column="bank_name" jdbcType="VARCHAR"/>
+        <result property="bankOrderNo" column="bank_order_no" jdbcType="VARCHAR"/>
+        <result property="bankOrderSt" column="bank_order_st" jdbcType="VARCHAR"/>
+        <result property="bankOrderMsg" column="bank_order_msg" jdbcType="VARCHAR"/>
+        <result property="bankOrderSettleSt" column="bank_order_settle_st" jdbcType="VARCHAR"/>
+        <result property="bankRespMsg" column="bank_resp_msg" jdbcType="VARCHAR"/>
+        <result property="billingDoubtId" column="billing_doubt_id" jdbcType="VARCHAR"/>
+        <result property="contractNo" column="contract_no" jdbcType="VARCHAR"/>
+        <result property="propitiationId" column="propitiation_id" jdbcType="VARCHAR"/>
+        <result property="propitiationTime" column="propitiation_time" jdbcType="TIMESTAMP"/>
+        <result property="payTimeStart" column="pay_time_start" jdbcType="TIMESTAMP"/>
+        <result property="payTimeEnd" column="pay_time_end" jdbcType="TIMESTAMP"/>
+        <result property="settleTimeStart" column="settle_time_start" jdbcType="TIMESTAMP"/>
+        <result property="settleTimeEnd" column="settle_time_end" jdbcType="TIMESTAMP"/>
+        <result property="endSettleTime" column="end_settle_time" jdbcType="TIMESTAMP"/>
+        <result property="finishTime" column="finish_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="BaseResult">
+        id, order_source, trade_way, trade_type, state, refund_state, settle_st, apply_customer, mark_st, check_st, amount, amount_settle, resp_code, is_risk, card_no, mer_operator_name, mer_no, mer_name, app_mer_id, terminal_no, sup_operator_name, sup_id, sup_name, app_sup_id, mer_card, sup_card, body, error_msg, bank_code, bank_name, bank_order_no, bank_order_st, bank_order_msg, bank_order_settle_st, bank_resp_msg, billing_doubt_id, contract_no, propitiation_id, propitiation_time, pay_time_start, pay_time_end, settle_time_start, settle_time_end, end_settle_time, finish_time, create_time
+    </sql>
+
+    <sql id="condition_one">
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="orderSource != null">
+            and order_source = #{orderSource}
+        </if>
+        <if test="tradeWay != null">
+            and trade_way = #{tradeWay}
+        </if>
+        <if test="tradeType != null">
+            and trade_type = #{tradeType}
+        </if>
+        <if test="state != null">
+            and state = #{state}
+        </if>
+        <if test="refundState != null">
+            and refund_state = #{refundState}
+        </if>
+        <if test="settleSt != null">
+            and settle_st = #{settleSt}
+        </if>
+        <if test="applyCustomer != null">
+            and apply_customer = #{applyCustomer}
+        </if>
+        <if test="markSt != null">
+            and mark_st = #{markSt}
+        </if>
+        <if test="checkSt != null">
+            and check_st = #{checkSt}
+        </if>
+        <if test="amount != null">
+            and amount = #{amount}
+        </if>
+        <if test="amountSettle != null">
+            and amount_settle = #{amountSettle}
+        </if>
+        <if test="respCode != null and respCode != ''">
+            and resp_code = #{respCode}
+        </if>
+        <if test="isRisk != null">
+            and is_risk = #{isRisk}
+        </if>
+        <if test="cardNo != null and cardNo != ''">
+            and card_no = #{cardNo}
+        </if>
+        <if test="merOperatorName != null and merOperatorName != ''">
+            and mer_operator_name = #{merOperatorName}
+        </if>
+        <if test="merNo != null and merNo != ''">
+            and mer_no = #{merNo}
+        </if>
+        <if test="merName != null and merName != ''">
+            and mer_name = #{merName}
+        </if>
+        <if test="appMerId != null and appMerId != ''">
+            and app_mer_id = #{appMerId}
+        </if>
+        <if test="terminalNo != null and terminalNo != ''">
+            and terminal_no = #{terminalNo}
+        </if>
+        <if test="supOperatorName != null and supOperatorName != ''">
+            and sup_operator_name = #{supOperatorName}
+        </if>
+        <if test="supId != null and supId != ''">
+            and sup_id = #{supId}
+        </if>
+        <if test="supName != null and supName != ''">
+            and sup_name = #{supName}
+        </if>
+        <if test="appSupId != null and appSupId != ''">
+            and app_sup_id = #{appSupId}
+        </if>
+        <if test="merCard != null and merCard != ''">
+            and mer_card = #{merCard}
+        </if>
+        <if test="supCard != null and supCard != ''">
+            and sup_card = #{supCard}
+        </if>
+        <if test="body != null and body != ''">
+            and body = #{body}
+        </if>
+        <if test="errorMsg != null and errorMsg != ''">
+            and error_msg = #{errorMsg}
+        </if>
+        <if test="bankCode != null and bankCode != ''">
+            and bank_code = #{bankCode}
+        </if>
+        <if test="bankName != null and bankName != ''">
+            and bank_name = #{bankName}
+        </if>
+        <if test="bankOrderNo != null and bankOrderNo != ''">
+            and bank_order_no = #{bankOrderNo}
+        </if>
+        <if test="bankOrderSt != null and bankOrderSt != ''">
+            and bank_order_st = #{bankOrderSt}
+        </if>
+        <if test="bankOrderMsg != null and bankOrderMsg != ''">
+            and bank_order_msg = #{bankOrderMsg}
+        </if>
+        <if test="bankOrderSettleSt != null and bankOrderSettleSt != ''">
+            and bank_order_settle_st = #{bankOrderSettleSt}
+        </if>
+        <if test="bankRespMsg != null and bankRespMsg != ''">
+            and bank_resp_msg = #{bankRespMsg}
+        </if>
+        <if test="billingDoubtId != null and billingDoubtId != ''">
+            and billing_doubt_id = #{billingDoubtId}
+        </if>
+        <if test="contractNo != null and contractNo != ''">
+            and contract_no = #{contractNo}
+        </if>
+        <if test="propitiationId != null and propitiationId != ''">
+            and propitiation_id = #{propitiationId}
+        </if>
+        <if test="propitiationTime != null">
+            and propitiation_time = #{propitiationTime}
+        </if>
+        <if test="payTimeStart != null">
+            and pay_time_start = #{payTimeStart}
+        </if>
+        <if test="payTimeEnd != null">
+            and pay_time_end = #{payTimeEnd}
+        </if>
+        <if test="settleTimeStart != null">
+            and settle_time_start = #{settleTimeStart}
+        </if>
+        <if test="settleTimeEnd != null">
+            and settle_time_end = #{settleTimeEnd}
+        </if>
+        <if test="endSettleTime != null">
+            and end_settle_time = #{endSettleTime}
+        </if>
+        <if test="finishTime != null">
+            and finish_time = #{finishTime}
+        </if>
+        <if test="createTime != null">
+            and create_time = #{createTime}
+        </if>
+    </sql>
+    <select id="queryById" resultType="cn.tlh.ex.common.entity.Order">
+        select * from t_order where id=#{id}
+    </select>
+
+    <select id="queryList" resultType="cn.tlh.ex.common.entity.Order">
+        select * from t_order where 1=1
+        <if test="opv.tradeWay !=null and opv.tradeWay !=''">
+            and trade_way = #{opv.tradeWay}
+        </if>
+        <if test="opv.orderSource !=null and opv.orderSource !=''">
+            and order_source = #{opv.orderSource}
+        </if>
+        <if test="opv.bankName !=null and opv.bankName !=''">
+            and bank_name = #{opv.bankName}
+        </if>
+        <if test="opv.startTime !=null and opv.startTime !=''">
+            and finish_time &gt; #{opv.startTime}
+        </if>
+        <if test="opv.endTime !=null and opv.endTime !=''">
+            and finish_time &lt; #{opv.endTime}
+        </if>
+    </select>
+
+</mapper>
