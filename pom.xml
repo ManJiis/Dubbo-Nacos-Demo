@@ -29,11 +29,13 @@
         <fastjson.version>1.2.60</fastjson.version>
         <jackson.version>2.9.1</jackson.version>
         <spring-boot-starter-data-redis.version>2.4.0</spring-boot-starter-data-redis.version>
+        <spring-boot-starter-aop.version>2.4.0</spring-boot-starter-aop.version>
+        <commons-lang3.version.version>3.9</commons-lang3.version.version>
     </properties>
 
     <dependencyManagement>
-        <!-- redis -->
         <dependencies>
+            <!-- redis -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -44,6 +46,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <!-- jackson-->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
             <!-- mybatis-plus -->
             <dependency>
@@ -110,19 +118,17 @@
                 <artifactId>nacos-client</artifactId>
                 <version>${nacos.version}</version>
             </dependency>
-            <!-- jackson-->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
             <!-- aop -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-aop</artifactId>
-                <version>2.4.0</version>
+                <version>${spring-boot-starter-aop.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
