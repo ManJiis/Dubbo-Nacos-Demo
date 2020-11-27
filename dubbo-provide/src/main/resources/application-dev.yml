@@ -30,10 +30,9 @@ spring:
       read-only: false
       #验证与数据库连接的有效时间
       validation-timeout: 5000
-    #redis相关配置
+  #redis相关配置
   redis:
-    database: 5
-    # 配置redis的主机地址
+#    database: 5
     host: 127.0.0.1
     port: 6379
     password: root@123
@@ -79,9 +78,9 @@ dubbo:
   provider:
     timeout: 30000  #方法调用的超时时间
     retries: 3      # 失败重试次数，缺省是 2
-    loadbalance: random  # 负载均衡算法 , 缺省是随机 random。还可以配置轮询 roundrobin、最不活跃优先 4 leastactive 和一致性哈希 consistenthash 等
+    loadbalance: roundrobin  # 负载均衡算法 , 缺省是随机 random。还可以配置轮询 roundrobin、最不活跃优先 4 leastactive 和一致性哈希 consistenthash 等
   protocol:
-    port: 20881
+    port: 2083
     name: dubbo
 service:
   version: 1.0
