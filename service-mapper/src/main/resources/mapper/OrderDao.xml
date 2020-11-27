@@ -217,5 +217,8 @@
             and finish_time &lt; #{opv.endTime}
         </if>
     </select>
+    <select id="findMaxId" resultType="java.lang.String">
+            select max(id) from t_order
+    </select>
 
 </mapper>

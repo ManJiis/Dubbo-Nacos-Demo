@@ -21,4 +21,6 @@ public interface OrderDao extends BaseMapper<Order> {
     Order queryById(String id);
 
     Page<Order> queryList(Page<Order> page,@Param("opv") OrderPageVo orderPageVo);
+
+    String findMaxId();
 }
