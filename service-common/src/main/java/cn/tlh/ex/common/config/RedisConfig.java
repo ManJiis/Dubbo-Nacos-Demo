@@ -24,14 +24,17 @@ public class RedisConfig extends CachingConfigurerSupport {
         RedisSerializer<?> stringSerializer = new StringRedisSerializer();
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
+        // 默认序列化
+        redisTemplate.setDefaultSerializer(jackson2JsonRedisSerializer);
         // 设置键（key）的序列化采用StringRedisSerializer。
         redisTemplate.setKeySerializer(stringSerializer);
         redisTemplate.setHashKeySerializer(stringSerializer);
         // value值的序列化采用 fastJsonRedisSerializer
         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
-        redisTemplate.setEnableDefaultSerializer(false);
-        redisTemplate.afterPropertiesSet();
+        // 启用默认序列化方式
+//        redisTemplate.setEnableDefaultSerializer(false);
+//        redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }
 }
