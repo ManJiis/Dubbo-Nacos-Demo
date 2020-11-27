@@ -4,6 +4,7 @@ import cn.tlh.ex.common.entity.Order;
 import cn.tlh.ex.common.vo.req.OrderPageVo;
 import cn.tlh.ex.service.OrderService;
 import cn.tlh.ex.dao.OrderDao;
+import cn.tlh.ex.service.RedisService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.dubbo.config.annotation.Service;
 
@@ -19,8 +20,9 @@ import javax.annotation.Resource;
 public class OrderServiceImpl implements OrderService {
 
     @Resource
-    private OrderDao orderDao;
-
+    OrderDao orderDao;
+    @Resource
+    RedisService redisService;
 
     @Override
     public Order queryById(String id) {
@@ -34,4 +36,6 @@ public class OrderServiceImpl implements OrderService {
         Page<Order> orderPage = new Page<Order>(orderPageVo.getCurrentPage(), orderPageVo.getPageSize());
         return orderDao.queryList(orderPage, orderPageVo);
     }
+
+
 }
