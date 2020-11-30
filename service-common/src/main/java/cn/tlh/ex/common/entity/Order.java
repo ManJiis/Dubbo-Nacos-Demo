@@ -13,12 +13,13 @@ import java.time.LocalDateTime;
  * 今日订单(TOrder)实体类
  *
  * @author makejava
- * @since 2020-11-25 10:33:00
+ * @since 2020-11-25
  */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Order implements Serializable {
     private static final long serialVersionUID = 590166862808902373L;
     /**
