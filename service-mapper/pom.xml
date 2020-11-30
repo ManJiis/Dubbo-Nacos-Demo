@@ -6,7 +6,7 @@
         <artifactId>dubbo-nacos-demo</artifactId>
         <groupId>cn.tlh.ex</groupId>
         <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath/> <!-- default: ../pom.xml -->
     </parent>
 
     <artifactId>service-mapper</artifactId>
