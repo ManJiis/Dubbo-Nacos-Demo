@@ -2,9 +2,10 @@ package cn.tlh.ex.controller;
 
 import cn.tlh.ex.common.entity.Order;
 import cn.tlh.ex.common.vo.req.OrderPageVo;
-import cn.tlh.ex.common.vo.resp.JsonResult;
+import cn.tlh.ex.common.vo.resp.ResultInfo;
 import cn.tlh.ex.service.OrderService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.swagger.annotations.Api;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("order")
+@Api(tags = "订单服务")
 public class OrderController {
     /**
      * 服务对象
@@ -27,19 +29,19 @@ public class OrderController {
 
 
     @GetMapping("one")
-    public JsonResult selectOne(String id) {
+    public ResultInfo selectOne(String id) {
         Order order = this.orderService.queryById(id);
-        JsonResult<Order> jsonResult = new JsonResult();
-        jsonResult.setData(order);
-        return jsonResult;
+        ResultInfo<Order> resultInfo = new ResultInfo();
+        resultInfo.setData(order);
+        return resultInfo;
     }
 
     @GetMapping("list")
-    public JsonResult selectList(OrderPageVo orderPageVo) {
+    public ResultInfo selectList(OrderPageVo orderPageVo) {
         IPage<Order> orderIPage = this.orderService.queryList(orderPageVo);
-        JsonResult<IPage> jsonResult = new JsonResult();
-        jsonResult.setData(orderIPage);
-        return jsonResult;
+        ResultInfo<IPage> resultInfo = new ResultInfo();
+        resultInfo.setData(orderIPage);
+        return resultInfo;
     }
 
 }
