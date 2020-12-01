@@ -34,7 +34,7 @@ public class RedisServiceImpl implements RedisService {
      * 判断key是否存在
      */
     @Override
-    public boolean exitst(String key) {
+    public boolean hasKey(String key) {
         if (StringUtils.isBlank(key)) {
             return false;
         }
