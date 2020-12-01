@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface RedisService {
 
-    boolean exitst(String key);
+    boolean hasKey(String key);
 
     String increment(String k);
 
