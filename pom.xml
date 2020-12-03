@@ -39,6 +39,7 @@
         <spring-boot-starter-aop.version>2.4.0</spring-boot-starter-aop.version>
         <commons-lang3.version>3.9</commons-lang3.version>
         <swagger.version>2.9.2</swagger.version>
+        <spring-boot-starter-amqp.version>2.1.5.RELEASE</spring-boot-starter-amqp.version>
     </properties>
 
     <dependencyManagement>
@@ -159,6 +160,12 @@
                 <version>20.0</version>
             </dependency>
             <!--swagger-api 依赖结束-->
+            <!-- rabbitmq -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>${spring-boot-starter-amqp.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

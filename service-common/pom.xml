@@ -7,7 +7,6 @@
         <artifactId>dubbo-nacos-demo</artifactId>
         <groupId>cn.tlh.ex</groupId>
         <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>cn.tlh.ex.common</groupId>
@@ -66,6 +65,10 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
     </dependencies>
 
