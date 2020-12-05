@@ -1,4 +1,4 @@
-package cn.tlh.ex.config;
+package cn.tlh.ex.consumer.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .groupName("springboot-dubbo-nacos-demo")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("cn.tlh.ex.controller"))
+                .apis(RequestHandlerSelectors.basePackage("cn.tlh.ex.consumer.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

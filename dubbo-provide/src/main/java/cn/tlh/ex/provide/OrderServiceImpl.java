@@ -1,12 +1,13 @@
-package cn.tlh.ex.service.impl;
+package cn.tlh.ex.provide;
 
 import cn.tlh.ex.common.entity.Order;
 import cn.tlh.ex.common.vo.req.OrderPageVo;
-import cn.tlh.ex.service.OrderService;
 import cn.tlh.ex.dao.OrderDao;
+import cn.tlh.ex.service.OrderService;
 import cn.tlh.ex.service.RedisService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.dubbo.config.annotation.Service;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
@@ -17,6 +18,7 @@ import javax.annotation.Resource;
  * @since 2020-11-25 11:22:22
  */
 @Service(version = "${service.version}")
+@Component
 public class OrderServiceImpl implements OrderService {
 
     @Resource

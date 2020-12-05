@@ -1,4 +1,4 @@
-package cn.tlh.ex.controller;
+package cn.tlh.ex.consumer.controller;
 
 import cn.tlh.ex.common.entity.Order;
 import cn.tlh.ex.common.vo.req.OrderPageVo;
@@ -10,6 +10,7 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 /**
  * 今日订单(TOrder)表控制层
@@ -24,24 +25,20 @@ public class OrderController {
     /**
      * 服务对象
      */
-    @Reference(version = "${service.version}",check = false)
+    @Reference(version = "${service.version}", check = false)
     private OrderService orderService;
 
 
     @GetMapping("one")
     public Response selectOne(String id) {
         Order order = this.orderService.queryById(id);
-        Response<Order> response = new Response();
-        response.setData(order);
-        return response;
+        return Response.ok(order);
     }
 
     @GetMapping("list")
     public Response selectList(OrderPageVo orderPageVo) {
         IPage<Order> orderIPage = this.orderService.queryList(orderPageVo);
-        Response<IPage> response = new Response();
-        response.setData(orderIPage);
-        return response;
+        return Response.ok(orderIPage);
     }
 
 }

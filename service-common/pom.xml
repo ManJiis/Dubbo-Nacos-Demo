@@ -7,10 +7,8 @@
         <artifactId>dubbo-nacos-demo</artifactId>
         <groupId>cn.tlh.ex</groupId>
         <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>cn.tlh.ex.common</groupId>
     <artifactId>service-common</artifactId>
     <version>1.0.0</version>
     <name>service-common</name>
@@ -68,20 +66,5 @@
             <artifactId>guava</artifactId>
         </dependency>
     </dependencies>
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

@@ -1,6 +1,5 @@
-package cn.tlh.ex.service.impl.common;
+package cn.tlh.ex.provide.common;
 
-import org.apache.dubbo.config.annotation.Service;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -13,8 +12,8 @@ import java.util.List;
  * @description:
  * @date: 2020-11-26
  */
-@Service
 public class RedisService {
+
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 

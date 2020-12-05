@@ -1,4 +1,4 @@
-package cn.tlh.ex.controller.example;
+package cn.tlh.ex.consumer.controller.example;
 
 import cn.tlh.ex.common.exception.BusinessMsgEnum;
 import cn.tlh.ex.common.vo.req.SayHelloVO;

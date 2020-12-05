@@ -1,4 +1,4 @@
-package cn.tlh.ex.service.impl.example;
+package cn.tlh.ex.provide.example;
 
 import cn.tlh.ex.service.ProvideService;
 import org.apache.dubbo.config.annotation.Service;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @author Ling
  */
 @Service(version = "${service.version}")
-//@Component
+@Component
 public class ProvideImpl implements ProvideService {
 
     @Override
