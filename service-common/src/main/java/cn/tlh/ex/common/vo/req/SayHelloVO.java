@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 import java.util.Date;
 
 /**
- * @author 蛮吉
+ * @author TANG
  * @date: 2020/11/30
  * @description: Validated 参数校验示例
  */
