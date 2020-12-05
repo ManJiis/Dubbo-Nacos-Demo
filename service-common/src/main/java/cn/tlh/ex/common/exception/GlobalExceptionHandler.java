@@ -1,8 +1,9 @@
 package cn.tlh.ex.common.exception;
 
-import cn.tlh.ex.common.vo.resp.ResultInfo;
+import cn.tlh.ex.common.vo.resp.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -38,10 +39,10 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(BusinessErrorException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResultInfo handleBusinessError(BusinessErrorException ex) {
+    public Response handleBusinessError(BusinessErrorException ex) {
         String code = ex.getCode();
         String message = ex.getMessage();
-        return new ResultInfo(code, message);
+        return Response.fail(code, message);
     }
 
     /**
@@ -52,9 +53,9 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResultInfo handleTypeMismatchException(NullPointerException ex) {
+    public Response handleTypeMismatchException(NullPointerException ex) {
         logger.error("空指针异常，{}", ex.getMessage());
-        return new ResultInfo("500", "空指针异常了");
+        return Response.fail("500", "空指针异常了");
     }
 
     /**
@@ -65,10 +66,10 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ResultInfo handleHttpMessageNotReadableException(
+    public Response handleHttpMessageNotReadableException(
             MissingServletRequestParameterException ex) {
         logger.error("缺少请求参数，{}", ex.getMessage());
-        return new ResultInfo("400", "缺少必要的请求参数");
+        return Response.fail("400", "缺少必要的请求参数");
     }
 
     /**
@@ -79,42 +80,41 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResultInfo handleUnexpectedServer(Exception ex) {
+    public Response handleUnexpectedServer(Exception ex) {
         logger.error("系统异常：", ex);
-        return new ResultInfo(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
+        return Response.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
     }
-
 
     private static final String BAD_REQUEST_MSG = "客户端请求参数错误";
 
     //  Validated 请求参数校验异常处理
     // <1> 处理 form data方式调用接口校验失败抛出的异常
     @ExceptionHandler(BindException.class)
-    public ResultInfo bindExceptionHandler(BindException e) {
+    public Response bindExceptionHandler(BindException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         List<String> collect = fieldErrors.stream()
-                .map(o -> o.getDefaultMessage())
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return new ResultInfo(collect,"400",BAD_REQUEST_MSG);
+        return Response.fail(collect, "400", BAD_REQUEST_MSG);
     }
 
     // <2> 处理 json 请求体调用接口校验失败抛出的异常
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResultInfo methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+    public Response methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         List<String> collect = fieldErrors.stream()
-                .map(o -> o.getDefaultMessage())
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return new ResultInfo(collect,"400",BAD_REQUEST_MSG);
+        return Response.fail(collect, "400", BAD_REQUEST_MSG);
     }
 
     // <3> 处理单个参数校验失败抛出的异常
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResultInfo constraintViolationExceptionHandler(ConstraintViolationException e) {
+    public Response constraintViolationExceptionHandler(ConstraintViolationException e) {
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
         List<String> collect = constraintViolations.stream()
-                .map(o -> o.getMessage())
+                .map(ConstraintViolation::getMessage)
                 .collect(Collectors.toList());
-        return new ResultInfo(collect,"400",BAD_REQUEST_MSG);
+        return Response.fail(collect, "400", BAD_REQUEST_MSG);
     }
 }

@@ -2,7 +2,7 @@ package cn.tlh.ex.controller;
 
 import cn.tlh.ex.common.entity.Order;
 import cn.tlh.ex.common.vo.req.OrderPageVo;
-import cn.tlh.ex.common.vo.resp.ResultInfo;
+import cn.tlh.ex.common.vo.resp.Response;
 import cn.tlh.ex.service.OrderService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
@@ -29,19 +29,19 @@ public class OrderController {
 
 
     @GetMapping("one")
-    public ResultInfo selectOne(String id) {
+    public Response selectOne(String id) {
         Order order = this.orderService.queryById(id);
-        ResultInfo<Order> resultInfo = new ResultInfo();
-        resultInfo.setData(order);
-        return resultInfo;
+        Response<Order> response = new Response();
+        response.setData(order);
+        return response;
     }
 
     @GetMapping("list")
-    public ResultInfo selectList(OrderPageVo orderPageVo) {
+    public Response selectList(OrderPageVo orderPageVo) {
         IPage<Order> orderIPage = this.orderService.queryList(orderPageVo);
-        ResultInfo<IPage> resultInfo = new ResultInfo();
-        resultInfo.setData(orderIPage);
-        return resultInfo;
+        Response<IPage> response = new Response();
+        response.setData(orderIPage);
+        return response;
     }
 
 }
