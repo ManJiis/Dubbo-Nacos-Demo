@@ -46,7 +46,7 @@ public class Response<T> {
         return new Response("", "-1", message);
     }
 
-    public static Response fail(String message, String code) {
+    public static Response fail(String code, String message) {
         return new Response("", code, message);
     }
 
