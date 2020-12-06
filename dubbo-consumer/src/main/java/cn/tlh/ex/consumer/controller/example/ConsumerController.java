@@ -1,7 +1,7 @@
 package cn.tlh.ex.consumer.controller.example;
 
 import cn.tlh.ex.common.exception.BusinessMsgEnum;
-import cn.tlh.ex.common.vo.req.SayHelloVO;
+import cn.tlh.ex.common.vo.req.SayHelloVo;
 import cn.tlh.ex.common.vo.resp.Response;
 import cn.tlh.ex.service.ProvideService;
 import io.swagger.annotations.Api;
@@ -26,7 +26,7 @@ public class ConsumerController {
     ProvideService provideService;
 
     @GetMapping("/hello")
-    public Response sayHello(@Validated SayHelloVO vo) {
+    public Response sayHello(@Validated SayHelloVo vo) {
         String sayHello = provideService.sayHello("消费者 " + vo.getName() + " 访问了....");
         return Response.ok(sayHello);
     }
