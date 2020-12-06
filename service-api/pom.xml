@@ -18,9 +18,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.tlh.ex.common</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>service-common</artifactId>
-            <version>1.0.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
