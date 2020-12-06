@@ -1,4 +1,4 @@
-package cn.tlh.ex.provide.example;
+package cn.tlh.ex.provide.serviceImpl.example;
 
 import cn.tlh.ex.service.ProvideService;
 import org.apache.dubbo.config.annotation.Service;

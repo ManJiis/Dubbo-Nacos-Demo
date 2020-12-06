@@ -1,4 +1,4 @@
-package cn.tlh.ex.provide.redis;
+package cn.tlh.ex.provide.serviceImpl.redis;
 
 import cn.tlh.ex.service.RedisService;
 import org.apache.commons.lang3.StringUtils;
