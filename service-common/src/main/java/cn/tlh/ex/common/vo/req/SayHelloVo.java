@@ -11,7 +11,7 @@ import java.util.Date;
  * @date: 2020/11/30
  * @description: Validated 参数校验示例
  */
-public class SayHelloVO {
+public class SayHelloVo {
     String id;
 
     @NotBlank(message = "name不能为空")
