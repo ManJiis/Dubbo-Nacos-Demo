@@ -6,7 +6,6 @@
         <artifactId>dubbo-nacos-demo</artifactId>
         <groupId>cn.tlh.ex</groupId>
         <version>1.0.0</version>
-        <relativePath/> <!-- default: ../pom.xml -->
     </parent>
 
     <artifactId>service-mapper</artifactId>
@@ -34,11 +33,17 @@
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.5.0</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>apiguardian-api</artifactId>
+                    <groupId>org.apiguardian</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-            <groupId>cn.tlh.ex.common</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>service-common</artifactId>
-            <version>1.0.0</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,10 +1,13 @@
-package cn.tlh.ex.common.vo.req;
+package cn.tlh.ex.common.vo.req.common;
 
+
+import java.io.Serializable;
 
 /**
- * 分页参数
+ * 分页参数 基类
+ * @author TANG
  */
-public class PageVo  {
+public class PageVo implements Serializable {
 
     private int pageNum = 1;
 

@@ -1,5 +1,3 @@
-server:
-  port: 8051
 spring:
   application:
     name: dubbo-consumer
@@ -8,7 +6,7 @@ spring:
 #    driver-class-name: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
+    password: root@123
 dubbo:
   application:
     name: ${spring.application.name}
@@ -21,3 +19,5 @@ dubbo:
     timeout: 30000
 service:
   version: 1.0
+server:
+  port: 8030

@@ -1,6 +1,5 @@
-package cn.tlh.ex.common.entity;
+package cn.tlh.ex.common.vo.req;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,9 +20,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@TableName("t_order")
-public class Order implements Serializable {
-    private static final long serialVersionUID = 590166862808902373L;
+public class OrderVo implements Serializable {
+    private static final long serialVersionUID = 550166862808902373L;
     /**
      * 地区号（4位置） +  7（7位自增）+机器编号 如 1或者2或者3
      */
@@ -84,6 +82,5 @@ public class Order implements Serializable {
      */
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private LocalDate createTime;
-
 
 }

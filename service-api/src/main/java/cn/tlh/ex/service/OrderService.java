@@ -2,6 +2,7 @@ package cn.tlh.ex.service;
 
 import cn.tlh.ex.common.entity.Order;
 import cn.tlh.ex.common.vo.req.OrderPageVo;
+import cn.tlh.ex.common.vo.req.OrderVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
@@ -17,4 +18,5 @@ public interface OrderService {
     Page<Order> queryList(OrderPageVo orderPageVo);
 
 
+    String add(OrderVo orderVo);
 }

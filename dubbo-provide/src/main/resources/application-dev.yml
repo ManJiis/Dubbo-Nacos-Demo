@@ -1,15 +1,13 @@
-server:
-  port: 8050
 # spring
 spring:
   application:
     name: dubbo-provide
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
-#    driver-class-name: com.mysql.jdbc.Driver
+    #    driver-class-name: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
+    password: root@123
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       #自动提交
@@ -30,12 +28,12 @@ spring:
       read-only: false
       #验证与数据库连接的有效时间
       validation-timeout: 5000
-  #redis相关配置
+  # redis相关配置
   redis:
-#    database: 5
+    #    database: 5
     host: 127.0.0.1
     port: 6379
-    password: root@123
+    #    password: root@123
     timeout: 5000
     jedis:
       pool:
@@ -47,6 +45,28 @@ spring:
         max-active: 1000
         # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException
         max-wait: 2000
+  # rabbitmq相关配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        retry:
+          enabled: false
+        #  手动ACK 不开启自动ACK模式,目的是防止报错后未正确处理消息丢失 默认 为 none
+        # NONE：自动确认 / AUTO：根据情况确认 /MANUAL：手动确认
+        acknowledge-mode: manual
+        # 最大并发
+        max-concurrency: 10
+      direct:
+        acknowledge-mode: manual
+    #        prefetch: 1
+    # 开启发送确认
+    publisher-confirms: true
+    # 开启发送失败退回
+    publisher-returns: true
 # mybatis-plus
 mybatis-plus:
   #多个package用逗号或者分号分隔
@@ -72,16 +92,18 @@ dubbo:
     qos-accept-foreign-ip: false
   registry:
     address: nacos://127.0.0.1:8848
-#    address: nacos://134.175.47:8848
+  #    address: nacos://134.175.47:8848
   scan:
-    basePackages: cn.tlh.ex.service.impl
+    basePackages: cn.tlh.ex.provide
   provider:
     timeout: 30000  #方法调用的超时时间
-    retries: 3      # 失败重试次数，缺省是 2
-    loadbalance: roundrobin  # 负载均衡算法 , 缺省是随机 random。还可以配置轮询 roundrobin、最不活跃优先 4 leastactive 和一致性哈希 consistenthash 等
+  #    retries: 3      # 失败重试次数，缺省是 2
+  #    loadbalance: roundrobin  # 负载均衡算法 , 缺省是随机 random。还可以配置轮询 roundrobin、最不活跃优先 4 leastactive 和一致性哈希 consistenthash 等
   protocol:
-    port: 20883
+    # 随机端口
+    port: 20081
     name: dubbo
 service:
   version: 1.0
-
+server:
+  port: 8029

@@ -1,5 +1,6 @@
-package cn.tlh.ex.service.impl.redis;
+package cn.tlh.ex.provide.serviceImpl.redis;
 
+import cn.tlh.ex.service.RedisService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
@@ -8,7 +9,7 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import cn.tlh.ex.service.RedisService;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,8 +20,8 @@ import java.util.concurrent.TimeUnit;
  * @description: redis service
  * @date: 2020-11-26
  */
-@SuppressWarnings("unchecked")
 @Service(version = "${service.version}")
+@Component
 public class RedisServiceImpl implements RedisService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisServiceImpl.class);
