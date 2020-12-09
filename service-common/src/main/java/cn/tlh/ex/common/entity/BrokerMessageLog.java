@@ -1,5 +1,6 @@
 package cn.tlh.ex.common.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
  * @author TANG
  */
 @Data
+@TableName("sys_broker_message_log")
 public class BrokerMessageLog {
     private String messageId;
 
