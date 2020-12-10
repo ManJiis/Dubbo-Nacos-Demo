@@ -38,10 +38,16 @@
         <swagger.version>2.9.2</swagger.version>
         <spring-boot-starter-amqp.version>2.1.6.RELEASE</spring-boot-starter-amqp.version>
         <hutool.version>5.5.2</hutool.version>
+        <spring-boot-starter-mail.version>2.1.1.RELEASE</spring-boot-starter-mail.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mail</artifactId>
+                <version>${spring-boot-starter-mail.version}</version>
+            </dependency>
             <!-- hutool -->
             <dependency>
                 <groupId>cn.hutool</groupId>
