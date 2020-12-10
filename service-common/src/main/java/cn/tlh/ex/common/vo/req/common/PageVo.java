@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 /**
  * 分页参数 基类
+ *
  * @author TANG
  */
 public class PageVo implements Serializable {

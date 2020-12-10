@@ -12,9 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Page {
     //当页数
-    private Integer pageNum;
+    private Integer pageNum = 1;
     //分页大小
-    private Integer pageSize;
+    private Integer pageSize = 20;
     //起始位置
     private Integer start;
     //结束位置

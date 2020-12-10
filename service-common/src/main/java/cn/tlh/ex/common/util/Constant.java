@@ -26,6 +26,10 @@ public class Constant {
      */
     public static final int ORDER_TIMEOUT = 1;
 
+    /**
+     * exception
+     */
+    public static final String BAD_REQUEST_MSG = "客户端请求参数错误";
 
     //-------------------------------- 订单延迟队列 start --------------------------------//
     /**
