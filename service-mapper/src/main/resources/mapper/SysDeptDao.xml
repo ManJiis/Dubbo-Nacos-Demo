@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tlh.dao.SysDeptDao">
+
+    <resultMap type="cn.tlh.common.pojo.system.SysDept" id="SysDeptMap">
+        <result property="deptId" column="dept_id" jdbcType="INTEGER"/>
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="subCount" column="sub_count" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="deptSort" column="dept_sort" jdbcType="INTEGER"/>
+        <result property="enabled" column="enabled" jdbcType="OTHER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SysDeptMap">
+        select
+          dept_id, pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time, update_time
+        from test_sdnd.sys_dept
+        where dept_id = #{deptId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SysDeptMap">
+        select
+          dept_id, pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time, update_time
+        from test_sdnd.sys_dept
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SysDeptMap">
+        select
+        dept_id, pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time, update_time
+        from test_sdnd.sys_dept
+        <where>
+            <if test="deptId != null">
+                and dept_id = #{deptId}
+            </if>
+            <if test="pid != null">
+                and pid = #{pid}
+            </if>
+            <if test="subCount != null">
+                and sub_count = #{subCount}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="deptSort != null">
+                and dept_sort = #{deptSort}
+            </if>
+            <if test="enabled != null">
+                and enabled = #{enabled}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="deptId" useGeneratedKeys="true">
+        insert into test_sdnd.sys_dept(pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time, update_time)
+        values (#{pid}, #{subCount}, #{name}, #{deptSort}, #{enabled}, #{createBy}, #{updateBy}, #{createTime}, #{updateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="deptId" useGeneratedKeys="true">
+        insert into test_sdnd.sys_dept(pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time,
+        update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.pid}, #{entity.subCount}, #{entity.name}, #{entity.deptSort}, #{entity.enabled},
+            #{entity.createBy}, #{entity.updateBy}, #{entity.createTime}, #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="deptId" useGeneratedKeys="true">
+        insert into test_sdnd.sys_dept(pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time,
+        update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.pid}, #{entity.subCount}, #{entity.name}, #{entity.deptSort}, #{entity.enabled},
+            #{entity.createBy}, #{entity.updateBy}, #{entity.createTime}, #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        pid = values(pid) , sub_count = values(sub_count) , name = values(name) , dept_sort = values(dept_sort) ,
+        enabled = values(enabled) , create_by = values(create_by) , update_by = values(update_by) , create_time =
+        values(create_time) , update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update test_sdnd.sys_dept
+        <set>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
+            <if test="subCount != null">
+                sub_count = #{subCount},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="deptSort != null">
+                dept_sort = #{deptSort},
+            </if>
+            <if test="enabled != null">
+                enabled = #{enabled},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where dept_id = #{deptId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from test_sdnd.sys_dept where dept_id = #{deptId}
+    </delete>
+
+</mapper>

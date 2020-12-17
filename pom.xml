@@ -10,7 +10,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>cn.tlh.ex</groupId>
+    <groupId>cn.tlh</groupId>
     <artifactId>dubbo-nacos-demo</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>

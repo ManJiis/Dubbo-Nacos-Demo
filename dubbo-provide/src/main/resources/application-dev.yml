@@ -7,7 +7,7 @@ spring:
     #    driver-class-name: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root@123
+    password: root
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       #自动提交
@@ -86,7 +86,7 @@ spring:
 # mybatis-plus
 mybatis-plus:
   #多个package用逗号或者分号分隔
-  typeAliasesPackage: cn.tlh.ex.common.entity
+  typeAliasesPackage: cn.tlh.common.entity
   mapper-locations: classpath:/mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -110,7 +110,7 @@ dubbo:
     address: nacos://127.0.0.1:8848
   #    address: nacos://134.175.47:8848
   scan:
-    basePackages: cn.tlh.ex.provide
+    basePackages: cn.tlh.provide
   provider:
     timeout: 30000  #方法调用的超时时间
   #    retries: 3      # 失败重试次数，缺省是 2

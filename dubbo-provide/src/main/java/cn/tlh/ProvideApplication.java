@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Ling
  */
 @SpringBootApplication
-@MapperScan("cn.tlh.ex.dao")
+@MapperScan("cn.tlh.dao")
 @EnableDubbo
 public class ProvideApplication {
     public static void main(String[] args) {
