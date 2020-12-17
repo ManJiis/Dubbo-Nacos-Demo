@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.concurrent.*;
 
 /**
+ * 模拟并发执行接口调用
+ *
  * @author TANG
  */
 public class HighConcurrent {
@@ -35,6 +37,11 @@ public class HighConcurrent {
      */
     CountDownLatch countDownLatch = new CountDownLatch(threadNum);
 
+    public static void main(String[] args) {
+        HighConcurrent h = new HighConcurrent();
+        h.runThread();
+    }
+
     public void runThread() {
         //定义线程池
         ExecutorService executorService = Executors.newFixedThreadPool(threadNum);
@@ -52,7 +59,6 @@ public class HighConcurrent {
                     //发令枪减1
                     countDownLatch.countDown();
                 }
-
                 try {
                     System.out.println("线程：" + Thread.currentThread().getName() + "准备");
                     //线程阻塞
@@ -69,18 +75,11 @@ public class HighConcurrent {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
             }
         });
 
         return thread;
     }
-
-    public static void main(String[] args) {
-        HighConcurrent h = new HighConcurrent();
-        h.runThread();
-    }
-
 
     public Object appectContext(String url, String states) {
         // 配置请求信息（请求时间）
@@ -105,7 +104,6 @@ public class HighConcurrent {
                     e.printStackTrace();
                 }
                 //get请求
-
             } else if (HttpGet.METHOD_NAME.equals(states)) {
                 //System.out.println("get请求");
                 HttpGet httpGet = new HttpGet(url);
