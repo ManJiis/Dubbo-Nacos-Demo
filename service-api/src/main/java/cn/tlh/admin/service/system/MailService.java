@@ -1,6 +1,6 @@
-package cn.tlh.service.system;
+package cn.tlh.admin.service.system;
 
-import cn.tlh.common.vo.req.UserVo;
+import cn.tlh.admin.common.base.vo.req.UserVo;
 
 import javax.servlet.http.HttpSession;
 

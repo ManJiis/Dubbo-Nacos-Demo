@@ -1,4 +1,4 @@
-package cn.tlh.service;
+package cn.tlh.admin.service;
 
 public interface ProvideService {
 

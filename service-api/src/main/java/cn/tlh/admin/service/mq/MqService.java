@@ -1,4 +1,4 @@
-package cn.tlh.service.mq;
+package cn.tlh.admin.service.mq;
 
 /**
  * @author TANG
