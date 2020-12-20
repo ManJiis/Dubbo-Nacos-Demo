@@ -1,6 +1,6 @@
-package cn.tlh.dao;
+package cn.tlh.admin.dao;
 
-import cn.tlh.common.pojo.User;
+import cn.tlh.admin.common.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

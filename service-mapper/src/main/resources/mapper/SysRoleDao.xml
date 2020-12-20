@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.tlh.dao.SysRoleDao">
+<mapper namespace="cn.tlh.admin.dao.SysRoleDao">
 
-    <resultMap type="cn.tlh.common.pojo.system.SysRole" id="SysRoleMap">
+    <resultMap type="cn.tlh.admin.common.pojo.system.SysRole" id="SysRoleMap">
         <result property="roleId" column="role_id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="level" column="level" jdbcType="INTEGER"/>
@@ -22,23 +22,13 @@
         where role_id = #{roleId}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="SysRoleMap">
-        select
-          role_id, name, level, description, data_scope, create_by, update_by, create_time, update_time
-        from test_sdnd.sys_role
-        limit #{offset}, #{limit}
-    </select>
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="SysRoleMap">
+    <select id="selectList" resultMap="SysRoleMap">
         select
         role_id, name, level, description, data_scope, create_by, update_by, create_time, update_time
         from test_sdnd.sys_role
         <where>
-            <if test="roleId != null">
-                and role_id = #{roleId}
-            </if>
             <if test="name != null and name != ''">
                 and name = #{name}
             </if>
@@ -48,22 +38,33 @@
             <if test="description != null and description != ''">
                 and description = #{description}
             </if>
-            <if test="dataScope != null and dataScope != ''">
-                and data_scope = #{dataScope}
+            <if test="startTime != null">
+                and create_time &gt; #{startTime}
             </if>
-            <if test="createBy != null and createBy != ''">
-                and create_by = #{createBy}
-            </if>
-            <if test="updateBy != null and updateBy != ''">
-                and update_by = #{updateBy}
-            </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+            <if test="endTime != null">
+                and create_time &lt; #{endTime}
             </if>
         </where>
+    </select>
+    <select id="findByName" resultType="cn.tlh.admin.common.pojo.system.SysRole">
+        select * from test_sdnd.sys_role where name = #{name}
+    </select>
+    <select id="findByUserId" resultType="cn.tlh.admin.common.pojo.system.SysRole">
+        SELECT r.* FROM sys_role r, sys_users_roles u WHERE r.role_id = u.role_id AND u.user_id = #{id}
+    </select>
+    <select id="countByDepts" resultType="java.lang.Integer">
+        select count(1) from sys_role r, sys_roles_depts d where r.role_id = d.role_id and d.dept_id in
+        <foreach item="item" index="index" collection="deptIds"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="findInMenuId" resultType="cn.tlh.admin.common.pojo.system.SysRole">
+        SELECT r.* FROM sys_role r, sys_roles_menus m WHERE r.role_id = m.role_id AND m.menu_id in
+        <foreach item="item" index="index" collection="menuIds"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </select>
 
     <!--新增所有列-->
@@ -131,6 +132,16 @@
     <!--通过主键删除-->
     <delete id="deleteById">
         delete from test_sdnd.sys_role where role_id = #{roleId}
+    </delete>
+    <delete id="deleteAllByIdIn">
+        delete from test_sdnd.sys_role where role_id in
+        <foreach item="item" index="index" collection="ids"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <delete id="untiedMenu">
+        delete from sys_roles_menus where menu_id = #{id}
     </delete>
 
 </mapper>

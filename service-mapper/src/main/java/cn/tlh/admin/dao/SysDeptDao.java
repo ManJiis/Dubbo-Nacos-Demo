@@ -1,6 +1,6 @@
-package cn.tlh.dao;
+package cn.tlh.admin.dao;
 
-import cn.tlh.common.pojo.system.SysDept;
+import cn.tlh.admin.common.pojo.system.SysDept;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 部门(SysDept)表数据库访问层
  *
- * @author makejava
+ * @author TANG
  * @since 2020-12-17 09:52:01
  */
 public interface SysDeptDao {
@@ -20,16 +20,6 @@ public interface SysDeptDao {
      * @return 实例对象
      */
     SysDept queryById(Long deptId);
-
-    /**
-     * 查询指定行数据
-     *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
-     */
-    List<SysDept> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
-
 
     /**
      * 通过实体作为筛选条件查询

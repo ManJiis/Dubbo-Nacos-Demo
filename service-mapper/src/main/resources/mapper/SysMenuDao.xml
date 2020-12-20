@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.tlh.dao.SysMenuDao">
+<mapper namespace="cn.tlh.admin.dao.SysMenuDao">
 
-    <resultMap type="cn.tlh.common.pojo.system.SysMenu" id="SysMenuMap">
+    <resultMap type="cn.tlh.admin.common.pojo.system.SysMenu" id="SysMenuMap">
         <result property="menuId" column="menu_id" jdbcType="INTEGER"/>
         <result property="pid" column="pid" jdbcType="INTEGER"/>
         <result property="subCount" column="sub_count" jdbcType="INTEGER"/>
@@ -29,14 +29,6 @@
           menu_id, pid, sub_count, type, title, name, component, menu_sort, icon, path, i_frame, cache, hidden, permission, create_by, update_by, create_time, update_time
         from test_sdnd.sys_menu
         where menu_id = #{menuId}
-    </select>
-
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="SysMenuMap">
-        select
-          menu_id, pid, sub_count, type, title, name, component, menu_sort, icon, path, i_frame, cache, hidden, permission, create_by, update_by, create_time, update_time
-        from test_sdnd.sys_menu
-        limit #{offset}, #{limit}
     </select>
 
     <!--通过实体作为筛选条件查询-->

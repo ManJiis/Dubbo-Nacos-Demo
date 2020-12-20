@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.tlh.dao.SysUserDao">
+<mapper namespace="cn.tlh.admin.dao.SysUserDao">
 
-    <resultMap type="cn.tlh.common.pojo.system.SysUser" id="SysUserMap">
+    <resultMap type="cn.tlh.admin.common.pojo.system.SysUser" id="SysUserMap">
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="deptId" column="dept_id" jdbcType="INTEGER"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
@@ -39,64 +39,73 @@
     </select>
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="SysUserMap">
+    <select id="selectList" resultMap="SysUserMap">
         select
         user_id, dept_id, username, nick_name, gender, phone, email, avatar_name, avatar_path, password, is_admin,
         enabled, create_by, update_by, pwd_reset_time, create_time, update_time
         from test_sdnd.sys_user
         <where>
-            <if test="userId != null">
-                and user_id = #{userId}
+            <if test="req.deptId != null">
+                and dept_id = #{req.deptId}
             </if>
-            <if test="deptId != null">
-                and dept_id = #{deptId}
+            <if test="req.username != null and req.username != ''">
+                and username = #{req.username}
             </if>
-            <if test="username != null and username != ''">
-                and username = #{username}
+            <if test="req.nickName != null and req.nickName != ''">
+                and nick_name = #{req.nickName}
             </if>
-            <if test="nickName != null and nickName != ''">
-                and nick_name = #{nickName}
+            <if test="req.email != null and req.email != ''">
+                and email = #{req.email}
             </if>
-            <if test="gender != null and gender != ''">
-                and gender = #{gender}
+            <if test="req.enabled != null">
+                and enabled = #{req.enabled}
             </if>
-            <if test="phone != null and phone != ''">
-                and phone = #{phone}
+            <if test="req.startTime != null">
+                and create_time &gt; #{startTime}
             </if>
-            <if test="email != null and email != ''">
-                and email = #{email}
-            </if>
-            <if test="avatarName != null and avatarName != ''">
-                and avatar_name = #{avatarName}
-            </if>
-            <if test="avatarPath != null and avatarPath != ''">
-                and avatar_path = #{avatarPath}
-            </if>
-            <if test="password != null and password != ''">
-                and password = #{password}
-            </if>
-            <if test="isAdmin != null">
-                and is_admin = #{isAdmin}
-            </if>
-            <if test="enabled != null">
-                and enabled = #{enabled}
-            </if>
-            <if test="createBy != null and createBy != ''">
-                and create_by = #{createBy}
-            </if>
-            <if test="updateBy != null and updateBy != ''">
-                and update_by = #{updateBy}
-            </if>
-            <if test="pwdResetTime != null">
-                and pwd_reset_time = #{pwdResetTime}
-            </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+            <if test="req.endTime != null">
+                and create_time &lt; #{req.endTime}
             </if>
         </where>
+    </select>
+    <select id="findByUsername" resultType="cn.tlh.admin.common.pojo.system.SysUser">
+        select * from test_sdnd.sys_user where username = #{username}
+    </select>
+    <select id="findByEmail" resultType="cn.tlh.admin.common.pojo.system.SysUser">
+        select * feom test_sdnd.sys_user where email = #{email}
+    </select>
+    <select id="findByPhone" resultType="cn.tlh.admin.common.pojo.system.SysUser">
+        select * feom test_sdnd.sys_user where phone = #{phone}
+    </select>
+    <select id="findByRoleId" resultType="cn.tlh.admin.common.pojo.system.SysUser">
+        SELECT u.* FROM sys_user u, sys_users_roles r WHERE u.user_id = r.user_id AND r.role_id = #{roleId}
+    </select>
+    <select id="findByDeptRoleId" resultType="cn.tlh.admin.common.pojo.system.SysUser">
+        SELECT u.* FROM sys_user u, sys_users_roles r, sys_roles_depts d WHERE u.user_id = r.user_id AND r.role_id = d.role_id AND r.role_id = #{id} group by u.user_id
+    </select>
+    <select id="findByMenuId" resultType="cn.tlh.admin.common.pojo.system.SysUser">
+        SELECT u.* FROM sys_user u, sys_users_roles ur, sys_roles_menus rm WHERE u.user_id = ur.user_id AND ur.role_id = rm.role_id AND rm.menu_id = #{id} group by u.user_id
+    </select>
+    <select id="countByJobs" resultType="java.lang.Integer">
+        SELECT count(1) FROM sys_user u, sys_users_jobs j WHERE u.user_id = j.user_id AND j.job_id IN
+        <foreach item="item" index="index" collection="ids"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="countByDepts" resultType="java.lang.Integer">
+        SELECT count(1) FROM sys_user u WHERE u.dept_id IN
+        <foreach item="item" index="index" collection="deptIds"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="countByRoles" resultType="java.lang.Integer">
+        SELECT count(1) FROM sys_user u, sys_users_roles r WHERE u.user_id = r.user_id AND r.role_id in
+        <foreach item="item" index="index" collection="ids"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </select>
 
     <!--新增所有列-->
@@ -190,10 +199,23 @@
         </set>
         where user_id = #{userId}
     </update>
+    <update id="updatePass">
+        update sys_user set password = #{param2} , pwd_reset_time = #{param3} where username = #{param1}
+    </update>
+    <update id="updateEmail">
+        update sys_user set email = #{param2} where username = #{param1}
+    </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">
         delete from test_sdnd.sys_user where user_id = #{userId}
+    </delete>
+    <delete id="deleteAllByIdIn">
+        delete from test_sdnd.sys_user where user_id in
+        <foreach item="item" index="index" collection="ids"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </delete>
 
 </mapper>

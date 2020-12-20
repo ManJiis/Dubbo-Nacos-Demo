@@ -1,11 +1,14 @@
-package cn.tlh.dao;
+package cn.tlh.admin.dao;
 
-import cn.tlh.common.pojo.BrokerMessageLog;
+import cn.tlh.admin.common.pojo.BrokerMessageLog;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author TANG
+ */
 public interface BrokerMessageLogDao {
     /**
      * 查询消息状态为0(发送中) 且已经超时的消息集合

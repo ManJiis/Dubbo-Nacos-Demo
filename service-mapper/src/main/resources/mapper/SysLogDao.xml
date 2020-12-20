@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.tlh.dao.SysLogDao">
+<mapper namespace="cn.tlh.admin.dao.SysLogDao">
 
-    <resultMap type="cn.tlh.common.pojo.system.SysLog" id="SysLogMap">
+    <resultMap type="cn.tlh.admin.common.pojo.system.SysLog" id="SysLogMap">
         <result property="logId" column="log_id" jdbcType="INTEGER"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="logType" column="log_type" jdbcType="VARCHAR"/>
@@ -25,24 +25,12 @@
         where log_id = #{logId}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="SysLogMap">
-        select
-          log_id, description, log_type, method, params, request_ip, time, username, address, browser, exception_detail, create_time
-        from test_sdnd.sys_log
-        limit #{offset}, #{limit}
-    </select>
-
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="SysLogMap">
+    <select id="selectList" resultMap="SysLogMap">
         select
-        log_id, description, log_type, method, params, request_ip, time, username, address, browser, exception_detail,
-        create_time
+        log_id, description, log_type, method, params, request_ip, time, username, address, browser, exception_detail,create_time
         from test_sdnd.sys_log
         <where>
-            <if test="logId != null">
-                and log_id = #{logId}
-            </if>
             <if test="description != null and description != ''">
                 and description = #{description}
             </if>
@@ -58,23 +46,17 @@
             <if test="requestIp != null and requestIp != ''">
                 and request_ip = #{requestIp}
             </if>
-            <if test="time != null">
-                and time = #{time}
-            </if>
             <if test="username != null and username != ''">
                 and username = #{username}
             </if>
             <if test="address != null and address != ''">
                 and address = #{address}
             </if>
-            <if test="browser != null and browser != ''">
-                and browser = #{browser}
+            <if test="startTime != null">
+                and create_time &gt; #{createTime}
             </if>
-            <if test="exceptionDetail != null and exceptionDetail != ''">
-                and exception_detail = #{exceptionDetail}
-            </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+            <if test="endTime != null">
+                and create_time &lt; #{createTime}
             </if>
         </where>
     </select>
@@ -156,6 +138,10 @@
     <!--通过主键删除-->
     <delete id="deleteById">
         delete from test_sdnd.sys_log where log_id = #{logId}
+    </delete>
+
+    <delete id="delAllLogType">
+        delete * from test_sdnd.sys_log where log_type = #{logType}
     </delete>
 
 </mapper>
