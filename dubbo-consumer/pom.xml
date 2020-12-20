@@ -16,6 +16,15 @@
     </properties>
 
     <dependencies>
+        <!-- shiro -->
+<!--        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring-boot-web-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.crazycake</groupId>
+            <artifactId>shiro-redis-spring-boot-starter</artifactId>
+        </dependency>-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>dubbo-provide</artifactId>
@@ -32,6 +41,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- 日志 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
@@ -97,6 +107,11 @@
             <artifactId>service-common</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>
+        </dependency>
+        <!-- aop -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
     </dependencies>
 

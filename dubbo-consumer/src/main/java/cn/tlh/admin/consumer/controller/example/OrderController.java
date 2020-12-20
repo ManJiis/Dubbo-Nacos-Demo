@@ -1,11 +1,11 @@
-package cn.tlh.consumer.controller.order;
+package cn.tlh.admin.consumer.controller.example;
 
-import cn.tlh.common.pojo.Order;
-import cn.tlh.common.util.SnowFlakeUtil;
-import cn.tlh.common.vo.req.OrderPageVo;
-import cn.tlh.common.vo.req.OrderVo;
-import cn.tlh.common.vo.resp.Response;
-import cn.tlh.service.OrderService;
+import cn.tlh.admin.common.pojo.Order;
+import cn.tlh.admin.common.util.SnowFlakeUtil;
+import cn.tlh.admin.common.base.vo.req.OrderPageVo;
+import cn.tlh.admin.common.base.vo.req.OrderVo;
+import cn.tlh.admin.common.base.vo.resp.Response;
+import cn.tlh.admin.service.OrderService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import org.apache.dubbo.config.annotation.Reference;
@@ -21,12 +21,12 @@ import java.time.LocalDateTime;
 /**
  * 今日订单(TOrder)表控制层
  *
- * @author makejava
+ * @author TANG
  * @since 2020-11-25 11:44:03
  */
 @RestController
 @RequestMapping("order")
-@Api(tags = "订单服务")
+@Api(tags = "测试：订单服务",value = "mq延迟队列示例")
 public class OrderController {
     /**
      * 服务对象

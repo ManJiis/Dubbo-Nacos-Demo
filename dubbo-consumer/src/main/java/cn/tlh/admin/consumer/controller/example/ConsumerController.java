@@ -1,9 +1,9 @@
-package cn.tlh.consumer.controller.example;
+package cn.tlh.admin.consumer.controller.example;
 
-import cn.tlh.common.exception.BusinessMsgEnum;
-import cn.tlh.common.vo.req.SayHelloVo;
-import cn.tlh.common.vo.resp.Response;
-import cn.tlh.service.ProvideService;
+import cn.tlh.admin.common.util.enums.BusinessMsgEnum;
+import cn.tlh.admin.common.base.vo.req.SayHelloVo;
+import cn.tlh.admin.common.base.vo.resp.Response;
+import cn.tlh.admin.service.ProvideService;
 import io.swagger.annotations.Api;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.validation.annotation.Validated;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author Ling
+ * @author TANG
  */
 @RestController
 @RequestMapping("/test")
-@Api(tags = "Dubbo-消费者示例")
+@Api(tags = "测试：消费者示例",value = "消费者示例")
 @Validated  // 单个参数校验,需要在类上加此参数
 public class ConsumerController {
 
