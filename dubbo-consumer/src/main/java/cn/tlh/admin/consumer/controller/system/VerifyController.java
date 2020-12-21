@@ -3,7 +3,7 @@ package cn.tlh.admin.consumer.controller.system;
 import cn.tlh.admin.common.util.enums.CodeBiEnum;
 import cn.tlh.admin.common.util.enums.CodeEnum;
 import cn.tlh.admin.common.base.vo.req.EmailVo;
-import cn.tlh.admin.common.base.vo.resp.Response;
+import cn.tlh.admin.common.base.vo.resp.BusinessResponse;
 import cn.tlh.admin.service.system.EmailService;
 import cn.tlh.admin.service.system.VerifyService;
 import io.swagger.annotations.Api;
@@ -32,23 +32,23 @@ public class VerifyController {
 
     @PostMapping(value = "/resetEmail")
     @ApiOperation("重置邮箱，发送验证码")
-    public Response resetEmail(@RequestParam String email) {
+    public BusinessResponse resetEmail(@RequestParam String email) {
         EmailVo emailVo = verificationCodeService.sendEmail(email, CodeEnum.EMAIL_RESET_EMAIL_CODE.getKey());
         emailService.send(emailVo, emailService.find());
-        return Response.ok();
+        return BusinessResponse.ok();
     }
 
     @PostMapping(value = "/email/resetPass")
     @ApiOperation("重置密码，发送验证码")
-    public Response resetPass(@RequestParam String email) {
+    public BusinessResponse resetPass(@RequestParam String email) {
         EmailVo emailVo = verificationCodeService.sendEmail(email, CodeEnum.EMAIL_RESET_PWD_CODE.getKey());
         emailService.send(emailVo, emailService.find());
-        return Response.ok();
+        return BusinessResponse.ok();
     }
 
     @GetMapping(value = "/validated")
     @ApiOperation("验证码验证")
-    public Response validated(@RequestParam String email, @RequestParam String code, @RequestParam Integer codeBi) {
+    public BusinessResponse validated(@RequestParam String email, @RequestParam String code, @RequestParam Integer codeBi) {
         CodeBiEnum biEnum = CodeBiEnum.find(codeBi);
         switch (Objects.requireNonNull(biEnum)) {
             case ONE:
@@ -60,6 +60,6 @@ public class VerifyController {
             default:
                 break;
         }
-        return Response.ok();
+        return BusinessResponse.ok();
     }
 }

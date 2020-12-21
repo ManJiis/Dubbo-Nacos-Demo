@@ -1,6 +1,6 @@
 package cn.tlh.admin.consumer.controller.system;
 
-import cn.tlh.admin.common.base.vo.resp.Response;
+import cn.tlh.admin.common.base.vo.resp.BusinessResponse;
 import cn.tlh.admin.service.system.MonitorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +27,7 @@ public class MonitorController {
     @GetMapping
     @ApiOperation("查询服务监控")
     // // @PreAuthorize("@el.check('monitor:list')")
-    public Response query() {
-        return Response.ok(serverService.getServers());
+    public BusinessResponse query() {
+        return BusinessResponse.ok(serverService.getServers());
     }
 }

@@ -8,7 +8,7 @@ spring:
     #    driver-class-name: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root@123
+    password: root
   # 开启aop
   aop:
     auto: true

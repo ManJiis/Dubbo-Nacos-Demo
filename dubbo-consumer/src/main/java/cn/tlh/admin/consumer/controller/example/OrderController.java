@@ -4,7 +4,7 @@ import cn.tlh.admin.common.pojo.Order;
 import cn.tlh.admin.common.util.SnowFlakeUtil;
 import cn.tlh.admin.common.base.vo.req.OrderPageVo;
 import cn.tlh.admin.common.base.vo.req.OrderVo;
-import cn.tlh.admin.common.base.vo.resp.Response;
+import cn.tlh.admin.common.base.vo.resp.BusinessResponse;
 import cn.tlh.admin.service.OrderService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
@@ -36,19 +36,19 @@ public class OrderController {
 
 
     @GetMapping("one")
-    public Response selectOne(String id) {
+    public BusinessResponse selectOne(String id) {
         Order order = this.orderService.queryById(id);
-        return Response.ok(order);
+        return BusinessResponse.ok(order);
     }
 
     @GetMapping("list")
-    public Response selectList(OrderPageVo orderPageVo) {
+    public BusinessResponse selectList(OrderPageVo orderPageVo) {
         IPage<Order> orderIPage = this.orderService.queryList(orderPageVo);
-        return Response.ok(orderIPage);
+        return BusinessResponse.ok(orderIPage);
     }
 
     @GetMapping("add")
-    public Response add() {
+    public BusinessResponse add() {
         OrderVo vo = new OrderVo();
         vo.setId(SnowFlakeUtil.createSnowflakeId().toString());
         vo.setOrderSource(0);
@@ -64,7 +64,7 @@ public class OrderController {
         vo.setFinishTime(LocalDateTime.now().plusMinutes(1));
         vo.setCreateTime(LocalDate.now());
         String add = this.orderService.add(vo);
-        return Response.ok(add);
+        return BusinessResponse.ok(add);
     }
 
 }

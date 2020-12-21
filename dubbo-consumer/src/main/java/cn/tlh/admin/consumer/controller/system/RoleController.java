@@ -2,11 +2,11 @@ package cn.tlh.admin.consumer.controller.system;
 
 import cn.hutool.core.lang.Dict;
 import cn.tlh.admin.common.base.dto.RoleDto;
-import cn.tlh.admin.common.base.dto.RoleReq;
+import cn.tlh.admin.common.base.vo.req.RoleVo;
 import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
 import cn.tlh.admin.common.base.mapstruct.RoleMapper;
 import cn.tlh.admin.common.pojo.system.SysRole;
-import cn.tlh.admin.common.base.vo.resp.Response;
+import cn.tlh.admin.common.base.vo.resp.BusinessResponse;
 import cn.tlh.admin.service.aop.annotaion.Log;
 import cn.tlh.admin.service.system.RoleService;
 import io.swagger.annotations.Api;
@@ -43,15 +43,15 @@ public class RoleController {
     @ApiOperation("获取单个role")
     @GetMapping(value = "/{id}")
     // // @PreAuthorize("@el.check('roles:list')")
-    public Response query(@PathVariable Long id) {
-        return Response.ok(roleService.findById(id));
+    public BusinessResponse query(@PathVariable Long id) {
+        return BusinessResponse.ok(roleService.findById(id));
     }
 
     @ApiOperation("导出角色数据")
     @GetMapping(value = "/download")
     // // @PreAuthorize("@el.check('SysRole:list')")
-    public void download(HttpServletResponse response, RoleReq roleReq) throws IOException {
-        List<SysRole> sysRoles = roleService.selectList(roleReq).getRecords();
+    public void download(HttpServletResponse response, RoleVo roleVo) throws IOException {
+        List<SysRole> sysRoles = roleService.selectList(roleVo).getRecords();
         List<RoleDto> roleDtoList = roleMapper.toDto(sysRoles);
         roleService.download(roleDtoList, response);
     }
@@ -59,55 +59,55 @@ public class RoleController {
     @ApiOperation("查询角色")
     @GetMapping
     // // @PreAuthorize("@el.check('roles:list')")
-    public Response query(RoleReq roleReq) {
-        return Response.ok(roleService.selectList(roleReq));
+    public BusinessResponse query(RoleVo roleVo) {
+        return BusinessResponse.ok(roleService.selectList(roleVo));
     }
 
     @ApiOperation("获取用户级别")
     @GetMapping(value = "/level")
-    public Response getLevel() {
-        return Response.ok(Dict.create().set("level", getLevels(null)));
+    public BusinessResponse getLevel() {
+        return BusinessResponse.ok(Dict.create().set("level", getLevels(null)));
     }
 
     @Log(description = "新增角色")
     @ApiOperation("新增角色")
     @PostMapping
     // // @PreAuthorize("@el.check('roles:add')")
-    public Response create(@Validated @RequestBody SysRole resources) {
+    public BusinessResponse create(@Validated @RequestBody SysRole resources) {
         if (resources.getRoleId() != null) {
             throw new BusinessErrorException("A new " + ENTITY_NAME + " cannot already have an ID");
         }
         getLevels(resources.getLevel());
         roleService.create(resources);
-        return Response.ok();
+        return BusinessResponse.ok();
     }
 
     @Log(description = "修改角色")
     @ApiOperation("修改角色")
     @PutMapping
     // // @PreAuthorize("@el.check('roles:edit')")
-    public Response update(@Validated(SysRole.class) @RequestBody SysRole resources) {
+    public BusinessResponse update(@Validated(SysRole.class) @RequestBody SysRole resources) {
         getLevels(resources.getLevel());
         roleService.update(resources);
-        return Response.ok();
+        return BusinessResponse.ok();
     }
 
     @Log(description = "修改角色菜单")
     @ApiOperation("修改角色菜单")
     @PutMapping(value = "/menu")
     // // @PreAuthorize("@el.check('roles:edit')")
-    public Response updateMenu(@RequestBody SysRole resources) {
+    public BusinessResponse updateMenu(@RequestBody SysRole resources) {
         RoleDto SysRole = roleService.findById(resources.getRoleId());
         getLevels(SysRole.getLevel());
         roleService.updateMenu(resources, SysRole);
-        return Response.ok();
+        return BusinessResponse.ok();
     }
 
     @Log(description = "删除角色")
     @ApiOperation("删除角色")
     @DeleteMapping
     // // @PreAuthorize("@el.check('roles:del')")
-    public Response delete(@RequestBody Set<Long> ids) {
+    public BusinessResponse delete(@RequestBody Set<Long> ids) {
         for (Long id : ids) {
             RoleDto SysRole = roleService.findById(id);
             getLevels(SysRole.getLevel());
@@ -115,7 +115,7 @@ public class RoleController {
         // 验证是否被用户关联
         roleService.verification(ids);
         roleService.delete(ids);
-        return Response.ok();
+        return BusinessResponse.ok();
     }
 
     /**

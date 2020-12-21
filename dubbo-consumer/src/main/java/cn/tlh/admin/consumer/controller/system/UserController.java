@@ -3,14 +3,14 @@ package cn.tlh.admin.consumer.controller.system;
 import cn.tlh.admin.common.util.RsaProperties;
 import cn.tlh.admin.common.base.dto.RoleSmallDto;
 import cn.tlh.admin.common.base.dto.UserDto;
-import cn.tlh.admin.common.base.dto.UserReq;
+import cn.tlh.admin.common.base.vo.req.User2Vo;
 import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
 import cn.tlh.admin.common.base.mapstruct.UserMapper;
 import cn.tlh.admin.common.pojo.system.SysUser;
 import cn.tlh.admin.common.util.RsaUtils;
 import cn.tlh.admin.common.util.enums.CodeEnum;
 import cn.tlh.admin.common.base.vo.req.UserPassVo;
-import cn.tlh.admin.common.base.vo.resp.Response;
+import cn.tlh.admin.common.base.vo.resp.BusinessResponse;
 import cn.tlh.admin.service.aop.annotaion.Log;
 import cn.tlh.admin.service.system.RoleService;
 import cn.tlh.admin.service.system.UserService;
@@ -54,15 +54,15 @@ public class UserController {
     @ApiOperation("查询用户")
     @GetMapping
     // // @PreAuthorize("@el.check('SysUser:list')")
-    public Response query(UserReq userReq) {
-        return Response.ok(userService.selectList(userReq));
+    public BusinessResponse query(User2Vo user2Vo) {
+        return BusinessResponse.ok(userService.selectList(user2Vo));
     }
 
     @ApiOperation("导出用户数据")
     @GetMapping(value = "/download")
     // // @PreAuthorize("@el.check('SysUser:list')")
-    public void download(HttpServletResponse response, UserReq userReq) throws IOException {
-        List<SysUser> records = userService.selectList(userReq).getRecords();
+    public void download(HttpServletResponse response, User2Vo user2Vo) throws IOException {
+        List<SysUser> records = userService.selectList(user2Vo).getRecords();
         List<UserDto> userDtoList = userMapper.toDto(records);
         userService.download(userDtoList, response);
     }
@@ -71,41 +71,41 @@ public class UserController {
     @ApiOperation("新增用户")
     @PostMapping
     // // @PreAuthorize("@el.check('SysUser:add')")
-    public Response create(@Validated @RequestBody SysUser resources) {
+    public BusinessResponse create(@Validated @RequestBody SysUser resources) {
         checkLevel(resources);
         // 默认密码 123456
 //        resources.setPassword(passwordEncoder.encode("123456"));
         userService.create(resources);
-        return Response.ok();
+        return BusinessResponse.ok();
     }
 
     @Log(description = "修改用户")
     @ApiOperation("修改用户")
     @PutMapping
     // // @PreAuthorize("@el.check('SysUser:edit')")
-    public Response update(@Validated @RequestBody SysUser resources) {
+    public BusinessResponse update(@Validated @RequestBody SysUser resources) {
         checkLevel(resources);
         userService.update(resources);
-        return Response.ok();
+        return BusinessResponse.ok();
     }
 
     @Log(description = "修改用户：个人中心")
     @ApiOperation("修改用户：个人中心")
     @PutMapping(value = "center")
-    public Response center(@Validated @RequestBody SysUser resources) {
+    public BusinessResponse center(@Validated @RequestBody SysUser resources) {
         // SecurityUtils.getCurrentUserId()
         if (!resources.getUserId().equals("currentUserId")) {
             throw new BusinessErrorException("不能修改他人资料");
         }
         userService.updateCenter(resources);
-        return Response.ok();
+        return BusinessResponse.ok();
     }
 
     @Log(description = "删除用户")
     @ApiOperation("删除用户")
     @DeleteMapping
     // // @PreAuthorize("@el.check('SysUser:del')")
-    public Response delete(@RequestBody Set<Long> ids) {
+    public BusinessResponse delete(@RequestBody Set<Long> ids) {
         Integer currentUserId = 1;
         List<Integer> integerList = new ArrayList<>();
         integerList.add(currentUserId);
@@ -118,12 +118,12 @@ public class UserController {
             }
         }
         userService.delete(ids);
-        return Response.ok();
+        return BusinessResponse.ok();
     }
 
     @ApiOperation("修改密码")
     @PostMapping(value = "/updatePass")
-    public Response updatePass(@RequestBody UserPassVo passVo) throws Exception {
+    public BusinessResponse updatePass(@RequestBody UserPassVo passVo) throws Exception {
         String oldPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, passVo.getOldPass());
         String newPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, passVo.getNewPass());
         // SecurityUtils.getCurrentUsername()
@@ -135,19 +135,19 @@ public class UserController {
             throw new BusinessErrorException("新密码不能与旧密码相同");
         }
         userService.updatePass(SysUser.getUsername(), passwordEncoder.encode(newPass));*/
-        return Response.ok();
+        return BusinessResponse.ok();
     }
 
     @ApiOperation("修改头像")
     @PostMapping(value = "/updateAvatar")
-    public Response updateAvatar(@RequestParam MultipartFile avatar) {
-        return Response.ok(userService.updateAvatar(avatar));
+    public BusinessResponse updateAvatar(@RequestParam MultipartFile avatar) {
+        return BusinessResponse.ok(userService.updateAvatar(avatar));
     }
 
     @Log(description = "修改邮箱")
     @ApiOperation("修改邮箱")
     @PostMapping(value = "/updateEmail/{code}")
-    public Response updateEmail(@PathVariable String code, @RequestBody SysUser SysUser) throws Exception {
+    public BusinessResponse updateEmail(@PathVariable String code, @RequestBody SysUser SysUser) throws Exception {
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, SysUser.getPassword());
         // String currentUsername = SecurityUtils.getCurrentUsername()
         SysUser userDto = userService.findByName("currentUsername");
@@ -156,7 +156,7 @@ public class UserController {
         }*/
         verificationCodeService.validated(CodeEnum.EMAIL_RESET_EMAIL_CODE.getKey() + SysUser.getEmail(), code);
         userService.updateEmail(userDto.getUsername(), SysUser.getEmail());
-        return Response.ok();
+        return BusinessResponse.ok();
     }
 
     /**

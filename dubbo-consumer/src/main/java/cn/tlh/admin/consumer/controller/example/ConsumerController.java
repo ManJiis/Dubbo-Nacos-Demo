@@ -2,7 +2,7 @@ package cn.tlh.admin.consumer.controller.example;
 
 import cn.tlh.admin.common.util.enums.BusinessMsgEnum;
 import cn.tlh.admin.common.base.vo.req.SayHelloVo;
-import cn.tlh.admin.common.base.vo.resp.Response;
+import cn.tlh.admin.common.base.vo.resp.BusinessResponse;
 import cn.tlh.admin.service.ProvideService;
 import io.swagger.annotations.Api;
 import org.apache.dubbo.config.annotation.Reference;
@@ -26,19 +26,19 @@ public class ConsumerController {
     ProvideService provideService;
 
     @GetMapping("/hello")
-    public Response sayHello(@Validated SayHelloVo vo) {
+    public BusinessResponse sayHello(@Validated SayHelloVo vo) {
         String sayHello = provideService.sayHello("消费者 " + vo.getName() + " 访问了....");
-        return Response.ok(sayHello);
+        return BusinessResponse.ok(sayHello);
     }
 
     @GetMapping("/hello1")
-    public Response sayHello1(@NotNull(message = "name不能为空") String name) {
+    public BusinessResponse sayHello1(@NotNull(message = "name不能为空") String name) {
         String sayHello = provideService.sayHello("消费者 " + name + " 访问了....");
-        return Response.ok(sayHello);
+        return BusinessResponse.ok(sayHello);
     }
 
     @GetMapping("/error")
-    public Response error() {
-        return Response.fail(BusinessMsgEnum.PARMETER_EXCEPTION);
+    public BusinessResponse error() {
+        return BusinessResponse.fail(BusinessMsgEnum.PARMETER_EXCEPTION);
     }
 }
