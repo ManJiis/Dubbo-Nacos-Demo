@@ -4,6 +4,7 @@ import cn.tlh.admin.common.pojo.system.SysMenu;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 系统菜单(SysMenu)表数据库访问层
@@ -12,6 +13,11 @@ import java.util.List;
  * @since 2020-12-17 09:52:00
  */
 public interface SysMenuDao {
+
+    /**
+     * 查询所有权限
+     */
+    Set<String> findAllPerm();
 
     /**
      * 通过ID查询单条数据

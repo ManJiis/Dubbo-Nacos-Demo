@@ -94,6 +94,9 @@
             </if>
         </where>
     </select>
+    <select id="findAllPerm" resultType="java.lang.String">
+        select permission from sys_menu
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="menuId" useGeneratedKeys="true">
