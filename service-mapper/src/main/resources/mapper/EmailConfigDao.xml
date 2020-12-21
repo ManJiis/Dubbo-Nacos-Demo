@@ -12,12 +12,12 @@
     </resultMap>
 
     <insert id="insert">
-        INSERT INTO `test_sdnd`.`tool_email_config`(`config_id`, `from_user`, `host`, `pass`, `port`, `user`)
+        INSERT INTO `sdnd`.`tool_email_config`(`config_id`, `from_user`, `host`, `pass`, `port`, `user`)
         VALUES (#{id}, #{host}, #{port}, #{user}, #{pass}, #{fromUser});
     </insert>
 
     <select id="queryById" resultType="cn.tlh.admin.common.pojo.system.EmailConfig">
-        select  * from `test_sdnd`.`tool_email_config` where config_id =#{id}
+        select  * from `sdnd`.`tool_email_config` where config_id =#{id}
     </select>
 
 

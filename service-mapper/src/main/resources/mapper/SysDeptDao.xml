@@ -19,7 +19,7 @@
     <select id="queryById" resultMap="SysDeptMap">
         select
           dept_id, pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time, update_time
-        from test_sdnd.sys_dept
+        from sdnd.sys_dept
         where dept_id = #{deptId}
     </select>
 
@@ -27,7 +27,7 @@
     <select id="queryAll" resultMap="SysDeptMap">
         select
         dept_id, pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time, update_time
-        from test_sdnd.sys_dept
+        from sdnd.sys_dept
         <where>
             <if test="deptId != null">
                 and dept_id = #{deptId}
@@ -64,12 +64,12 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="deptId" useGeneratedKeys="true">
-        insert into test_sdnd.sys_dept(pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time, update_time)
+        insert into sdnd.sys_dept(pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time, update_time)
         values (#{pid}, #{subCount}, #{name}, #{deptSort}, #{enabled}, #{createBy}, #{updateBy}, #{createTime}, #{updateTime})
     </insert>
 
     <insert id="insertBatch" keyProperty="deptId" useGeneratedKeys="true">
-        insert into test_sdnd.sys_dept(pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time,
+        insert into sdnd.sys_dept(pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time,
         update_time)
         values
         <foreach collection="entities" item="entity" separator=",">
@@ -79,7 +79,7 @@
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="deptId" useGeneratedKeys="true">
-        insert into test_sdnd.sys_dept(pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time,
+        insert into sdnd.sys_dept(pid, sub_count, name, dept_sort, enabled, create_by, update_by, create_time,
         update_time)
         values
         <foreach collection="entities" item="entity" separator=",">
@@ -94,7 +94,7 @@
 
     <!--通过主键修改数据-->
     <update id="update">
-        update test_sdnd.sys_dept
+        update sdnd.sys_dept
         <set>
             <if test="pid != null">
                 pid = #{pid},
@@ -129,7 +129,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from test_sdnd.sys_dept where dept_id = #{deptId}
+        delete from sdnd.sys_dept where dept_id = #{deptId}
     </delete>
 
 </mapper>

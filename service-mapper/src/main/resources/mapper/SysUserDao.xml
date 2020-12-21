@@ -26,7 +26,7 @@
     <select id="queryById" resultMap="SysUserMap">
         select
           user_id, dept_id, username, nick_name, gender, phone, email, avatar_name, avatar_path, password, is_admin, enabled, create_by, update_by, pwd_reset_time, create_time, update_time
-        from test_sdnd.sys_user
+        from sdnd.sys_user
         where user_id = #{userId}
     </select>
 
@@ -34,7 +34,7 @@
     <select id="queryAllByLimit" resultMap="SysUserMap">
         select
           user_id, dept_id, username, nick_name, gender, phone, email, avatar_name, avatar_path, password, is_admin, enabled, create_by, update_by, pwd_reset_time, create_time, update_time
-        from test_sdnd.sys_user
+        from sdnd.sys_user
         limit #{offset}, #{limit}
     </select>
 
@@ -43,7 +43,7 @@
         select
         user_id, dept_id, username, nick_name, gender, phone, email, avatar_name, avatar_path, password, is_admin,
         enabled, create_by, update_by, pwd_reset_time, create_time, update_time
-        from test_sdnd.sys_user
+        from sdnd.sys_user
         <where>
             <if test="req.deptId != null">
                 and dept_id = #{req.deptId}
@@ -69,13 +69,13 @@
         </where>
     </select>
     <select id="findByUsername" resultType="cn.tlh.admin.common.pojo.system.SysUser">
-        select * from test_sdnd.sys_user where username = #{username}
+        select * from sdnd.sys_user where username = #{username}
     </select>
     <select id="findByEmail" resultType="cn.tlh.admin.common.pojo.system.SysUser">
-        select * feom test_sdnd.sys_user where email = #{email}
+        select * feom sdnd.sys_user where email = #{email}
     </select>
     <select id="findByPhone" resultType="cn.tlh.admin.common.pojo.system.SysUser">
-        select * feom test_sdnd.sys_user where phone = #{phone}
+        select * feom sdnd.sys_user where phone = #{phone}
     </select>
     <select id="findByRoleId" resultType="cn.tlh.admin.common.pojo.system.SysUser">
         SELECT u.* FROM sys_user u, sys_users_roles r WHERE u.user_id = r.user_id AND r.role_id = #{roleId}
@@ -110,12 +110,12 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
-        insert into test_sdnd.sys_user(dept_id, username, nick_name, gender, phone, email, avatar_name, avatar_path, password, is_admin, enabled, create_by, update_by, pwd_reset_time, create_time, update_time)
+        insert into sdnd.sys_user(dept_id, username, nick_name, gender, phone, email, avatar_name, avatar_path, password, is_admin, enabled, create_by, update_by, pwd_reset_time, create_time, update_time)
         values (#{deptId}, #{username}, #{nickName}, #{gender}, #{phone}, #{email}, #{avatarName}, #{avatarPath}, #{password}, #{isAdmin}, #{enabled}, #{createBy}, #{updateBy}, #{pwdResetTime}, #{createTime}, #{updateTime})
     </insert>
 
     <insert id="insertBatch" keyProperty="userId" useGeneratedKeys="true">
-        insert into test_sdnd.sys_user(dept_id, username, nick_name, gender, phone, email, avatar_name, avatar_path,
+        insert into sdnd.sys_user(dept_id, username, nick_name, gender, phone, email, avatar_name, avatar_path,
         password, is_admin, enabled, create_by, update_by, pwd_reset_time, create_time, update_time)
         values
         <foreach collection="entities" item="entity" separator=",">
@@ -127,7 +127,7 @@
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="userId" useGeneratedKeys="true">
-        insert into test_sdnd.sys_user(dept_id, username, nick_name, gender, phone, email, avatar_name, avatar_path,
+        insert into sdnd.sys_user(dept_id, username, nick_name, gender, phone, email, avatar_name, avatar_path,
         password, is_admin, enabled, create_by, update_by, pwd_reset_time, create_time, update_time)
         values
         <foreach collection="entities" item="entity" separator=",">
@@ -146,7 +146,7 @@
 
     <!--通过主键修改数据-->
     <update id="update">
-        update test_sdnd.sys_user
+        update sdnd.sys_user
         <set>
             <if test="deptId != null">
                 dept_id = #{deptId},
@@ -208,10 +208,10 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from test_sdnd.sys_user where user_id = #{userId}
+        delete from sdnd.sys_user where user_id = #{userId}
     </delete>
     <delete id="deleteAllByIdIn">
-        delete from test_sdnd.sys_user where user_id in
+        delete from sdnd.sys_user where user_id in
         <foreach item="item" index="index" collection="ids"
                  open="(" separator="," close=")">
             #{item}
