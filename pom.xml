@@ -20,6 +20,7 @@
         <module>service-api</module>
         <module>service-common</module>
         <module>service-mapper</module>
+        <module>demo-test</module>
     </modules>
 
     <properties>
@@ -33,9 +34,10 @@
         <spring-boot-starter-amqp.version>2.1.6.RELEASE</spring-boot-starter-amqp.version>
         <spring-boot-starter-mail.version>2.1.1.RELEASE</spring-boot-starter-mail.version>
         <spring-boot-starter-websocket.version>2.0.4.RELEASE</spring-boot-starter-websocket.version>
-<!--        <shiro-spring-boot-web-starter.version>1.4.1</shiro-spring-boot-web-starter.version>-->
-<!--        <shiro-redis-spring-boot-starter.version>3.2.1</shiro-redis-spring-boot-starter.version>-->
-<!--        <shiro-redis.version>3.2.3</shiro-redis.version>-->
+        <shiro-spring-boot-web-starter.version>1.4.1</shiro-spring-boot-web-starter.version>
+        <shiro-redis-spring-boot-starter.version>3.2.1</shiro-redis-spring-boot-starter.version>
+        <shiro-redis.version>3.2.3</shiro-redis.version>
+        <shiro-spring.version>1.4.0</shiro-spring.version>
         <hutool.version>5.5.2</hutool.version>
         <swagger.version>2.9.2</swagger.version>
         <commons-lang3.version>3.9</commons-lang3.version>
@@ -51,7 +53,7 @@
     <dependencyManagement>
 
         <dependencies>
-<!--            <dependency>
+            <dependency>
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-spring-boot-web-starter</artifactId>
                 <version>${shiro-spring-boot-web-starter.version}</version>
@@ -65,7 +67,13 @@
                 <groupId>org.crazycake</groupId>
                 <artifactId>shiro-redis-spring-boot-starter</artifactId>
                 <version>${shiro-redis-spring-boot-starter.version}</version>
-            </dependency>-->
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${shiro-spring.version}</version>
+            </dependency>
+
             <!-- Spring boot websocket -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
