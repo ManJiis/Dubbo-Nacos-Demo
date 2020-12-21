@@ -51,7 +51,12 @@ public class SysRole implements Serializable {
      */
     @ApiModelProperty(value = "数据权限，全部 、 本级 、 自定义")
     private String dataScope = DataScopeEnum.THIS_LEVEL.getValue();
-    ;
+
+    @ApiModelProperty(value = "菜单")
+    private String menu;
+    @ApiModelProperty(value = "权限")
+    private String perm;
+
     /**
      * 创建者
      */

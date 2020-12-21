@@ -6,7 +6,7 @@ import cn.tlh.admin.common.exception.customexception.EntityNotFoundException;
 import cn.tlh.admin.common.util.AdminConstants;
 import cn.tlh.admin.common.util.ThrowableUtil;
 import cn.tlh.admin.common.util.enums.BusinessMsgEnum;
-import cn.tlh.admin.common.base.vo.resp.Response;
+import cn.tlh.admin.common.base.vo.BusinessResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,32 +54,32 @@ public class GlobalExceptionHandler {
      * @return /
      */
     @ExceptionHandler(BusinessErrorException.class)
-    public Response handleBusinessError(BusinessErrorException bex) {
+    public BusinessResponse handleBusinessError(BusinessErrorException bex) {
         String code = bex.getCode();
         String message = bex.getMessage();
-        return Response.fail(code, message);
+        return BusinessResponse.fail(code, message);
     }
 
     /**
      * 处理 EntityExist
      */
     @ExceptionHandler(value = EntityExistException.class)
-    public Response entityExistException(EntityExistException e) {
+    public BusinessResponse entityExistException(EntityExistException e) {
         // 打印堆栈信息
         log.error(ThrowableUtil.getStackTrace(e));
         String message = e.getMessage();
-        return Response.fail("400", message);
+        return BusinessResponse.fail("400", message);
     }
 
     /**
      * 处理 EntityNotFound
      */
     @ExceptionHandler(value = EntityNotFoundException.class)
-    public Response entityNotFoundException(EntityNotFoundException e) {
+    public BusinessResponse entityNotFoundException(EntityNotFoundException e) {
         // 打印堆栈信息
         log.error(ThrowableUtil.getStackTrace(e));
         String message = e.getMessage();
-        return Response.fail("400", message);
+        return BusinessResponse.fail("400", message);
     }
 
     /**
@@ -89,9 +89,9 @@ public class GlobalExceptionHandler {
      * @return /
      */
     @ExceptionHandler(NullPointerException.class)
-    public Response handleTypeMismatchException(NullPointerException bex) {
+    public BusinessResponse handleTypeMismatchException(NullPointerException bex) {
         logger.error("空指针异常，{}", bex.getMessage());
-        return Response.fail("500", "空指针异常了");
+        return BusinessResponse.fail("500", "空指针异常了");
     }
 
     /**
@@ -101,9 +101,9 @@ public class GlobalExceptionHandler {
      * @return /
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public Response handleHttpMessageNotReadableException(MissingServletRequestParameterException ex) {
+    public BusinessResponse handleHttpMessageNotReadableException(MissingServletRequestParameterException ex) {
         logger.error("缺少请求参数，{}", ex.getMessage());
-        return Response.fail("400", "缺少必要的请求参数");
+        return BusinessResponse.fail("400", "缺少必要的请求参数");
     }
 
     /**
@@ -113,9 +113,9 @@ public class GlobalExceptionHandler {
      * @return /
      */
     @ExceptionHandler(Exception.class)
-    public Response handleUnexpectedServer(Exception ex) {
+    public BusinessResponse handleUnexpectedServer(Exception ex) {
         logger.error("系统异常：", ex);
-        return Response.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
+        return BusinessResponse.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
     }
 
 
@@ -125,35 +125,35 @@ public class GlobalExceptionHandler {
      * <1> 处理 form data方式调用接口校验失败抛出的异常
      */
     @ExceptionHandler(BindException.class)
-    public Response bindExceptionHandler(BindException e) {
+    public BusinessResponse bindExceptionHandler(BindException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         List<String> collect = fieldErrors.stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return Response.fail(collect, "400", AdminConstants.BAD_REQUEST_MSG);
+        return BusinessResponse.fail(collect, "400", AdminConstants.BAD_REQUEST_MSG);
     }
 
     /**
      * <2> 处理 json 请求体调用接口校验失败抛出的异常
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Response methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+    public BusinessResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         List<String> collect = fieldErrors.stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return Response.fail(collect, "400", AdminConstants.BAD_REQUEST_MSG);
+        return BusinessResponse.fail(collect, "400", AdminConstants.BAD_REQUEST_MSG);
     }
 
     /**
      * <3> 处理单个参数校验失败抛出的异常
      */
     @ExceptionHandler(ConstraintViolationException.class)
-    public Response constraintViolationExceptionHandler(ConstraintViolationException e) {
+    public BusinessResponse constraintViolationExceptionHandler(ConstraintViolationException e) {
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
         List<String> collect = constraintViolations.stream()
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.toList());
-        return Response.fail(collect, "400", AdminConstants.BAD_REQUEST_MSG);
+        return BusinessResponse.fail(collect, "400", AdminConstants.BAD_REQUEST_MSG);
     }
 }

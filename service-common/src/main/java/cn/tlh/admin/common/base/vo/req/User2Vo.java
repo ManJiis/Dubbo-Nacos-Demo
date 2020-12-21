@@ -1,5 +1,5 @@
 
-package cn.tlh.admin.common.base.dto;
+package cn.tlh.admin.common.base.vo.req;
 
 import cn.tlh.admin.common.base.vo.req.common.PageVo;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -8,22 +8,28 @@ import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * @author TANG
- * 公共查询类
+ * @date 2020-11-23
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class RoleReq extends PageVo {
+public class User2Vo extends PageVo implements Serializable {
 
-    private String name;
-    private String description;
+    private Long id;
+    private String email;
+    private String username;
+    private String nickName;
+    private Boolean enabled;
+    private Long deptId;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
