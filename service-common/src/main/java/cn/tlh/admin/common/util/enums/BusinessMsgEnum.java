@@ -21,7 +21,7 @@ public enum BusinessMsgEnum {
     /**
      * 500 : 发生异常
      */
-    UNEXPECTED_EXCEPTION("500", "系统发生异常，请联系管理员！");
+    UNEXPECTED_EXCEPTION("500", "服务器开小差了,请稍后重试!");
 
     /**
      * 消息码
