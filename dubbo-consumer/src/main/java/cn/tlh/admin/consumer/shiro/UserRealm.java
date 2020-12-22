@@ -86,7 +86,8 @@ public class UserRealm extends AuthorizingRealm implements Authorizer {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authToken) throws AuthenticationException {
         logger.info("==============认证---token===============:{}", JSON.toJSONString(authToken));
         // 查询用户信息
-        SysUser user = sysUserDao.findByPhone((String) authToken.getPrincipal());
+//        SysUser user = sysUserDao.findByPhone((String) authToken.getPrincipal());
+        SysUser user = sysUserDao.findByUsername((String) authToken.getPrincipal());
         logger.info("==============认证---用户信息===============:{}", JSON.toJSONString(user));
         if (user == null || StringUtils.isBlank(user.getPassword())) {
             throw new UnknownAccountException();
@@ -94,25 +95,29 @@ public class UserRealm extends AuthorizingRealm implements Authorizer {
         if (user.getEnabled() == AdminConstants.SYS_USER_STATUS_PROHIBIT) {
             throw new LockedAccountException();
         }
-        return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getSalt()), getName());
+//        ByteSource byteSource = ByteSource.Util.bytes(user.getSalt());
+        ByteSource byteSource = ByteSource.Util.bytes("RGrgG00X1E0tUxJKhE5y");
+        return new SimpleAuthenticationInfo(user, user.getPassword(), byteSource, getName());
     }
 
     @Override
     public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
         HashedCredentialsMatcher shaCredentialsMatcher = new HashedCredentialsMatcher();
+        // 算法
         shaCredentialsMatcher.setHashAlgorithmName(ShiroUtils.hashAlgorithmName);
+        // 加密次数
         shaCredentialsMatcher.setHashIterations(ShiroUtils.hashIterations);
         super.setCredentialsMatcher(shaCredentialsMatcher);
     }
 
     public static void main(String[] args) {
-        String s = DigestUtils.sha256Hex("224891" + "RGrgG00X1E0tUxJKhE5y");
+        String s = DigestUtils.sha256Hex("123456" + "RGrgG00X1E0tUxJKhE5y");
         for (int i = 0; i <= 15; i++) {
             s = DigestUtils.sha256Hex(s + "RGrgG00X1E0tUxJKhE5y");
         }
         System.out.println(s);
 
-        SimpleHash simpleHash = new SimpleHash(ShiroUtils.hashAlgorithmName, "224891", "RGrgG00X1E0tUxJKhE5y", 16);
+        SimpleHash simpleHash = new SimpleHash(ShiroUtils.hashAlgorithmName, "123456", "RGrgG00X1E0tUxJKhE5y", 16);
         System.out.println(simpleHash);
     }
 }
