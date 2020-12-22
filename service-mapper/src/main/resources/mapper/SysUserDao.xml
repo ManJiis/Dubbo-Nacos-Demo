@@ -30,14 +30,6 @@
         where user_id = #{userId}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="SysUserMap">
-        select
-          user_id, dept_id, username, nick_name, gender, phone, email, avatar_name, avatar_path, password, is_admin, enabled, create_by, update_by, pwd_reset_time, create_time, update_time
-        from sdnd.sys_user
-        limit #{offset}, #{limit}
-    </select>
-
     <!--通过实体作为筛选条件查询-->
     <select id="selectList" resultMap="SysUserMap">
         select
@@ -72,10 +64,10 @@
         select * from sdnd.sys_user where username = #{username}
     </select>
     <select id="findByEmail" resultType="cn.tlh.admin.common.pojo.system.SysUser">
-        select * feom sdnd.sys_user where email = #{email}
+        select * from sdnd.sys_user where email = #{email}
     </select>
     <select id="findByPhone" resultType="cn.tlh.admin.common.pojo.system.SysUser">
-        select * feom sdnd.sys_user where phone = #{phone}
+        select * from sdnd.sys_user where phone = #{phone}
     </select>
     <select id="findByRoleId" resultType="cn.tlh.admin.common.pojo.system.SysUser">
         SELECT u.* FROM sys_user u, sys_users_roles r WHERE u.user_id = r.user_id AND r.role_id = #{roleId}
