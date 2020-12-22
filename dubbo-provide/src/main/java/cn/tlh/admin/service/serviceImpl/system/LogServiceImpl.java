@@ -3,7 +3,7 @@ package cn.tlh.admin.service.serviceImpl.system;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
-import cn.tlh.admin.common.base.dto.LogReq;
+import cn.tlh.admin.common.base.vo.req.LogVo;
 import cn.tlh.admin.common.pojo.system.SysLog;
 import cn.tlh.admin.common.util.StringUtils;
 import cn.tlh.admin.dao.SysLogDao;
@@ -40,14 +40,14 @@ public class LogServiceImpl implements LogService {
     SysLogDao sysLogDao;
 
     @Override
-    public List<SysLog> selectList(LogReq logReq) {
+    public List<SysLog> selectList(LogVo logVo) {
         // status: ERROR/INFO
-        return sysLogDao.selectList(logReq);
+        return sysLogDao.selectList(logVo);
     }
 
     @Override
-    public Object queryAllByUser(LogReq logReq) {
-        return sysLogDao.selectList(logReq);
+    public Object queryAllByUser(LogVo logVo) {
+        return sysLogDao.selectList(logVo);
     }
 
     @Override

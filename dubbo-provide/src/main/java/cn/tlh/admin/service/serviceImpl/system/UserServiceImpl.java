@@ -5,7 +5,7 @@ package cn.tlh.admin.service.serviceImpl.system;
 
 import cn.tlh.admin.common.base.dto.RoleSmallDto;
 import cn.tlh.admin.common.base.dto.UserDto;
-import cn.tlh.admin.common.base.dto.UserReq;
+import cn.tlh.admin.common.base.vo.req.User2Vo;
 import cn.tlh.admin.common.exception.customexception.EntityExistException;
 import cn.tlh.admin.common.exception.customexception.EntityNotFoundException;
 import cn.tlh.admin.common.pojo.system.SysUser;
@@ -58,11 +58,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<SysUser> selectList(UserReq userReq) {
-        Page<SysUser> page = new Page<>(userReq.getCurrentPage(), userReq.getPageSize());
+    public Page<SysUser> selectList(User2Vo user2Vo) {
+        Page<SysUser> page = new Page<>(user2Vo.getCurrentPage(), user2Vo.getPageSize());
         System.out.println("page.getTotal() = " + page.getTotal());
         System.out.println("page.getPages() = " + page.getPages());
-        return sysUserDao.selectList(page, userReq);
+        return sysUserDao.selectList(page, user2Vo);
     }
 
     @Override
