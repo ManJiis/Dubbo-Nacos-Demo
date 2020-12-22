@@ -10,7 +10,7 @@ import cn.tlh.admin.common.pojo.system.SysUser;
 import cn.tlh.admin.common.util.RsaUtils;
 import cn.tlh.admin.common.util.enums.CodeEnum;
 import cn.tlh.admin.common.base.vo.req.UserPassVo;
-import cn.tlh.admin.common.base.vo.resp.BusinessResponse;
+import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.service.aop.annotaion.Log;
 import cn.tlh.admin.service.system.RoleService;
 import cn.tlh.admin.service.system.UserService;

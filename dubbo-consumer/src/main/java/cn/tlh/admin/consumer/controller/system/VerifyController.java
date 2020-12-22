@@ -3,7 +3,7 @@ package cn.tlh.admin.consumer.controller.system;
 import cn.tlh.admin.common.util.enums.CodeBiEnum;
 import cn.tlh.admin.common.util.enums.CodeEnum;
 import cn.tlh.admin.common.base.vo.req.EmailVo;
-import cn.tlh.admin.common.base.vo.resp.BusinessResponse;
+import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.service.system.EmailService;
 import cn.tlh.admin.service.system.VerifyService;
 import io.swagger.annotations.Api;

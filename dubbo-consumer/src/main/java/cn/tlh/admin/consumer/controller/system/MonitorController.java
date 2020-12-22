@@ -1,6 +1,6 @@
 package cn.tlh.admin.consumer.controller.system;
 
-import cn.tlh.admin.common.base.vo.resp.BusinessResponse;
+import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.service.system.MonitorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

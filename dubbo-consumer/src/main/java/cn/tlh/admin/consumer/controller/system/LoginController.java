@@ -1,7 +1,7 @@
 package cn.tlh.admin.consumer.controller.system;
 
 import cn.tlh.admin.common.base.vo.req.AuthUserVo;
-import cn.tlh.admin.common.base.vo.resp.BusinessResponse;
+import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
 import cn.tlh.admin.common.util.RedisUtils;
 import cn.tlh.admin.service.aop.annotaion.rest.AnonymousPostMapping;
@@ -31,17 +31,17 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @RestController
 @RequestMapping("/auth")
-@RequiredArgsConstructor
 @Api(tags = "系统：系统授权接口")
 public class LoginController {
-    private final RedisUtils redisUtils;
 //    private final OnlineUserService onlineUserService;
 
     @ApiOperation("登录授权")
     @AnonymousPostMapping(value = "/login")
-    public BusinessResponse login(@Validated @RequestBody AuthUserVo authUser, HttpServletRequest request) throws Exception {
+    public BusinessResponse login(@Validated @RequestBody AuthUserVo authUser, HttpServletRequest request) {
         // 前端传过来公钥加密的密码 这里进行解密
 //        String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, authUser.getPassword());
+        // 验证码校验
+/*
         // 查询验证码
         String code = (String) redisUtils.get(authUser.getUuid());
         // 清除验证码
@@ -52,23 +52,14 @@ public class LoginController {
         if (StringUtils.isBlank(authUser.getCode()) || !authUser.getCode().equalsIgnoreCase(code)) {
             throw new BusinessErrorException("验证码错误");
         }
+*/
+
         //用户认证信息
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(authUser.getUsername(), authUser.getPassword()
-        );
-        try {
-            //进行验证，这里可以捕获异常，然后返回对应信息
-            subject.login(usernamePasswordToken);
-        } catch (UnknownAccountException e) {
-            log.error("用户名不存在！", e);
-            return BusinessResponse.fail("用户名不存在！");
-        } catch (AuthenticationException e) {
-            log.error("账号或密码错误！", e);
-            return BusinessResponse.fail("账号或密码错误！");
-        } catch (AuthorizationException e) {
-            log.error("没有权限！", e);
-            return BusinessResponse.fail("没有权限");
-        }
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(authUser.getUsername(), authUser.getPassword());
+        // 由shiro校验
+        subject.login(usernamePasswordToken);
+
         return BusinessResponse.ok("login success");
     }
 
