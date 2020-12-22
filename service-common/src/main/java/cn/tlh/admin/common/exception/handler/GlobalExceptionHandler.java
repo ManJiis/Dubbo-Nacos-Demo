@@ -8,6 +8,12 @@ import cn.tlh.admin.common.util.ThrowableUtil;
 import cn.tlh.admin.common.util.enums.BusinessMsgEnum;
 import cn.tlh.admin.common.base.vo.BusinessResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.rpc.RpcException;
+import org.apache.shiro.ShiroException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -32,20 +38,56 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    /*
-      BadCredentialsException
+    /**
+     * 处理shiro异常
+     *
+     * @param e /
+     * @return /
      */
-    /*
-     @ExceptionHandler(BadCredentialsException.class) public ResponseEntity<ApiError> badCredentialsException(BadCredentialsException e){
-     // 打印堆栈信息
-     String message = "坏的凭证".equals(e.getMessage()) ? "用户名或密码不正确" : e.getMessage();
-     log.error(message);
-     return buildResponseEntity(ApiError.error(message));
-     }
-     */
+    @ExceptionHandler(ShiroException.class)
+    public BusinessResponse handleShiroException(ShiroException e) {
+        if (e instanceof UnknownAccountException) {
+            LOGGER.error("ShiroException -->UnknownAccountException {}", "账号不存在");
+            return BusinessResponse.fail("账号不存在");
+        } else if (e instanceof IncorrectCredentialsException) {
+            LOGGER.error("ShiroException -->IncorrectCredentialsException {}", "密码错误");
+            return BusinessResponse.fail("密码错误");
+        } else if (e instanceof LockedAccountException) {
+            LOGGER.error("ShiroException -->LockedAccountException {}", "账户已被禁用");
+            return BusinessResponse.fail("账户已被禁用");
+        } else if (e instanceof AuthorizationException) {
+            LOGGER.error("ShiroException -->AuthorizationException {}", "没有权限");
+            return BusinessResponse.fail("没有权限");
+        }
+        return BusinessResponse.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
+    }
 
+    /**
+     * 处理dubbo异常，可在代码中手动抛出rpcException，自定义异常信息
+     * throw new RpcException("自定义异常信息");
+     *
+     * @param e /
+     * @return /
+     */
+    @ExceptionHandler(RpcException.class)
+    public BusinessResponse rpcExceptionHandler(RpcException e) {
+        LOGGER.error("服务器运行异常 Message: " + e.getMessage());
+        return BusinessResponse.fail(e.getMessage());
+    }
+
+    /**
+     * 系统异常 预期以外异常
+     *
+     * @param ex /
+     * @return /
+     */
+    @ExceptionHandler(Exception.class)
+    public BusinessResponse handleUnexpectedServer(Exception ex) {
+        LOGGER.error("系统异常：", ex);
+        return BusinessResponse.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
+    }
 
     /**
      * 拦截自定义业务异常，返回业务异常信息
@@ -90,7 +132,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(NullPointerException.class)
     public BusinessResponse handleTypeMismatchException(NullPointerException bex) {
-        logger.error("空指针异常，{}", bex.getMessage());
+        LOGGER.error("空指针异常，{}", bex.getMessage());
         return BusinessResponse.fail("500", "空指针异常了");
     }
 
@@ -102,20 +144,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public BusinessResponse handleHttpMessageNotReadableException(MissingServletRequestParameterException ex) {
-        logger.error("缺少请求参数，{}", ex.getMessage());
+        LOGGER.error("缺少请求参数，{}", ex.getMessage());
         return BusinessResponse.fail("400", "缺少必要的请求参数");
-    }
-
-    /**
-     * 系统异常 预期以外异常
-     *
-     * @param ex /
-     * @return /
-     */
-    @ExceptionHandler(Exception.class)
-    public BusinessResponse handleUnexpectedServer(Exception ex) {
-        logger.error("系统异常：", ex);
-        return BusinessResponse.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
     }
 
 
