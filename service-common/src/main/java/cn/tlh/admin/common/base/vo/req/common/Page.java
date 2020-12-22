@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
+ * 自定义分页对象
+ *
  * @author TANG
  */
 @Getter
