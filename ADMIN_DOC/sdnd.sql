@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : 127.0.0.1
  Source Server Type    : MySQL
- Source Server Version : 50718
+ Source Server Version : 50729
  Source Host           : localhost:3306
  Source Schema         : sdnd
 
  Target Server Type    : MySQL
- Target Server Version : 50718
+ Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 21/12/2020 17:42:54
+ Date: 22/12/2020 21:53:26
 */
 
 SET NAMES utf8mb4;
@@ -41,6 +41,10 @@ CREATE TABLE `code_column_config`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成字段信息存储' ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Records of code_column_config
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for code_gen_config
 -- ----------------------------
 DROP TABLE IF EXISTS `code_gen_config`;
@@ -58,6 +62,10 @@ CREATE TABLE `code_gen_config`  (
   PRIMARY KEY (`config_id`) USING BTREE,
   INDEX `idx_table_name`(`table_name`(100)) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成器配置' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of code_gen_config
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for mnt_app
@@ -80,6 +88,10 @@ CREATE TABLE `mnt_app`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '应用管理' ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Records of mnt_app
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for mnt_database
 -- ----------------------------
 DROP TABLE IF EXISTS `mnt_database`;
@@ -97,6 +109,10 @@ CREATE TABLE `mnt_database`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据库管理' ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Records of mnt_database
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for mnt_deploy
 -- ----------------------------
 DROP TABLE IF EXISTS `mnt_deploy`;
@@ -110,6 +126,10 @@ CREATE TABLE `mnt_deploy`  (
   PRIMARY KEY (`deploy_id`) USING BTREE,
   INDEX `FK6sy157pseoxx4fmcqr1vnvvhy`(`app_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '部署管理' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of mnt_deploy
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for mnt_deploy_history
@@ -126,6 +146,10 @@ CREATE TABLE `mnt_deploy_history`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '部署历史管理' ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Records of mnt_deploy_history
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for mnt_deploy_server
 -- ----------------------------
 DROP TABLE IF EXISTS `mnt_deploy_server`;
@@ -135,6 +159,10 @@ CREATE TABLE `mnt_deploy_server`  (
   PRIMARY KEY (`deploy_id`, `server_id`) USING BTREE,
   INDEX `FKeaaha7jew9a02b3bk9ghols53`(`server_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '应用与服务器关联' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of mnt_deploy_server
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for mnt_server
@@ -156,6 +184,10 @@ CREATE TABLE `mnt_server`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '服务器管理' ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Records of mnt_server
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sys_broker_message_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_broker_message_log`;
@@ -164,11 +196,15 @@ CREATE TABLE `sys_broker_message_log`  (
   `message` varchar(4000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息内容',
   `try_count` int(4) NULL DEFAULT 0 COMMENT '重试次数',
   `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '消息投递状态 0投递中，1投递成功，2投递失败',
-  `next_retry` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '下一次重试时间',
-  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+  `next_retry` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '下一次重试时间',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`message_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_broker_message_log
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -298,6 +334,10 @@ CREATE TABLE `sys_log`  (
   INDEX `log_create_time_index`(`create_time`) USING BTREE,
   INDEX `inx_log_type`(`log_type`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of sys_log
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -460,6 +500,10 @@ CREATE TABLE `sys_quartz_log`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '定时任务日志' ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Records of sys_quartz_log
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sys_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
@@ -496,6 +540,10 @@ CREATE TABLE `sys_roles_depts`  (
   PRIMARY KEY (`role_id`, `dept_id`) USING BTREE,
   INDEX `FK7qg6itn5ajdoa9h9o78v9ksur`(`dept_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色部门关联' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of sys_roles_depts
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_roles_menus
@@ -685,6 +733,68 @@ INSERT INTO `sys_users_roles` VALUES (1, 1);
 INSERT INTO `sys_users_roles` VALUES (2, 2);
 
 -- ----------------------------
+-- Table structure for t_order
+-- ----------------------------
+DROP TABLE IF EXISTS `t_order`;
+CREATE TABLE `t_order`  (
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '地区号（4位置） +  7（7位自增）+机器编号 如 1或者2或者3',
+  `order_source` tinyint(1) NULL DEFAULT NULL COMMENT '订单来源 0：pos 1：app',
+  `trade_way` tinyint(2) NULL DEFAULT NULL COMMENT '交易方式 1：额度交易 2：银行卡交易 3：余额交易',
+  `trade_type` tinyint(2) NULL DEFAULT NULL COMMENT '账单交易类型 1：即时，2：远期',
+  `state` tinyint(4) NULL DEFAULT 0 COMMENT '交易状态 0:待支付 1:交易成功 2:交易失败  (具体失败原因参考respCode)3:远期账单待确认（供应商确认） 4:远期账单待退款 7: 远期账单待结算（商户确认）',
+  `refund_state` tinyint(1) NULL DEFAULT 0 COMMENT '退款状态 0：无退款 1：退款成功 2：退款失败 3：发起退款 4：客服处理中',
+  `settle_st` tinyint(2) NULL DEFAULT NULL COMMENT '清算状态  -1: 等待清算  0:发起清算  1:清算成功  2:清算失败',
+  `apply_customer` tinyint(2) NULL DEFAULT 1 COMMENT '客服介入 1：无 2：响应中 3：已处理',
+  `mark_st` tinyint(2) NULL DEFAULT 0 COMMENT '操作类型 0:默认无需操作 1:强制平账 2:勾兑 3:退单 4：客服操作',
+  `check_st` tinyint(2) NULL DEFAULT 0 COMMENT '对账状态 0:未对账 1:对账成功(正常) 2:强制平账   3:短款(平台缺失) 4:长款(银行缺失) 5:交易状态不符 6:清算状态不符 7: 交易金额不符 8:清算金额不符',
+  `amount` decimal(11, 2) NULL DEFAULT NULL COMMENT '交易金额',
+  `amount_settle` decimal(11, 2) NULL DEFAULT NULL COMMENT '清算金额 ',
+  `resp_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '平台返回码',
+  `is_risk` tinyint(2) NULL DEFAULT 0 COMMENT '是否触发风控',
+  `card_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '支付账号',
+  `mer_operator_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '交易账号，商户操作员姓名',
+  `mer_no` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '平台商户号',
+  `mer_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商户名',
+  `app_mer_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'app商户操作员唯一ID',
+  `terminal_no` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '受理账号，APP是供应商手机号，POS是终端号',
+  `sup_operator_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '受理账号，供应商操作员姓名',
+  `sup_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '供应商号',
+  `sup_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '供应商名',
+  `app_sup_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'app供应商操作员唯一ID',
+  `mer_card` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商户交易卡号（银行卡交易时有该字段）',
+  `sup_card` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '供应商清算卡号',
+  `body` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '订单描述',
+  `error_msg` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '失败原因',
+  `bank_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '上送的银行',
+  `bank_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行名',
+  `bank_order_no` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '银行订单id',
+  `bank_order_st` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '银行订单状态  0：发起  1：成功 2：失败',
+  `bank_order_msg` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行订单返回描述',
+  `bank_order_settle_st` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行订单清算状态  0:发起  1: 成功  2: 失败',
+  `bank_resp_msg` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '银行订单清算描述',
+  `billing_doubt_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '账单疑义ID',
+  `contract_no` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '合同编号',
+  `propitiation_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '平台对账人员id',
+  `propitiation_time` datetime(0) NULL DEFAULT NULL COMMENT '平台对账人处理(退单等操作)时间',
+  `pay_time_start` datetime(0) NULL DEFAULT NULL COMMENT '支付开始时间(pos时间)',
+  `pay_time_end` datetime(0) NULL DEFAULT NULL COMMENT '支付结束时间(银行返回)',
+  `settle_time_start` datetime(0) NULL DEFAULT NULL COMMENT '清算开始时间',
+  `settle_time_end` datetime(0) NULL DEFAULT NULL COMMENT '清算完成时间(银行返回)',
+  `end_settle_time` datetime(0) NULL DEFAULT NULL COMMENT '远期账单，设定时间',
+  `finish_time` datetime(0) NULL DEFAULT NULL COMMENT '订单完成时间',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '订单创建事件-系统时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_create_time`(`create_time`) USING BTREE,
+  INDEX `idx_mer_no`(`mer_no`) USING BTREE,
+  INDEX `idx_sup_id`(`sup_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '今日订单' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_order
+-- ----------------------------
+INSERT INTO `t_order` VALUES ('1335554958778568704', 0, NULL, NULL, 0, 0, NULL, 1, 0, 0, 56.00, NULL, '', 0, '15680764567', NULL, '4301980876461234', '杭州小笼包', NULL, '', NULL, '', NULL, NULL, NULL, NULL, '进货面粉', '', '', NULL, '', '', NULL, NULL, '', NULL, NULL, '', NULL, '2020-12-06 20:01:30', '2020-12-06 20:02:30', NULL, NULL, NULL, '2020-12-06 20:02:30', '2020-12-06 00:00:00');
+
+-- ----------------------------
 -- Table structure for tool_alipay_config
 -- ----------------------------
 DROP TABLE IF EXISTS `tool_alipay_config`;
@@ -723,6 +833,10 @@ CREATE TABLE `tool_email_config`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '邮箱配置' ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Records of tool_email_config
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for tool_local_storage
 -- ----------------------------
 DROP TABLE IF EXISTS `tool_local_storage`;
@@ -742,6 +856,10 @@ CREATE TABLE `tool_local_storage`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '本地存储' ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Records of tool_local_storage
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for tool_qiniu_config
 -- ----------------------------
 DROP TABLE IF EXISTS `tool_qiniu_config`;
@@ -755,6 +873,10 @@ CREATE TABLE `tool_qiniu_config`  (
   `zone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '机房',
   PRIMARY KEY (`config_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '七牛云配置' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of tool_qiniu_config
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tool_qiniu_content
@@ -772,5 +894,9 @@ CREATE TABLE `tool_qiniu_content`  (
   PRIMARY KEY (`content_id`) USING BTREE,
   UNIQUE INDEX `uniq_name`(`name`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '七牛云文件存储' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of tool_qiniu_content
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
