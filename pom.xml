@@ -31,9 +31,9 @@
         <mybatis-plus-boot-starter.version>3.1.2</mybatis-plus-boot-starter.version>
         <spring-boot-starter-data-redis.version>2.4.0</spring-boot-starter-data-redis.version>
         <spring-boot-starter-aop.version>2.4.0</spring-boot-starter-aop.version>
-        <spring-boot-starter-amqp.version>2.1.6.RELEASE</spring-boot-starter-amqp.version>
-        <spring-boot-starter-mail.version>2.1.1.RELEASE</spring-boot-starter-mail.version>
+        <spring-boot-starter-amqp.version>2.1.5.RELEASE</spring-boot-starter-amqp.version>
         <spring-boot-starter-websocket.version>2.0.4.RELEASE</spring-boot-starter-websocket.version>
+        <spring-boot-starter-freemarker.version>2.1.5.RELEASE</spring-boot-starter-freemarker.version>
         <shiro-spring-boot-web-starter.version>1.4.1</shiro-spring-boot-web-starter.version>
         <shiro-redis-spring-boot-starter.version>3.2.1</shiro-redis-spring-boot-starter.version>
         <shiro-redis.version>3.2.3</shiro-redis.version>
@@ -53,6 +53,13 @@
     <dependencyManagement>
 
         <dependencies>
+            <!--模板引擎-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-freemarker</artifactId>
+                <version>${spring-boot-starter-freemarker.version}</version>
+            </dependency>
+            <!-- shiro -->
             <dependency>
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-spring-boot-web-starter</artifactId>
@@ -130,12 +137,6 @@
                 <groupId>javax.inject</groupId>
                 <artifactId>javax.inject</artifactId>
                 <version>1</version>
-            </dependency>
-            <!-- mail -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-mail</artifactId>
-                <version>${spring-boot-starter-mail.version}</version>
             </dependency>
             <!-- hutool -->
             <dependency>
