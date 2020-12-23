@@ -1,5 +1,7 @@
 package cn.tlh.admin.common.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Distance;
@@ -27,6 +29,8 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("all")
 public class RedisTemplateUtil {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(RedisTemplateUtil.class);
+
     @Autowired
     RedisTemplate redisTemplate;
     @Autowired
@@ -36,8 +40,14 @@ public class RedisTemplateUtil {
         return String.valueOf(redisTemplate.opsForValue().increment(k, 1L));
     }
 
-    public void set(String key, Object value) {
-        stringRedisTemplate.opsForValue().set(key, String.valueOf(value));
+    public boolean set(String key, Object value) {
+        try {
+            stringRedisTemplate.opsForValue().set(key, String.valueOf(value));
+            return true;
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            return false;
+        }
     }
 
     public Object get(String key) {
@@ -52,12 +62,46 @@ public class RedisTemplateUtil {
         stringRedisTemplate.opsForValue().set(key, String.valueOf(value), seconds, TimeUnit.SECONDS);
     }
 
-    public void expireMinutes(String key, int minutes) {
+    /**
+     * 给key设置过期时间 单位分钟
+     *
+     * @param key
+     * @param minutes
+     */
+    public void expireKeyMin(String key, int minutes) {
         stringRedisTemplate.expire(key, minutes, TimeUnit.MINUTES);
     }
 
-    public void expireSeconds(String key, int seconds) {
+    /**
+     * 给key设置过期时间 单位秒
+     *
+     * @param key
+     * @param seconds
+     */
+    public void expireKeySec(String key, int seconds) {
         stringRedisTemplate.expire(key, seconds, TimeUnit.SECONDS);
+    }
+
+    /**
+     * 普通缓存放入并设置时间
+     *
+     * @param key   键
+     * @param value 值
+     * @param time  时间(秒) time要大于0 如果time小于等于0 将设置无限期
+     * @return true成功 false 失败
+     */
+    public boolean setValueSec(String key, String value, int time) {
+        try {
+            if (time > 0) {
+                stringRedisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
+            } else {
+                set(key, value);
+            }
+            return true;
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            return false;
+        }
     }
 
     public Boolean setNX(byte[] key, byte[] value) {
