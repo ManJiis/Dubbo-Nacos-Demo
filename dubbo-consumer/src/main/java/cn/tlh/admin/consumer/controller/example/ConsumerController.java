@@ -2,7 +2,7 @@ package cn.tlh.admin.consumer.controller.example;
 
 import cn.tlh.admin.common.util.enums.BusinessMsgEnum;
 import cn.tlh.admin.common.base.vo.req.SayHelloVo;
-import cn.tlh.admin.common.base.vo.resp.BusinessResponse;
+import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.service.ProvideService;
 import io.swagger.annotations.Api;
 import org.apache.dubbo.config.annotation.Reference;

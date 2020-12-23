@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class RoleVo extends PageVo {
+public class RoleReqVo extends PageVo {
 
     private String name;
     private String description;

@@ -9,7 +9,7 @@ import cn.tlh.admin.common.base.mapstruct.UserMapper;
 import cn.tlh.admin.common.pojo.system.SysUser;
 import cn.tlh.admin.common.util.RsaUtils;
 import cn.tlh.admin.common.util.enums.CodeEnum;
-import cn.tlh.admin.common.base.vo.req.UserPassVo;
+import cn.tlh.admin.common.base.vo.req.UserPassReqVo;
 import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.service.aop.annotaion.Log;
 import cn.tlh.admin.service.system.RoleService;
@@ -123,7 +123,7 @@ public class UserController {
 
     @ApiOperation("修改密码")
     @PostMapping(value = "/updatePass")
-    public BusinessResponse updatePass(@RequestBody UserPassVo passVo) throws Exception {
+    public BusinessResponse updatePass(@RequestBody UserPassReqVo passVo) throws Exception {
         String oldPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, passVo.getOldPass());
         String newPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, passVo.getNewPass());
         // SecurityUtils.getCurrentUsername()

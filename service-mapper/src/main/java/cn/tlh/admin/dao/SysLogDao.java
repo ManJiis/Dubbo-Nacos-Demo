@@ -1,6 +1,6 @@
 package cn.tlh.admin.dao;
 
-import cn.tlh.admin.common.base.vo.req.LogVo;
+import cn.tlh.admin.common.base.vo.req.LogReqVo;
 import cn.tlh.admin.common.pojo.system.SysLog;
 import org.apache.ibatis.annotations.Param;
 
@@ -34,10 +34,10 @@ public interface SysLogDao {
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param logVo 实例对象
+     * @param logReqVo 实例对象
      * @return 对象列表
      */
-    List<SysLog> selectList(LogVo logVo);
+    List<SysLog> selectList(LogReqVo logReqVo);
 
     /**
      * 新增数据

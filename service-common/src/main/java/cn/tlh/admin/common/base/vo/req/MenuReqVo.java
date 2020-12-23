@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class MenuVo implements Serializable {
+public class MenuReqVo implements Serializable {
 
     private String name;
 
@@ -30,5 +30,5 @@ public class MenuVo implements Serializable {
 
     private MenuMetaVo meta;
 
-    private List<MenuVo> children;
+    private List<MenuReqVo> children;
 }

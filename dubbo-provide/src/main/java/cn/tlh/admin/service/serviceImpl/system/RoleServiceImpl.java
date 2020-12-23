@@ -3,7 +3,7 @@ package cn.tlh.admin.service.serviceImpl.system;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.tlh.admin.common.base.dto.RoleDto;
-import cn.tlh.admin.common.base.vo.req.RoleVo;
+import cn.tlh.admin.common.base.vo.req.RoleReqVo;
 import cn.tlh.admin.common.base.dto.RoleSmallDto;
 import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
 import cn.tlh.admin.common.exception.customexception.EntityExistException;
@@ -48,9 +48,9 @@ public class RoleServiceImpl implements RoleService {
     SysUserDao sysUserDao;
 
     @Override
-    public IPage<SysRole> selectList(RoleVo roleVo) {
-        Page<SysRole> page = new Page<>(roleVo.getCurrentPage(), roleVo.getPageSize());
-        return sysRoleDao.selectList(page, roleVo);
+    public IPage<SysRole> selectList(RoleReqVo roleReqVo) {
+        Page<SysRole> page = new Page<>(roleReqVo.getCurrentPage(), roleReqVo.getPageSize());
+        return sysRoleDao.selectList(page, roleReqVo);
     }
 
     @Override

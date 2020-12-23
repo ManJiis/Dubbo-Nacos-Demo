@@ -2,7 +2,7 @@ package cn.tlh.admin.consumer.controller.system;
 
 import cn.hutool.core.lang.Dict;
 import cn.tlh.admin.common.base.dto.RoleDto;
-import cn.tlh.admin.common.base.vo.req.RoleVo;
+import cn.tlh.admin.common.base.vo.req.RoleReqVo;
 import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
 import cn.tlh.admin.common.base.mapstruct.RoleMapper;
 import cn.tlh.admin.common.pojo.system.SysRole;
@@ -50,8 +50,8 @@ public class RoleController {
     @ApiOperation("导出角色数据")
     @GetMapping(value = "/download")
     // // @PreAuthorize("@el.check('SysRole:list')")
-    public void download(HttpServletResponse response, RoleVo roleVo) throws IOException {
-        List<SysRole> sysRoles = roleService.selectList(roleVo).getRecords();
+    public void download(HttpServletResponse response, RoleReqVo roleReqVo) throws IOException {
+        List<SysRole> sysRoles = roleService.selectList(roleReqVo).getRecords();
         List<RoleDto> roleDtoList = roleMapper.toDto(sysRoles);
         roleService.download(roleDtoList, response);
     }
@@ -59,8 +59,8 @@ public class RoleController {
     @ApiOperation("查询角色")
     @GetMapping
     // // @PreAuthorize("@el.check('roles:list')")
-    public BusinessResponse query(RoleVo roleVo) {
-        return BusinessResponse.ok(roleService.selectList(roleVo));
+    public BusinessResponse query(RoleReqVo roleReqVo) {
+        return BusinessResponse.ok(roleService.selectList(roleReqVo));
     }
 
     @ApiOperation("获取用户级别")

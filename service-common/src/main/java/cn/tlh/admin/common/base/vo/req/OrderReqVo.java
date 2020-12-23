@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class OrderVo implements Serializable {
+public class OrderReqVo implements Serializable {
     private static final long serialVersionUID = 550166862808902373L;
     /**
      * 地区号（4位置） +  7（7位自增）+机器编号 如 1或者2或者3

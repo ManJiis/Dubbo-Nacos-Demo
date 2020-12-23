@@ -3,8 +3,8 @@ package cn.tlh.admin.service.serviceImpl.example;
 import cn.tlh.admin.dao.OrderDao;
 import cn.tlh.admin.common.pojo.BrokerMessageLog;
 import cn.tlh.admin.common.pojo.Order;
-import cn.tlh.admin.common.base.vo.req.OrderPageVo;
-import cn.tlh.admin.common.base.vo.req.OrderVo;
+import cn.tlh.admin.common.base.vo.req.OrderReqPageVo;
+import cn.tlh.admin.common.base.vo.req.OrderReqVo;
 import cn.tlh.admin.dao.BrokerMessageLogDao;
 import cn.tlh.admin.service.OrderService;
 import cn.tlh.admin.service.mq.MqService;
@@ -44,15 +44,15 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Page<Order> queryList(OrderPageVo orderPageVo) {
-        Page<Order> orderPage = new Page<Order>(orderPageVo.getCurrentPage(), orderPageVo.getPageSize());
-        return orderDao.queryList(orderPage, orderPageVo);
+    public Page<Order> queryList(OrderReqPageVo orderReqPageVo) {
+        Page<Order> orderPage = new Page<Order>(orderReqPageVo.getCurrentPage(), orderReqPageVo.getPageSize());
+        return orderDao.queryList(orderPage, orderReqPageVo);
     }
 
     @Override
-    public String add(OrderVo orderVo) {
+    public String add(OrderReqVo orderReqVo) {
         Order order = new Order();
-        BeanUtils.copyProperties(orderVo, order);
+        BeanUtils.copyProperties(orderReqVo, order);
         // 新增数据
         orderDao.insert(order);
         //--------------------- 插入消息记录表数据 start ----------------------------//

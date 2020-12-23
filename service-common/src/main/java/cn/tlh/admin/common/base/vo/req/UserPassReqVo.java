@@ -9,7 +9,7 @@ import lombok.Data;
  * @date 2019年7月11日13:59:49
  */
 @Data
-public class UserPassVo {
+public class UserPassReqVo {
 
     private String oldPass;
 

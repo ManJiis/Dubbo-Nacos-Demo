@@ -1,6 +1,6 @@
 package cn.tlh.admin.dao;
 
-import cn.tlh.admin.common.base.vo.req.RoleVo;
+import cn.tlh.admin.common.base.vo.req.RoleReqVo;
 import cn.tlh.admin.common.pojo.system.SysRole;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -80,10 +80,10 @@ public interface SysRoleDao {
      * 通过实体作为筛选条件查询
      *
      * @param page 分页对象
-     * @param roleVo 实例对象
+     * @param roleReqVo 实例对象
      * @return 对象列表
      */
-    IPage<SysRole> selectList(Page<SysRole> page, RoleVo roleVo);
+    IPage<SysRole> selectList(Page<SysRole> page, RoleReqVo roleReqVo);
 
     /**
      * 新增数据

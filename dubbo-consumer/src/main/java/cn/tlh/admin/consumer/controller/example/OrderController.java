@@ -2,9 +2,9 @@ package cn.tlh.admin.consumer.controller.example;
 
 import cn.tlh.admin.common.pojo.Order;
 import cn.tlh.admin.common.util.SnowFlakeUtil;
-import cn.tlh.admin.common.base.vo.req.OrderPageVo;
-import cn.tlh.admin.common.base.vo.req.OrderVo;
-import cn.tlh.admin.common.base.vo.resp.BusinessResponse;
+import cn.tlh.admin.common.base.vo.req.OrderReqPageVo;
+import cn.tlh.admin.common.base.vo.req.OrderReqVo;
+import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.service.OrderService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
@@ -42,14 +42,14 @@ public class OrderController {
     }
 
     @GetMapping("list")
-    public BusinessResponse selectList(OrderPageVo orderPageVo) {
-        IPage<Order> orderIPage = this.orderService.queryList(orderPageVo);
-        return BusinessResponse.ok(orderIPage);
+    public BusinessResponse selectList(OrderReqPageVo orderReqPageVo) {
+        IPage<Order> orderPage = this.orderService.queryList(orderReqPageVo);
+        return BusinessResponse.ok(orderPage);
     }
 
     @GetMapping("add")
     public BusinessResponse add() {
-        OrderVo vo = new OrderVo();
+        OrderReqVo vo = new OrderReqVo();
         vo.setId(SnowFlakeUtil.createSnowflakeId().toString());
         vo.setOrderSource(0);
         // 交易状态 0:待支付 1:交易成功 2:交易失败

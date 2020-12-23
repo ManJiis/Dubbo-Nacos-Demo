@@ -1,7 +1,7 @@
 package cn.tlh.admin.dao;
 
 import cn.tlh.admin.common.pojo.Order;
-import cn.tlh.admin.common.base.vo.req.OrderPageVo;
+import cn.tlh.admin.common.base.vo.req.OrderReqPageVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
@@ -17,7 +17,7 @@ public interface OrderDao extends BaseMapper<Order> {
 
     Order queryById(String id);
 
-    Page<Order> queryList(Page<Order> page, @Param("opv") OrderPageVo orderPageVo);
+    Page<Order> queryList(Page<Order> page, @Param("opv") OrderReqPageVo orderReqPageVo);
 
     String findMaxId();
 }

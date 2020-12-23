@@ -1,6 +1,6 @@
 package cn.tlh.admin.consumer.controller.system;
 
-import cn.tlh.admin.common.base.vo.req.LogVo;
+import cn.tlh.admin.common.base.vo.req.LogReqVo;
 import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.service.aop.annotaion.Log;
 import cn.tlh.admin.service.system.LogService;
@@ -28,8 +28,8 @@ public class LogController {
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
     // @PreAuthorize("@el.check()")
-    public void download(HttpServletResponse response, LogVo logVo) throws IOException {
-        logVo.setLogType("INFO");
+    public void download(HttpServletResponse response, LogReqVo logReqVo) throws IOException {
+        logReqVo.setLogType("INFO");
 //        logService.download(logService.selectList(logReq), response);
     }
 
@@ -37,26 +37,26 @@ public class LogController {
     @ApiOperation("导出错误数据")
     @GetMapping(value = "/error/download")
     // @PreAuthorize("@el.check()")
-    public void downloadErrorLog(HttpServletResponse response, LogVo logVo) throws IOException {
-        logVo.setLogType("ERROR");
-        logService.download(logService.selectList(logVo), response);
+    public void downloadErrorLog(HttpServletResponse response, LogReqVo logReqVo) throws IOException {
+        logReqVo.setLogType("ERROR");
+        logService.download(logService.selectList(logReqVo), response);
     }
 
     @GetMapping
     @ApiOperation("日志查询")
     // @PreAuthorize("@el.check()")
-    public BusinessResponse query(LogVo logVo) {
-        logVo.setLogType("INFO");
-        return BusinessResponse.ok(logService.selectList(logVo));
+    public BusinessResponse query(LogReqVo logReqVo) {
+        logReqVo.setLogType("INFO");
+        return BusinessResponse.ok(logService.selectList(logReqVo));
     }
 
     @GetMapping(value = "/user")
     @ApiOperation("用户日志查询")
-    public BusinessResponse queryUserLog(LogVo logVo) {
-        logVo.setLogType("INFO");
+    public BusinessResponse queryUserLog(LogReqVo logReqVo) {
+        logReqVo.setLogType("INFO");
 //        String currentUsername = SecurityUtils.getCurrentUsername();
-        logVo.setUsername("currentUsername");
-        return BusinessResponse.ok(logService.queryAllByUser(logVo));
+        logReqVo.setUsername("currentUsername");
+        return BusinessResponse.ok(logService.queryAllByUser(logReqVo));
     }
 
     @GetMapping(value = "/error/{id}")
