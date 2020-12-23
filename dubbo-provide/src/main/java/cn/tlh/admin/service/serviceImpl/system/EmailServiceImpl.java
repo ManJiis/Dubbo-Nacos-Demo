@@ -4,8 +4,8 @@ import cn.hutool.extra.mail.Mail;
 import cn.hutool.extra.mail.MailAccount;
 import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
 import cn.tlh.admin.common.pojo.system.EmailConfig;
-//import cn.tlh.common.utils.EncryptUtils;
 import cn.tlh.admin.common.base.vo.req.EmailVo;
+import cn.tlh.admin.common.util.EncryptUtils;
 import cn.tlh.admin.dao.EmailConfigDao;
 import cn.tlh.admin.service.system.EmailService;
 import org.apache.dubbo.config.annotation.Service;
@@ -21,39 +21,34 @@ import java.util.Optional;
  */
 @Service(version = "${service.version}")
 @Component
-//// @RequiredArgsConstructor
-//@CacheConfig(cacheNames = "email")
+// @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
     @Autowired(required = false)
     EmailConfigDao emailConfigDao;
 
     @Override
-//    @CachePut(key = "'config'")
     @Transactional(rollbackFor = Exception.class)
     public EmailConfig config(EmailConfig emailConfig, EmailConfig old) throws Exception {
         emailConfig.setId(1L);
         if (!emailConfig.getPass().equals(old.getPass())) {
             // 对称加密
-//            emailConfig.setPass(EncryptUtils.desEncrypt(emailConfig.getPass()));
+            emailConfig.setPass(EncryptUtils.desEncrypt(emailConfig.getPass()));
             emailConfig.setPass(emailConfig.getPass());
         }
         return emailConfigDao.insert(emailConfig);
     }
 
     @Override
-    // @Cacheable(key = "'config'")
     public EmailConfig find() {
-        EmailConfig config = emailConfigDao.queryById(1L);
-        Optional<EmailConfig> emailConfig = Optional.of(config);
-        return emailConfig.orElseGet(EmailConfig::new);
+        return emailConfigDao.queryById(1L);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void send(EmailVo emailVo, EmailConfig emailConfig) {
         if (emailConfig.getId() == null) {
-            throw new BusinessErrorException("请先配置，再操作");
+            throw new BusinessErrorException("请先预配置邮箱信息，再操作");
         }
         // 封装
         MailAccount account = new MailAccount();
@@ -63,8 +58,8 @@ public class EmailServiceImpl implements EmailService {
         account.setAuth(true);
         try {
             // 对称解密
-//            account.setPass(EncryptUtils.desDecrypt(emailConfig.getPass()));
-            account.setPass(emailConfig.getPass());
+            String decryptPass = EncryptUtils.desDecrypt(emailConfig.getPass());
+            account.setPass(decryptPass);
         } catch (Exception e) {
             throw new BusinessErrorException(e.getMessage());
         }

@@ -1,6 +1,11 @@
 service:
   version: 1.0
 spring:
+  # 开启aop
+  aop:
+    auto: true
+  freemarker:
+    check-template-location: false #检查模板路径是否存在
   application:
     name: dubbo-consumer
   datasource:
@@ -9,9 +14,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
-  # 开启aop
-  aop:
-    auto: true
   # redis相关配置
   redis:
     database: 0

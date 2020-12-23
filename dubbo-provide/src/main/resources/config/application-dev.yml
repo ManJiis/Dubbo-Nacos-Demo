@@ -5,6 +5,8 @@ spring:
   # 开启aop
   aop:
     auto: true
+  freemarker:
+    check-template-location: false #检查模板路径是否存在
   application:
     name: dubbo-provide
   datasource:
@@ -12,7 +14,7 @@ spring:
     #    driver-class-name: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root@123
+    password: root
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       #自动提交
@@ -72,22 +74,6 @@ spring:
     publisher-confirms: true
     # 开启发送失败退回
     publisher-returns: true
-  # 邮箱配置
-  mail:
-    #平台地址，这里用的是qq邮箱，使用其他邮箱请更换
-    host: smtp.qq.com
-    #改成自己的邮箱
-    username: im.linghan@qq.com
-    #发送短信后它给你的授权码 填写到这里
-    password: qbjgufsasskjeihg
-    #这东西不用改
-    properties:
-      mail:
-        smtp:
-          ssl:
-            enable: true
-    ##编码格式
-    default-encoding: UTF-8
 # mybatis-plus
 mybatis-plus:
   #多个package用逗号或者分号分隔
@@ -121,7 +107,8 @@ dubbo:
   #    loadbalance: roundrobin  # 负载均衡算法 , 缺省是随机 random。还可以配置轮询 roundrobin、最不活跃优先 4 leastactive 和一致性哈希 consistenthash 等
   protocol:
     # 随机端口
-    port: 20082
+    port: 20083
+#    port: 20084
     name: dubbo
 
 
@@ -154,3 +141,7 @@ file:
 #密码加密传输，前端公钥加密，后端私钥解密
 rsa:
   private_key: MIIBUwIBADANBgkqhkiG9w0BAQEFAASCAT0wggE5AgEAAkEA0vfvyTdGJkdbHkB8mp0f3FE0GYP3AYPaJF7jUd1M0XxFSE2ceK3k2kw20YvQ09NJKk+OMjWQl9WitG9pB6tSCQIDAQABAkA2SimBrWC2/wvauBuYqjCFwLvYiRYqZKThUS3MZlebXJiLB+Ue/gUifAAKIg1avttUZsHBHrop4qfJCwAI0+YRAiEA+W3NK/RaXtnRqmoUUkb59zsZUBLpvZgQPfj1MhyHDz0CIQDYhsAhPJ3mgS64NbUZmGWuuNKp5coY2GIj/zYDMJp6vQIgUueLFXv/eZ1ekgz2Oi67MNCk5jeTF2BurZqNLR3MSmUCIFT3Q6uHMtsB9Eha4u7hS31tj1UWE+D+ADzp59MGnoftAiBeHT7gDMuqeJHPL4b+kC+gzV4FGTfhR9q3tTbklZkD2A==
+
+#邮箱验证码有效时间/秒
+code:
+  expiration: 300
