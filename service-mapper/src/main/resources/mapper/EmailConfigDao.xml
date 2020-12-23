@@ -3,12 +3,12 @@
 <mapper namespace="cn.tlh.admin.dao.EmailConfigDao">
 
     <resultMap type="cn.tlh.admin.common.pojo.system.EmailConfig" id="SysEmailMap">
-        <result property="id" column="user_id" jdbcType="INTEGER"/>
-        <result property="host" column="username" jdbcType="VARCHAR"/>
-        <result property="port" column="nick_name" jdbcType="VARCHAR"/>
-        <result property="user" column="gender" jdbcType="VARCHAR"/>
-        <result property="pass" column="phone" jdbcType="VARCHAR"/>
-        <result property="fromUser" column="email" jdbcType="VARCHAR"/>
+        <result property="id" column="config_id" jdbcType="INTEGER"/>
+        <result property="host" column="host" jdbcType="VARCHAR"/>
+        <result property="port" column="port" jdbcType="VARCHAR"/>
+        <result property="user" column="user" jdbcType="VARCHAR"/>
+        <result property="pass" column="pass" jdbcType="VARCHAR"/>
+        <result property="fromUser" column="from_user" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="insert">
@@ -16,8 +16,8 @@
         VALUES (#{id}, #{host}, #{port}, #{user}, #{pass}, #{fromUser});
     </insert>
 
-    <select id="queryById" resultType="cn.tlh.admin.common.pojo.system.EmailConfig">
-        select  * from `sdnd`.`tool_email_config` where config_id =#{id}
+    <select id="queryById" resultMap="SysEmailMap">
+        select * from `sdnd`.`tool_email_config` where config_id =#{id}
     </select>
 
 
