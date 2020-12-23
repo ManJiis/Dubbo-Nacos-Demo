@@ -6,25 +6,24 @@ import cn.tlh.admin.common.base.vo.req.EmailVo;
 import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.service.system.EmailService;
 import cn.tlh.admin.service.system.VerifyService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Email;
 import java.util.Objects;
 
 /**
  * @author TANG
  * @date 2020-12-26
  */
-@RestController
-//// @RequiredArgsConstructor
-@RequestMapping("/api/code")
 @Api(tags = "系统：验证码管理")
+@RestController
+@RequestMapping("/api/code")
+@Validated
 public class VerifyController {
 
-    //    private final VerifyService verificationCodeService;
-//    private final EmailService emailService;
     @Reference(version = "${service.version}", check = false)
     VerifyService verificationCodeService;
     @Reference(version = "${service.version}", check = false)
@@ -40,7 +39,7 @@ public class VerifyController {
 
     @PostMapping(value = "/email/resetPass")
     @ApiOperation("重置密码，发送验证码")
-    public BusinessResponse resetPass(@RequestParam String email) {
+    public BusinessResponse resetPass(@ApiParam() @RequestParam String email) {
         EmailVo emailVo = verificationCodeService.sendEmail(email, CodeEnum.EMAIL_RESET_PWD_CODE.getKey());
         emailService.send(emailVo, emailService.find());
         return BusinessResponse.ok();
@@ -48,12 +47,19 @@ public class VerifyController {
 
     @GetMapping(value = "/validated")
     @ApiOperation("验证码验证")
-    public BusinessResponse validated(@RequestParam String email, @RequestParam String code, @RequestParam Integer codeBi) {
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "邮箱", name = "email"),
+            @ApiImplicitParam(value = "验证码", name = "code"),
+            @ApiImplicitParam(value = "修改类型(1:旧邮箱修改邮箱 2:通过邮箱修改密码)", name = "codeBi")
+    })
+    public BusinessResponse validated(@RequestParam @Email String email, @RequestParam String code, @RequestParam Integer codeBi) {
         CodeBiEnum biEnum = CodeBiEnum.find(codeBi);
         switch (Objects.requireNonNull(biEnum)) {
+            // 旧邮箱修改邮箱
             case ONE:
                 verificationCodeService.validated(CodeEnum.EMAIL_RESET_EMAIL_CODE.getKey() + email, code);
                 break;
+            // 通过邮箱修改密码
             case TWO:
                 verificationCodeService.validated(CodeEnum.EMAIL_RESET_PWD_CODE.getKey() + email, code);
                 break;

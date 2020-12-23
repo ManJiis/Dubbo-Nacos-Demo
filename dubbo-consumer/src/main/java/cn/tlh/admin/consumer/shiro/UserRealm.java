@@ -95,8 +95,8 @@ public class UserRealm extends AuthorizingRealm implements Authorizer {
         if (user.getEnabled() == AdminConstants.SYS_USER_STATUS_PROHIBIT) {
             throw new LockedAccountException();
         }
-//        ByteSource byteSource = ByteSource.Util.bytes(user.getSalt());
-        ByteSource byteSource = ByteSource.Util.bytes("RGrgG00X1E0tUxJKhE5y");
+        ByteSource byteSource = ByteSource.Util.bytes(user.getSalt());
+//        ByteSource byteSource = ByteSource.Util.bytes("RGrgG00X1E0tUxJKhE5y");
         return new SimpleAuthenticationInfo(user, user.getPassword(), byteSource, getName());
     }
 
