@@ -88,5 +88,13 @@ public class EncryptUtils {
         }
         return b2;
     }
+
+    public static void main(String[] args) throws Exception {
+        String s = desEncrypt("okssiendqyoobfcb");
+        System.out.println("s = " + s);
+        System.out.println("desDecrypt(s) = " + desDecrypt(s));
+        String enPass = "11F2DE5176D49691F9EE948AB7C56E52FE9E07F8F2A5F02B";
+        System.out.println("desDecrypt(enPass) = " + desDecrypt(enPass));
+    }
 }
 
