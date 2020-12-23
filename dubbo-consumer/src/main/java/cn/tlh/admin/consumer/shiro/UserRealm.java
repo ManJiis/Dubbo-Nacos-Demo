@@ -103,9 +103,9 @@ public class UserRealm extends AuthorizingRealm implements Authorizer {
     @Override
     public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
         HashedCredentialsMatcher shaCredentialsMatcher = new HashedCredentialsMatcher();
-        // 算法
+        // 散列算法
         shaCredentialsMatcher.setHashAlgorithmName(ShiroUtils.hashAlgorithmName);
-        // 加密次数
+        // 散列次数
         shaCredentialsMatcher.setHashIterations(ShiroUtils.hashIterations);
         super.setCredentialsMatcher(shaCredentialsMatcher);
     }
