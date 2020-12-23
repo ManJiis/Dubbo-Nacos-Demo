@@ -18,7 +18,7 @@ class DemoApplicationTests {
     void contextLoads() {
     }
 
-   static  AtomicInteger incId = new AtomicInteger(100);
+    static AtomicInteger incId = new AtomicInteger(100);
 
     @Test
     void threadTest() throws InterruptedException {
@@ -73,5 +73,24 @@ class DemoApplicationTests {
         if (list.size() == set.size()) {
             System.out.println("并未生成重复uid");
         }
+    }
+
+    @Test
+    public void setAddAll() {
+        List<List<String>> lists = new ArrayList<>();
+        List<String> list1 = new ArrayList<>();
+        List<String> list2 = new ArrayList<>();
+        list1.add("1");
+        list1.add("2");
+        list2.add("1");
+        list2.add("1");
+        list2.add("3");
+        lists.add(list1);
+        lists.add(list2);
+        Set<String> set = new HashSet<>();
+        for (List<String> list : lists) {
+            set.addAll(list);
+        }
+        System.out.println("set = " + set);
     }
 }
