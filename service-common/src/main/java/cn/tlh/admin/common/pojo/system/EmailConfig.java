@@ -22,7 +22,7 @@ public class EmailConfig implements Serializable {
 
     // @Id
     // @Column(name = "config_id")
-    @ApiModelProperty(value = "ID", hidden = true)
+    @ApiModelProperty(value = "ID")
     private Long id;
 
     @ApiModelProperty(value = "邮件服务器SMTP地址")
