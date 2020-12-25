@@ -1,6 +1,6 @@
 package cn.tlh.admin.service.system;
 
-import cn.tlh.admin.common.base.dto.LogReq;
+import cn.tlh.admin.common.base.vo.req.LogReqVo;
 import cn.tlh.admin.common.pojo.system.SysLog;
 import org.springframework.scheduling.annotation.Async;
 
@@ -17,17 +17,17 @@ public interface LogService {
 
     /**
      * 条件分页查询
-     * @param logReq 查询条件
+     * @param logReqVo 查询条件
      * @return /
      */
-    List<SysLog> selectList(LogReq logReq);
+    List<SysLog> selectList(LogReqVo logReqVo);
 
     /**
      * 查询用户日志
-     * @param logReq 查询条件
+     * @param logReqVo 查询条件
      * @return -
      */
-    Object queryAllByUser(LogReq logReq);
+    Object queryAllByUser(LogReqVo logReqVo);
 
     /**
      * 保存日志数据

@@ -1,7 +1,7 @@
 package cn.tlh.admin.service;
 
-import cn.tlh.admin.common.base.vo.req.OrderPageVo;
-import cn.tlh.admin.common.base.vo.req.OrderVo;
+import cn.tlh.admin.common.base.vo.req.OrderReqPageVo;
+import cn.tlh.admin.common.base.vo.req.OrderReqVo;
 import cn.tlh.admin.common.pojo.Order;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
@@ -15,8 +15,8 @@ public interface OrderService {
 
     Order queryById(String id);
 
-    Page<Order> queryList(OrderPageVo orderPageVo);
+    Page<Order> queryList(OrderReqPageVo orderReqPageVo);
 
 
-    String add(OrderVo orderVo);
+    String add(OrderReqVo orderReqVo);
 }

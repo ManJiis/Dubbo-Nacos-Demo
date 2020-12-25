@@ -2,7 +2,7 @@
 package cn.tlh.admin.service.system;
 
 import cn.tlh.admin.common.base.dto.UserDto;
-import cn.tlh.admin.common.base.dto.UserReq;
+import cn.tlh.admin.common.base.vo.req.User2Vo;
 import cn.tlh.admin.common.pojo.system.SysUser;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.web.multipart.MultipartFile;
@@ -82,10 +82,10 @@ public interface UserService {
 
     /**
      * 分页查询
-     * @param userReq 条件
+     * @param user2Vo 条件
      * @return /
      */
-    Page<SysUser> selectList(UserReq userReq);
+    Page<SysUser> selectList(User2Vo user2Vo);
 
     /**
      * 导出数据

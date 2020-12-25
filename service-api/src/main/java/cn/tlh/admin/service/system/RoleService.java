@@ -1,11 +1,10 @@
 package cn.tlh.admin.service.system;
 
 import cn.tlh.admin.common.base.dto.RoleDto;
-import cn.tlh.admin.common.base.dto.RoleReq;
+import cn.tlh.admin.common.base.vo.req.RoleReqVo;
 import cn.tlh.admin.common.base.dto.RoleSmallDto;
 import cn.tlh.admin.common.pojo.system.SysRole;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-//import org.springframework.security.core.GrantedAuthority;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -17,7 +16,6 @@ import java.util.Set;
  * @date 2020-12-03
  */
 public interface RoleService {
-
 
     /**
      * 根据ID查询
@@ -83,10 +81,10 @@ public interface RoleService {
     /**
      * 查询全部
      *
-     * @param roleReq 条件
+     * @param roleReqVo 条件
      * @return /
      */
-    IPage<SysRole> selectList(RoleReq roleReq);
+    IPage<SysRole> selectList(RoleReqVo roleReqVo);
 
     /**
      * 导出数据
