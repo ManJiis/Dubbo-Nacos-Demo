@@ -1,16 +1,16 @@
 package cn.tlh.admin.consumer.controller.system;
 
-import cn.tlh.admin.common.util.RsaProperties;
 import cn.tlh.admin.common.base.dto.RoleSmallDto;
 import cn.tlh.admin.common.base.dto.UserDto;
-import cn.tlh.admin.common.base.vo.req.User2Vo;
-import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
 import cn.tlh.admin.common.base.mapstruct.UserMapper;
-import cn.tlh.admin.common.pojo.system.SysUser;
-import cn.tlh.admin.common.util.RsaUtils;
-import cn.tlh.admin.common.util.enums.CodeEnum;
-import cn.tlh.admin.common.base.vo.req.UserPassReqVo;
 import cn.tlh.admin.common.base.vo.BusinessResponse;
+import cn.tlh.admin.common.base.vo.req.User2Vo;
+import cn.tlh.admin.common.base.vo.req.UserPassReqVo;
+import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
+import cn.tlh.admin.common.pojo.system.SysUser;
+import cn.tlh.admin.common.util.*;
+import cn.tlh.admin.common.util.enums.CodeEnum;
+import cn.tlh.admin.consumer.shiro.ShiroUtils;
 import cn.tlh.admin.service.aop.annotaion.Log;
 import cn.tlh.admin.service.system.RoleService;
 import cn.tlh.admin.service.system.UserService;
@@ -18,7 +18,6 @@ import cn.tlh.admin.service.system.VerifyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.Reference;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +29,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+//import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author TANG
@@ -72,9 +73,15 @@ public class UserController {
     @PostMapping
     // // @PreAuthorize("@el.check('SysUser:add')")
     public BusinessResponse create(@Validated @RequestBody SysUser resources) {
-        checkLevel(resources);
-        // 默认密码 123456
-//        resources.setPassword(passwordEncoder.encode("123456"));
+//        checkLevel(resources);
+        String generateSalt = EncryptUtils.generateSalt();
+        if (StringUtils.isBlank(resources.getPassword())) {
+            // 默认密码 123456
+            resources.setPassword(ShiroUtils.sha256(AdminConstants.DEFAULT_PASSWORD, generateSalt));
+        } else {
+            resources.setPassword(ShiroUtils.sha256(resources.getPassword(), generateSalt));
+        }
+        resources.setSalt(generateSalt);
         userService.create(resources);
         return BusinessResponse.ok();
     }
@@ -84,7 +91,7 @@ public class UserController {
     @PutMapping
     // // @PreAuthorize("@el.check('SysUser:edit')")
     public BusinessResponse update(@Validated @RequestBody SysUser resources) {
-        checkLevel(resources);
+//        checkLevel(resources);
         userService.update(resources);
         return BusinessResponse.ok();
     }
@@ -93,8 +100,8 @@ public class UserController {
     @ApiOperation("修改用户：个人中心")
     @PutMapping(value = "center")
     public BusinessResponse center(@Validated @RequestBody SysUser resources) {
-        // SecurityUtils.getCurrentUserId()
-        if (!resources.getUserId().equals("currentUserId")) {
+        Long userId = ShiroUtils.getUserId();
+        if (!resources.getUserId().equals(userId)) {
             throw new BusinessErrorException("不能修改他人资料");
         }
         userService.updateCenter(resources);
