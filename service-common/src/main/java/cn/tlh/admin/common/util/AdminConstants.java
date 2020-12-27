@@ -10,9 +10,9 @@ public class AdminConstants {
     /**
      * 验证码类型
      */
-    private static final String CALCULATE = "calculate";
-    private static final String SMS = "sms";
-    private static final String DYNAMIC = "dynamic";
+    public static final String CALCULATE = "calculate";
+    public static final String SMS = "sms";
+    public static final String DYNAMIC = "dynamic";
 
     /**
      * 超级管理员ID
