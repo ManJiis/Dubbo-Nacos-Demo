@@ -1,7 +1,6 @@
-package cn.tlh.test.postconstruct;
+package cn.tlh.admin.consumer.test.postconstruct;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 

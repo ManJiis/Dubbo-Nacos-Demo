@@ -1,4 +1,4 @@
-package cn.tlh.test.postconstruct;
+package cn.tlh.admin.consumer.test.postconstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
