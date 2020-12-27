@@ -62,6 +62,10 @@ public class RedisTemplateUtil {
         stringRedisTemplate.opsForValue().set(key, String.valueOf(value), seconds, TimeUnit.SECONDS);
     }
 
+    public void set2Minutes(String key, Object value, int minutes) {
+        stringRedisTemplate.opsForValue().set(key, String.valueOf(value), minutes, TimeUnit.MINUTES);
+    }
+
     /**
      * 给key设置过期时间 单位分钟
      *
