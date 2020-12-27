@@ -24,9 +24,7 @@ import java.util.Objects;
 @Table(name = "sys_user")
 public class SysUser implements Serializable {
     private static final long serialVersionUID = 649715419116774602L;
-    /**
-     * ID
-     */
+
     // @Id
     // @Column(name = "user_id")
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,86 +35,57 @@ public class SysUser implements Serializable {
      * 部门名称
      */
     private Long deptId;
-    /**
-     * 用户名
-     */
+
     @ApiModelProperty(value = "用户名称")
     private String username;
-    /**
-     * 昵称
-     */
+
     @ApiModelProperty(value = "用户昵称")
     private String nickName;
-    /**
-     * 性别
-     */
+
     @ApiModelProperty(value = "用户性别")
     private String gender;
-    /**
-     * 手机号码
-     */
+
     @ApiModelProperty(value = "电话号码")
     private String phone;
-    /**
-     * 邮箱
-     */
+
     @ApiModelProperty(value = "邮箱")
     private String email;
-    /**
-     * 头像地址
-     */
-    @ApiModelProperty(value = "头像存储的路径", hidden = true)
-    private String avatarName;
-    /**
-     * 头像真实路径
-     */
+
     @ApiModelProperty(value = "头像真实名称", hidden = true)
+    private String avatarName;
+
+    @ApiModelProperty(value = "头像真实路径", hidden = true)
     private String avatarPath;
-    /**
-     * 密码
-     */
+
     @ApiModelProperty(value = "密码")
     private String password;
-    /**
-     * 是否为admin账号
-     */
+
     @ApiModelProperty(value = "是否为admin账号", hidden = true)
     private Boolean isAdmin;
-    /**
-     * 状态：1启用、0禁用
-     */
-    @ApiModelProperty(value = "是否启用")
+
+    @ApiModelProperty(value = "是否启用 1启用、0禁用")
     private Integer enabled;
 
+    @ApiModelProperty(value = "盐", hidden = true)
     private String salt;
-    /**
-     * 创建者
-     */
+
     @ApiModelProperty(value = "创建人", hidden = true)
     private String createBy;
-    /**
-     * 更新着
-     */
+
     @ApiModelProperty(value = "更新人", hidden = true)
     private String updateBy;
-    /**
-     * 修改密码的时间
-     */
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     // @Column(name = "pwd_reset_time")
     @ApiModelProperty(value = "最后修改密码的时间", hidden = true)
     private LocalDateTime pwdResetTime;
-    /**
-     * 创建日期
-     */
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "创建时间", hidden = true)
     private LocalDateTime createTime;
-    /**
-     * 更新时间
-     */
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "更新时间", hidden = true)
