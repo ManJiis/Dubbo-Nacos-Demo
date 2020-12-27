@@ -18,6 +18,11 @@ public class AdminConstants {
      * 超级管理员ID
      */
     public static final String[] ADMINS = new String[]{"0755-0001", "0755-0002"};
+    /**
+     * 账号默认密码
+     */
+    public static final String DEFAULT_PASSWORD = "123456";
+
 
     /**
      * 用户状态  0：禁用   1：正常  3:冻结
