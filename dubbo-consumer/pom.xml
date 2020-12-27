@@ -16,6 +16,11 @@
     </properties>
 
     <dependencies>
+        <!-- Java图形验证码 -->
+        <dependency>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+        </dependency>
         <!--模板引擎-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
