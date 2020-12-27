@@ -8,6 +8,15 @@ package cn.tlh.admin.common.util;
 public class RedisCacheKey {
 
     /**
+     * 计算验证码
+     * 短信验证码
+     * 动态码(二次验证码)
+     */
+    public static final String CALCULATE_VERIFICATION_CODE = "verification_code:calculate:%s";
+    public static final String SMS_VERIFICATION_CODE = "verification_code:sms:%s";
+    public static final String DYNAMIC_VERIFICATION_CODE = "verification_code:dynamic:%s";
+
+    /**
      * 内置 用户、岗位、应用、菜单、角色 相关key
      */
     public static final String USER_MODIFY_TIME_KEY = "user:modify:time:key:";
