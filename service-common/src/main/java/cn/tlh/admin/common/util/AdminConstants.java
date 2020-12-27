@@ -7,6 +7,7 @@ package cn.tlh.admin.common.util;
  */
 public class AdminConstants {
 
+
     /**
      * 超级管理员ID
      */
@@ -20,19 +21,13 @@ public class AdminConstants {
     public static final int SYS_USER_STATUS_FROZEN = 2;
 
     /**
-     * 发送中
+     * 发送状态： 0 发送中 1 成功 -1 失败
+     *
      */
     public static final String ORDER_SENDING = "0";
-
-    /**
-     * 成功
-     */
     public static final String ORDER_SEND_SUCCESS = "1";
-
-    /**
-     * 失败
-     */
     public static final String ORDER_SEND_FAILURE = "-1";
+
     /**
      * 分钟超时单位：min
      */
