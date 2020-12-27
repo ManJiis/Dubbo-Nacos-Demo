@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class User2Vo extends PageVo implements Serializable {
+public class UserVo extends PageVo implements Serializable {
 
     private Long id;
     private String email;

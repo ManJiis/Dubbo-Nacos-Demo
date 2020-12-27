@@ -5,7 +5,7 @@ package cn.tlh.admin.service.serviceImpl.system;
 
 import cn.tlh.admin.common.base.dto.RoleSmallDto;
 import cn.tlh.admin.common.base.dto.UserDto;
-import cn.tlh.admin.common.base.vo.req.User2Vo;
+import cn.tlh.admin.common.base.vo.req.UserVo;
 import cn.tlh.admin.common.exception.customexception.EntityExistException;
 import cn.tlh.admin.common.exception.customexception.EntityNotFoundException;
 import cn.tlh.admin.common.pojo.system.SysUser;
@@ -34,7 +34,6 @@ import java.util.stream.Collectors;
 @Service(version = "${service.version}")
 @Component
 // @RequiredArgsConstructor
-//@CacheConfig(cacheNames = "SysUser")
 public class UserServiceImpl implements UserService {
 //    @Autowired
 //    FileProperties properties;
@@ -58,15 +57,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<SysUser> selectList(User2Vo user2Vo) {
-        Page<SysUser> page = new Page<>(user2Vo.getCurrentPage(), user2Vo.getPageSize());
+    public Page<SysUser> selectList(UserVo userVo) {
+        Page<SysUser> page = new Page<>(userVo.getCurrentPage(), userVo.getPageSize());
         System.out.println("page.getTotal() = " + page.getTotal());
         System.out.println("page.getPages() = " + page.getPages());
-        return sysUserDao.selectList(page, user2Vo);
+        return sysUserDao.selectList(page, userVo);
     }
 
     @Override
-    // @Cacheable(key = "'id:' + #p0")
     @Transactional(rollbackFor = Exception.class)
     public SysUser findById(long id) {
         return sysUserDao.queryById(id);
@@ -158,7 +156,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    // @Cacheable(key = "'username:' + #p0")
     public SysUser findByName(String userName) {
         SysUser SysUser = sysUserDao.findByUsername(userName);
         if (SysUser == null) {

@@ -4,8 +4,8 @@ import cn.tlh.admin.common.base.dto.RoleSmallDto;
 import cn.tlh.admin.common.base.dto.UserDto;
 import cn.tlh.admin.common.base.mapstruct.UserMapper;
 import cn.tlh.admin.common.base.vo.BusinessResponse;
-import cn.tlh.admin.common.base.vo.req.User2Vo;
 import cn.tlh.admin.common.base.vo.req.UserPassReqVo;
+import cn.tlh.admin.common.base.vo.req.UserVo;
 import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
 import cn.tlh.admin.common.pojo.system.SysUser;
 import cn.tlh.admin.common.util.*;
@@ -55,15 +55,15 @@ public class UserController {
     @ApiOperation("查询用户")
     @GetMapping
     // // @PreAuthorize("@el.check('SysUser:list')")
-    public BusinessResponse query(User2Vo user2Vo) {
-        return BusinessResponse.ok(userService.selectList(user2Vo));
+    public BusinessResponse query(UserVo userVo) {
+        return BusinessResponse.ok(userService.selectList(userVo));
     }
 
     @ApiOperation("导出用户数据")
     @GetMapping(value = "/download")
     // // @PreAuthorize("@el.check('SysUser:list')")
-    public void download(HttpServletResponse response, User2Vo user2Vo) throws IOException {
-        List<SysUser> records = userService.selectList(user2Vo).getRecords();
+    public void download(HttpServletResponse response, UserVo userVo) throws IOException {
+        List<SysUser> records = userService.selectList(userVo).getRecords();
         List<UserDto> userDtoList = userMapper.toDto(records);
         userService.download(userDtoList, response);
     }
