@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 127.0.0.1
+ Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50729
+ Source Server Version : 50718
  Source Host           : localhost:3306
  Source Schema         : sdnd
 
  Target Server Type    : MySQL
- Target Server Version : 50729
+ Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 22/12/2020 21:53:26
+ Date: 28/12/2020 15:28:51
 */
 
 SET NAMES utf8mb4;
@@ -41,10 +41,6 @@ CREATE TABLE `code_column_config`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成字段信息存储' ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of code_column_config
--- ----------------------------
-
--- ----------------------------
 -- Table structure for code_gen_config
 -- ----------------------------
 DROP TABLE IF EXISTS `code_gen_config`;
@@ -64,130 +60,6 @@ CREATE TABLE `code_gen_config`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成器配置' ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of code_gen_config
--- ----------------------------
-
--- ----------------------------
--- Table structure for mnt_app
--- ----------------------------
-DROP TABLE IF EXISTS `mnt_app`;
-CREATE TABLE `mnt_app`  (
-  `app_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '应用名称',
-  `upload_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '上传目录',
-  `deploy_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部署路径',
-  `backup_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备份路径',
-  `port` int(255) NULL DEFAULT NULL COMMENT '应用端口',
-  `start_script` varchar(4000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '启动脚本',
-  `deploy_script` varchar(4000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部署脚本',
-  `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建日期',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`app_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '应用管理' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of mnt_app
--- ----------------------------
-
--- ----------------------------
--- Table structure for mnt_database
--- ----------------------------
-DROP TABLE IF EXISTS `mnt_database`;
-CREATE TABLE `mnt_database`  (
-  `db_id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ID',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称',
-  `jdbc_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'jdbc连接',
-  `user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '账号',
-  `pwd` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
-  `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`db_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据库管理' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of mnt_database
--- ----------------------------
-
--- ----------------------------
--- Table structure for mnt_deploy
--- ----------------------------
-DROP TABLE IF EXISTS `mnt_deploy`;
-CREATE TABLE `mnt_deploy`  (
-  `deploy_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `app_id` bigint(20) NULL DEFAULT NULL COMMENT '应用编号',
-  `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新者',
-  `create_time` datetime(0) NULL DEFAULT NULL,
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`deploy_id`) USING BTREE,
-  INDEX `FK6sy157pseoxx4fmcqr1vnvvhy`(`app_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '部署管理' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of mnt_deploy
--- ----------------------------
-
--- ----------------------------
--- Table structure for mnt_deploy_history
--- ----------------------------
-DROP TABLE IF EXISTS `mnt_deploy_history`;
-CREATE TABLE `mnt_deploy_history`  (
-  `history_id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ID',
-  `app_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '应用名称',
-  `deploy_date` datetime(0) NOT NULL COMMENT '部署日期',
-  `deploy_user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部署用户',
-  `ip` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '服务器IP',
-  `deploy_id` bigint(20) NULL DEFAULT NULL COMMENT '部署编号',
-  PRIMARY KEY (`history_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '部署历史管理' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of mnt_deploy_history
--- ----------------------------
-
--- ----------------------------
--- Table structure for mnt_deploy_server
--- ----------------------------
-DROP TABLE IF EXISTS `mnt_deploy_server`;
-CREATE TABLE `mnt_deploy_server`  (
-  `deploy_id` bigint(20) NOT NULL COMMENT '部署ID',
-  `server_id` bigint(20) NOT NULL COMMENT '服务ID',
-  PRIMARY KEY (`deploy_id`, `server_id`) USING BTREE,
-  INDEX `FKeaaha7jew9a02b3bk9ghols53`(`server_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '应用与服务器关联' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of mnt_deploy_server
--- ----------------------------
-
--- ----------------------------
--- Table structure for mnt_server
--- ----------------------------
-DROP TABLE IF EXISTS `mnt_server`;
-CREATE TABLE `mnt_server`  (
-  `server_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `account` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '账号',
-  `ip` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'IP地址',
-  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名称',
-  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
-  `port` int(11) NULL DEFAULT NULL COMMENT '端口',
-  `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新者',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`server_id`) USING BTREE,
-  INDEX `idx_ip`(`ip`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '服务器管理' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of mnt_server
--- ----------------------------
-
--- ----------------------------
 -- Table structure for sys_broker_message_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_broker_message_log`;
@@ -196,15 +68,11 @@ CREATE TABLE `sys_broker_message_log`  (
   `message` varchar(4000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息内容',
   `try_count` int(4) NULL DEFAULT 0 COMMENT '重试次数',
   `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '消息投递状态 0投递中，1投递成功，2投递失败',
-  `next_retry` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '下一次重试时间',
-  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
-  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
+  `next_retry` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '下一次重试时间',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`message_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_broker_message_log
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -334,10 +202,6 @@ CREATE TABLE `sys_log`  (
   INDEX `log_create_time_index`(`create_time`) USING BTREE,
   INDEX `inx_log_type`(`log_type`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of sys_log
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -500,10 +364,6 @@ CREATE TABLE `sys_quartz_log`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '定时任务日志' ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of sys_quartz_log
--- ----------------------------
-
--- ----------------------------
 -- Table structure for sys_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
@@ -540,10 +400,6 @@ CREATE TABLE `sys_roles_depts`  (
   PRIMARY KEY (`role_id`, `dept_id`) USING BTREE,
   INDEX `FK7qg6itn5ajdoa9h9o78v9ksur`(`dept_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色部门关联' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of sys_roles_depts
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_roles_menus
@@ -683,6 +539,7 @@ CREATE TABLE `sys_user`  (
   `pwd_reset_time` datetime(0) NULL DEFAULT NULL COMMENT '修改密码的时间',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建日期',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `salt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '盐',
   PRIMARY KEY (`user_id`) USING BTREE,
   UNIQUE INDEX `UK_kpubos9gc2cvtkb0thktkbkes`(`email`) USING BTREE,
   UNIQUE INDEX `username`(`username`) USING BTREE,
@@ -696,8 +553,8 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 2, 'admin', '管理员', '男', '18888888888', '201507802@qq.com', 'avatar-20200806032259161.png', '/Users/jie/Documents/work/me/admin/eladmin/~/avatar/avatar-20200806032259161.png', '$2a$10$Egp1/gvFlt7zhlXVfEFw4OfWQCGPw0ClmMcc6FjTnvXNRVf9zdMRa', b'1', 1, NULL, 'admin', '2020-05-03 16:38:31', '2018-08-23 09:11:56', '2020-09-05 10:43:31');
-INSERT INTO `sys_user` VALUES (2, 2, 'test', '测试', '男', '19999999999', '231@qq.com', NULL, NULL, '$2a$10$4XcyudOYTSz6fue6KFNMHeUQnCX5jbBQypLEnGk1PmekXt5c95JcK', b'0', 1, 'admin', 'admin', NULL, '2020-05-05 11:15:49', '2020-09-05 10:43:38');
+INSERT INTO `sys_user` VALUES (1, 2, 'admin', '管理员', '男', '18888888888', '201507802@qq.com', 'avatar-20200806032259161.png', '/Users/jie/Documents/work/me/admin/eladmin/~/avatar/avatar-20200806032259161.png', '5d7e0deba6be1ffbe078416b1b49dc4861fc3945410b6110eb311496d94e0acf', b'1', 1, NULL, 'admin', '2020-05-03 16:38:31', '2018-08-23 09:11:56', '2020-09-05 10:43:31', 'RGrgG00X1E0tUxJKhE5y');
+INSERT INTO `sys_user` VALUES (2, 2, 'test', '测试', '男', '19999999999', '231@qq.com', NULL, NULL, '5d7e0deba6be1ffbe078416b1b49dc4861fc3945410b6110eb311496d94e0acf', b'0', -1, 'admin', 'admin', NULL, '2020-05-05 11:15:49', '2020-09-05 10:43:38', 'RGrgG00X1E0tUxJKhE5y');
 
 -- ----------------------------
 -- Table structure for sys_users_jobs
@@ -825,16 +682,17 @@ DROP TABLE IF EXISTS `tool_email_config`;
 CREATE TABLE `tool_email_config`  (
   `config_id` bigint(20) NOT NULL COMMENT 'ID',
   `from_user` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '收件人',
-  `host` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮件服务器SMTP地址',
+  `host` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮件服务器SMTP地址（QQ：smtp.qq.com）',
   `pass` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
-  `port` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '端口',
-  `user` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发件者用户名',
+  `port` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '端口（QQ：465）',
+  `user` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发件者用户名（如果是QQ邮箱，这里是QQ号）',
   PRIMARY KEY (`config_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '邮箱配置' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of tool_email_config
 -- ----------------------------
+INSERT INTO `tool_email_config` VALUES (1, 'im.linghan@qq.com', 'smtp.qq.com', '11F2DE5176D49691F9EE948AB7C56E52FE9E07F8F2A5F02B', '465', '1902325071');
 
 -- ----------------------------
 -- Table structure for tool_local_storage
@@ -856,10 +714,6 @@ CREATE TABLE `tool_local_storage`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '本地存储' ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of tool_local_storage
--- ----------------------------
-
--- ----------------------------
 -- Table structure for tool_qiniu_config
 -- ----------------------------
 DROP TABLE IF EXISTS `tool_qiniu_config`;
@@ -873,10 +727,6 @@ CREATE TABLE `tool_qiniu_config`  (
   `zone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '机房',
   PRIMARY KEY (`config_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '七牛云配置' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of tool_qiniu_config
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for tool_qiniu_content
@@ -894,9 +744,5 @@ CREATE TABLE `tool_qiniu_content`  (
   PRIMARY KEY (`content_id`) USING BTREE,
   UNIQUE INDEX `uniq_name`(`name`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '七牛云文件存储' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of tool_qiniu_content
--- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
