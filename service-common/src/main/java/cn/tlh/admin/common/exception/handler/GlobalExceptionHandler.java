@@ -124,17 +124,6 @@ public class GlobalExceptionHandler {
         return BusinessResponse.fail("400", message);
     }
 
-    /**
-     * 空指针异常
-     *
-     * @param bex NullPointerException
-     * @return /
-     */
-    @ExceptionHandler(NullPointerException.class)
-    public BusinessResponse handleTypeMismatchException(NullPointerException bex) {
-        LOGGER.error("空指针异常，{}", bex.getMessage());
-        return BusinessResponse.fail("500", "空指针异常了");
-    }
 
     /**
      * 缺少请求参数异常
@@ -147,7 +136,6 @@ public class GlobalExceptionHandler {
         LOGGER.error("缺少请求参数，{}", ex.getMessage());
         return BusinessResponse.fail("400", "缺少必要的请求参数");
     }
-
 
     //  Validated 请求参数校验异常处理
 
