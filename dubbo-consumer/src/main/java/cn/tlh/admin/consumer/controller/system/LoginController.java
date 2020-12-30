@@ -68,7 +68,7 @@ public class LoginController {
         @NotBlank(message = "登录账号不能为空") String loginAccount = userVo.getLoginAccount();
         Matcher phoneMatcher = PHONE_REX.matcher(loginAccount);
         Matcher emailMatcher = EMAIL_REX.matcher(loginAccount);
-        // TODO
+        // TODO 多种方式登录
         if (phoneMatcher.matches()) {
             System.out.println("登录方式: 手机号 " + loginAccount);
         } else if (emailMatcher.matches()) {
