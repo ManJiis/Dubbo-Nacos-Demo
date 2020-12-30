@@ -1,19 +1,15 @@
 package cn.tlh.admin.consumer.shiro;
 
 import cn.hutool.core.util.ArrayUtil;
-import cn.tlh.admin.common.base.dto.RoleDto;
 import cn.tlh.admin.common.pojo.system.SysRole;
 import cn.tlh.admin.common.pojo.system.SysUser;
 import cn.tlh.admin.common.util.AdminConstants;
 import cn.tlh.admin.dao.SysMenuDao;
 import cn.tlh.admin.dao.SysRoleDao;
 import cn.tlh.admin.dao.SysUserDao;
-import cn.tlh.admin.service.system.RoleService;
-import cn.tlh.admin.service.system.UserService;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.dubbo.config.annotation.Reference;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -23,7 +19,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +35,9 @@ import java.util.Set;
  * @date 20120-12-21
  */
 @Component
-public class UserRealm extends AuthorizingRealm implements Authorizer {
+public class ShiroAuthorizingRealm extends AuthorizingRealm implements Authorizer {
 
-    private final Logger logger = LoggerFactory.getLogger(UserRealm.class);
+    private final Logger logger = LoggerFactory.getLogger(ShiroAuthorizingRealm.class);
 
     @Autowired(required = false)
     SysMenuDao sysMenuDao;
@@ -84,20 +79,26 @@ public class UserRealm extends AuthorizingRealm implements Authorizer {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authToken) throws AuthenticationException {
-        logger.info("==============认证---token===============:{}", JSON.toJSONString(authToken));
+        logger.info(
+                "\n==============认证---token===============:\r\n" +
+                        JSON.toJSONString(authToken) + "\n\r" +
+                        "=========================================");
         // 查询用户信息
 //        SysUser user = sysUserDao.findByPhone((String) authToken.getPrincipal());
         SysUser user = sysUserDao.findByUsername((String) authToken.getPrincipal());
-        logger.info("==============认证---用户信息===============:{}", JSON.toJSONString(user));
+        logger.info(
+                "\n==============认证---用户信息===============\n\r" +
+                        JSON.toJSONString(user) + "\r\n" +
+                        "=========================================");
         if (user == null || StringUtils.isBlank(user.getPassword())) {
             throw new UnknownAccountException();
         }
         if (user.getEnabled() == AdminConstants.SYS_USER_STATUS_PROHIBIT) {
             throw new LockedAccountException();
         }
-        ByteSource byteSource = ByteSource.Util.bytes(user.getSalt());
-//        ByteSource byteSource = ByteSource.Util.bytes("RGrgG00X1E0tUxJKhE5y");
-        return new SimpleAuthenticationInfo(user, user.getPassword(), byteSource, getName());
+        ShiroByteSource shiroByteSource = new ShiroByteSource(user.getSalt());
+//        ByteSource byteSource = ByteSource.Util.bytes(user.getSalt());
+        return new SimpleAuthenticationInfo(user, user.getPassword(), shiroByteSource, getName());
     }
 
     @Override
@@ -108,6 +109,31 @@ public class UserRealm extends AuthorizingRealm implements Authorizer {
         // 散列次数
         shaCredentialsMatcher.setHashIterations(ShiroUtils.hashIterations);
         super.setCredentialsMatcher(shaCredentialsMatcher);
+    }
+
+    /**
+     * 清除当前授权缓存
+     *
+     * @param principalCollection /
+     */
+    @Override
+    public void clearCachedAuthorizationInfo(PrincipalCollection principalCollection) {
+        super.clearCachedAuthorizationInfo(principalCollection);
+    }
+
+    /**
+     * 清除当前用户身份认证缓存
+     *
+     * @param principalCollection /
+     */
+    @Override
+    public void clearCachedAuthenticationInfo(PrincipalCollection principalCollection) {
+        super.clearCachedAuthenticationInfo(principalCollection);
+    }
+
+    @Override
+    public void clearCache(PrincipalCollection principalCollection) {
+        super.clearCache(principalCollection);
     }
 
     public static void main(String[] args) {
