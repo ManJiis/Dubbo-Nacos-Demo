@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 //// @RequiredArgsConstructor
 @Api(tags = "系统-服务监控管理")
-@RequestMapping("system/monitor")
+@RequestMapping("/system/monitor")
 public class MonitorController {
 
     //    private final MonitorService serverService;
     @Reference(version = "${service.version}", check = false)
     MonitorService serverService;
 
-    @GetMapping
+    @GetMapping("getSystemInfo")
     @ApiOperation("查询服务监控")
     // // @PreAuthorize("@el.check('monitor:list')")
     public BusinessResponse query() {

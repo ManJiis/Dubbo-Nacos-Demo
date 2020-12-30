@@ -53,9 +53,11 @@ public class LogAspect {
      */
     @Around("logPointcut()")
     public Object logAround(ProceedingJoinPoint pjp) throws Throwable {
+        long currentTimeMillis = System.currentTimeMillis();
         HttpServletRequest request = RequestHolder.getHttpServletRequest();
         // 创建日志对象
-        SysLog log = new SysLog("INFO", System.currentTimeMillis() - currentTime.get());
+        SysLog log = new SysLog();
+        log.setLogType("INFO");
         Object result;
         result = pjp.proceed();
         // 请求方法  poc.representation.systemManage.UserController.queryUserLists
@@ -81,7 +83,7 @@ public class LogAspect {
         String ip = StringUtils.getIp(request);
         String cityInfo = StringUtils.getCityInfo(ip);
         String browser = StringUtils.getBrowser(request);
-        currentTime.set(System.currentTimeMillis());
+        currentTime.set(currentTimeMillis);
         log.setRequestIp(ip);
         log.setAddress(cityInfo);
         log.setMethod(actionMethod);
@@ -91,6 +93,8 @@ public class LogAspect {
         log.setBrowser(browser);
         log.setDescription(description);
         currentTime.remove();
+        long endTimeMillis = System.currentTimeMillis();
+        log.setTime(endTimeMillis - currentTimeMillis);
         logService.save(log);
         return result;
     }
@@ -103,8 +107,10 @@ public class LogAspect {
      */
     @AfterThrowing(pointcut = "logPointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint jp, Throwable e) throws Exception {
+        long currentTimeMillis = System.currentTimeMillis();
         HttpServletRequest request = RequestHolder.getHttpServletRequest();
-        SysLog log = new SysLog("ERROR", System.currentTimeMillis() - currentTime.get());
+        SysLog log = new SysLog();
+        log.setLogType("ERROR");
         String ip = StringUtils.getIp(request);
         String cityInfo = StringUtils.getCityInfo(ip);
         // 异常信息
@@ -139,6 +145,8 @@ public class LogAspect {
         log.setBrowser(StringUtils.getBrowser(request));
         log.setDescription(description);
         currentTime.remove();
+        long endTimeMillis = System.currentTimeMillis();
+        log.setTime(endTimeMillis - currentTimeMillis);
         logService.save(log);
     }
 

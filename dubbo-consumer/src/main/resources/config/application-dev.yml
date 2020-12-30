@@ -13,12 +13,13 @@ spring:
     #    driver-class-name: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root@123
+    password: root
   # redis相关配置
   redis:
     database: 0
     host: 127.0.0.1
     port: 6379
+    password:
     timeout: 5000
     jedis:
       pool:
@@ -39,11 +40,10 @@ dubbo:
     address: nacos://127.0.0.1:8848
   consumer:
     timeout: 30000
-shiro:
-  loginUrl: /401
 shiro-redis:
   session-dao:
-    expire: 3600
+    #    expire: 3600
+    expire: -2  # 想要自定义session过期时间,需将值设为-2
   redis-manager:
     host: 127.0.0.1:6379
     timeout: 50000

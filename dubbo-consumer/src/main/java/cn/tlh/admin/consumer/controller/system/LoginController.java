@@ -8,11 +8,13 @@ import cn.tlh.admin.common.util.RedisCacheKey;
 import cn.tlh.admin.common.util.RedisTemplateUtil;
 import cn.tlh.admin.service.aop.annotaion.rest.AnonymousGetMapping;
 import cn.tlh.admin.service.aop.annotaion.rest.AnonymousPostMapping;
+import cn.tlh.admin.service.system.UserService;
 import com.wf.captcha.ArithmeticCaptcha;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.dubbo.config.annotation.Reference;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -47,6 +49,8 @@ public class LoginController {
     @Value("${loginCode.expiration}")
     private Integer expiration;
 
+    @Reference(version = "${service.version}", check = false)
+    UserService userService;
     @Autowired
     RedisTemplateUtil redisTemplateUtil;
 
@@ -61,10 +65,12 @@ public class LoginController {
     }
 
     @ApiOperation("登录")
-    @AnonymousPostMapping(value = "/login")
+//    @AnonymousPostMapping(value = "/login")
+    @PostMapping(value = "/login")
     public BusinessResponse login(@Validated @RequestBody AuthUserVo userVo, HttpServletRequest request) {
         // 前端传过来公钥加密的密码 这里进行解密
 //        String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, userVo.getPassword());
+        log.info("login acount::{}", userVo.toString());
         @NotBlank(message = "登录账号不能为空") String loginAccount = userVo.getLoginAccount();
         Matcher phoneMatcher = PHONE_REX.matcher(loginAccount);
         Matcher emailMatcher = EMAIL_REX.matcher(loginAccount);
@@ -92,7 +98,10 @@ public class LoginController {
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(loginAccount, userVo.getPassword());
         // 由shiro校验
         subject.login(usernamePasswordToken);
-        return BusinessResponse.ok("login success");
+        Map<String, Object> returnMap = new HashMap<>(2);
+        returnMap.put("sessionId", subject.getSession().getId());
+        returnMap.put("userInfo", userService.findByName(loginAccount));
+        return BusinessResponse.ok(returnMap);
     }
 
     @ApiOperation("退出")

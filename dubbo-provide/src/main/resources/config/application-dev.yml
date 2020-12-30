@@ -107,8 +107,8 @@ dubbo:
   #    loadbalance: roundrobin  # 负载均衡算法 , 缺省是随机 random。还可以配置轮询 roundrobin、最不活跃优先 4 leastactive 和一致性哈希 consistenthash 等
   protocol:
     # 随机端口
-    port: 20083
-#    port: 20084
+#    port: 20083
+    port: 20084
     name: dubbo
 
 

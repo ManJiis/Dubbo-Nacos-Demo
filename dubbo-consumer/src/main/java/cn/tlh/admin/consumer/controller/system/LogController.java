@@ -17,7 +17,7 @@ import java.io.IOException;
  * @date 2020-12-18
  */
 @RestController
-@RequestMapping("system/log")
+@RequestMapping("/system/log")
 @Api(tags = "系统：日志管理")
 public class LogController {
 
@@ -42,7 +42,7 @@ public class LogController {
         logService.download(logService.selectList(logReqVo), response);
     }
 
-    @GetMapping
+    @GetMapping("/get")
     @ApiOperation("日志查询")
     // @PreAuthorize("@el.check()")
     public BusinessResponse query(LogReqVo logReqVo) {
@@ -50,7 +50,7 @@ public class LogController {
         return BusinessResponse.ok(logService.selectList(logReqVo));
     }
 
-    @GetMapping(value = "/user")
+    @GetMapping(value = "/getUserLog")
     @ApiOperation("用户日志查询")
     public BusinessResponse queryUserLog(LogReqVo logReqVo) {
         logReqVo.setLogType("INFO");

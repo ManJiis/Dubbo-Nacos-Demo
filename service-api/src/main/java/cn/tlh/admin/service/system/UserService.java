@@ -2,7 +2,7 @@
 package cn.tlh.admin.service.system;
 
 import cn.tlh.admin.common.base.dto.UserDto;
-import cn.tlh.admin.common.base.vo.req.UserVo;
+import cn.tlh.admin.common.base.vo.req.UserQueryReqVo;
 import cn.tlh.admin.common.pojo.system.SysUser;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +21,7 @@ public interface UserService {
 
     /**
      * 根据手机号查询
+     *
      * @param phone ID
      * @return /
      */
@@ -28,6 +29,7 @@ public interface UserService {
 
     /**
      * 根据ID查询
+     *
      * @param id ID
      * @return /
      */
@@ -35,24 +37,29 @@ public interface UserService {
 
     /**
      * 新增用户
-     * @param resources /
+     *
+     * @param resources   /
+     * @param currentUser 当前登录用户
      */
-    void create(SysUser resources);
+    void create(SysUser resources, SysUser currentUser);
 
     /**
      * 编辑用户
+     *
      * @param resources /
      */
     void update(SysUser resources);
 
     /**
      * 删除用户
+     *
      * @param ids /
      */
     void delete(Set<Long> ids);
 
     /**
      * 根据用户名查询
+     *
      * @param userName /
      * @return /
      */
@@ -60,13 +67,15 @@ public interface UserService {
 
     /**
      * 修改密码
-     * @param username 用户名
+     *
+     * @param username        用户名
      * @param encryptPassword 密码
      */
     void updatePass(String username, String encryptPassword);
 
     /**
      * 修改头像
+     *
      * @param file 文件
      * @return /
      */
@@ -74,8 +83,9 @@ public interface UserService {
 
     /**
      * 修改邮箱
+     *
      * @param username 用户名
-     * @param email 邮箱
+     * @param email    邮箱
      */
     void updateEmail(String username, String email);
 
@@ -83,13 +93,14 @@ public interface UserService {
     /**
      * 分页查询
      *
-     * @param userVo 条件
+     * @param userQueryReqVo 条件
      * @return /
      */
-    Page<SysUser> selectList(UserVo userVo);
+    Page<SysUser> selectList(UserQueryReqVo userQueryReqVo);
 
     /**
      * 导出数据
+     *
      * @param queryAll 待导出的数据
      * @param response /
      * @throws IOException /
@@ -98,6 +109,7 @@ public interface UserService {
 
     /**
      * 用户自助修改资料
+     *
      * @param resources /
      */
     void updateCenter(SysUser resources);

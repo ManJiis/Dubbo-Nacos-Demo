@@ -5,7 +5,7 @@ import cn.tlh.admin.common.base.dto.UserDto;
 import cn.tlh.admin.common.base.mapstruct.UserMapper;
 import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.common.base.vo.req.UserPassReqVo;
-import cn.tlh.admin.common.base.vo.req.UserVo;
+import cn.tlh.admin.common.base.vo.req.UserQueryReqVo;
 import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
 import cn.tlh.admin.common.pojo.system.SysUser;
 import cn.tlh.admin.common.util.*;
@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  */
 @Api(tags = "系统：用户管理")
 @RestController
-@RequestMapping("system/users")
+@RequestMapping("system/user")
 public class UserController {
 
 //    PasswordEncoder passwordEncoder;
@@ -55,40 +55,41 @@ public class UserController {
     @ApiOperation("查询用户")
     @GetMapping
     // // @PreAuthorize("@el.check('SysUser:list')")
-    public BusinessResponse query(UserVo userVo) {
-        return BusinessResponse.ok(userService.selectList(userVo));
+    public BusinessResponse query(UserQueryReqVo userQueryReqVo) {
+        return BusinessResponse.ok(userService.selectList(userQueryReqVo));
     }
 
     @ApiOperation("导出用户数据")
     @GetMapping(value = "/download")
     // // @PreAuthorize("@el.check('SysUser:list')")
-    public void download(HttpServletResponse response, UserVo userVo) throws IOException {
-        List<SysUser> records = userService.selectList(userVo).getRecords();
+    public void download(HttpServletResponse response, UserQueryReqVo userQueryReqVo) throws IOException {
+        List<SysUser> records = userService.selectList(userQueryReqVo).getRecords();
         List<UserDto> userDtoList = userMapper.toDto(records);
         userService.download(userDtoList, response);
     }
 
     @Log(description = "新增用户")
     @ApiOperation("新增用户")
-    @PostMapping
+    @PostMapping("/add")
     // // @PreAuthorize("@el.check('SysUser:add')")
-    public BusinessResponse create(@Validated @RequestBody SysUser resources) {
-//        checkLevel(resources);
+    public BusinessResponse create(@Validated @RequestBody SysUser user) {
+//        checkLevel(user);
         String generateSalt = EncryptUtils.generateSalt();
-        if (StringUtils.isBlank(resources.getPassword())) {
+        if (StringUtils.isBlank(user.getPassword())) {
             // 默认密码 123456
-            resources.setPassword(ShiroUtils.sha256(AdminConstants.DEFAULT_PASSWORD, generateSalt));
+            user.setPassword(ShiroUtils.sha256(AdminConstants.DEFAULT_PASSWORD, generateSalt));
         } else {
-            resources.setPassword(ShiroUtils.sha256(resources.getPassword(), generateSalt));
+            user.setPassword(ShiroUtils.sha256(user.getPassword(), generateSalt));
         }
-        resources.setSalt(generateSalt);
-        userService.create(resources);
+        System.out.println("generateSalt = " + generateSalt);
+        user.setSalt(generateSalt);
+        userService.create(user,ShiroUtils.getUserEntity());
         return BusinessResponse.ok();
     }
 
     @Log(description = "修改用户")
     @ApiOperation("修改用户")
-    @PutMapping
+    @PutMapping("/update")
     // // @PreAuthorize("@el.check('SysUser:edit')")
     public BusinessResponse update(@Validated @RequestBody SysUser resources) {
 //        checkLevel(resources);
@@ -110,7 +111,7 @@ public class UserController {
 
     @Log(description = "删除用户")
     @ApiOperation("删除用户")
-    @DeleteMapping
+    @DeleteMapping("/del")
     // // @PreAuthorize("@el.check('SysUser:del')")
     public BusinessResponse delete(@RequestBody Set<Long> ids) {
         Integer currentUserId = 1;

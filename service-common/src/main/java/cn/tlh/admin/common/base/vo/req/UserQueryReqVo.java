@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class UserVo extends PageVo implements Serializable {
+public class UserQueryReqVo extends PageVo implements Serializable {
 
     private Long id;
     private String email;

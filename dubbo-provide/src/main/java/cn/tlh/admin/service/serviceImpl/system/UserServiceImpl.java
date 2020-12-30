@@ -5,7 +5,7 @@ package cn.tlh.admin.service.serviceImpl.system;
 
 import cn.tlh.admin.common.base.dto.RoleSmallDto;
 import cn.tlh.admin.common.base.dto.UserDto;
-import cn.tlh.admin.common.base.vo.req.UserVo;
+import cn.tlh.admin.common.base.vo.req.UserQueryReqVo;
 import cn.tlh.admin.common.exception.customexception.EntityExistException;
 import cn.tlh.admin.common.exception.customexception.EntityNotFoundException;
 import cn.tlh.admin.common.pojo.system.SysUser;
@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -57,11 +58,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<SysUser> selectList(UserVo userVo) {
-        Page<SysUser> page = new Page<>(userVo.getCurrentPage(), userVo.getPageSize());
+    public Page<SysUser> selectList(UserQueryReqVo userQueryReqVo) {
+        Page<SysUser> page = new Page<>(userQueryReqVo.getCurrentPage(), userQueryReqVo.getPageSize());
         System.out.println("page.getTotal() = " + page.getTotal());
         System.out.println("page.getPages() = " + page.getPages());
-        return sysUserDao.selectList(page, userVo);
+        return sysUserDao.selectList(page, userQueryReqVo);
     }
 
     @Override
@@ -72,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void create(SysUser resources) {
+    public void create(SysUser resources, SysUser currentUser) {
         if (sysUserDao.findByUsername(resources.getUsername()) != null) {
             throw new EntityExistException(SysUser.class, "username", resources.getUsername());
         }
@@ -82,6 +83,10 @@ public class UserServiceImpl implements UserService {
         if (sysUserDao.findByPhone(resources.getPhone()) != null) {
             throw new EntityExistException(SysUser.class, "phone", resources.getPhone());
         }
+        resources.setCreateTime(LocalDateTime.now());
+        resources.setUpdateTime(LocalDateTime.now());
+        resources.setCreateBy(currentUser.getUserId().toString());
+        resources.setUpdateBy(currentUser.getUserId().toString());
         sysUserDao.insert(resources);
     }
 

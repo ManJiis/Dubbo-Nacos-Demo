@@ -95,6 +95,11 @@ public class RedisServiceImplTest {
             System.out.println("(dept.getEnable() ? \"启用\" : \"停用\") = " + (dept.getEnable() ? "启用" : "停用"));
         }
     }
+    @Test
+    public void test6() {
+        Object o = redisTemplate.opsForValue().get("shiro:cache:userinfo_cache:admin");
+        System.out.println("o = " + o);
+    }
 }
 
 

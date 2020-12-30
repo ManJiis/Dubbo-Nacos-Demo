@@ -1,6 +1,6 @@
 package cn.tlh.admin.dao;
 
-import cn.tlh.admin.common.base.vo.req.UserVo;
+import cn.tlh.admin.common.base.vo.req.UserQueryReqVo;
 import cn.tlh.admin.common.pojo.system.SysUser;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
@@ -122,10 +122,10 @@ public interface SysUserDao {
      * 通过实体作为筛选条件查询
      *
      * @param page   分页对象
-     * @param userVo 实例对象
+     * @param userQueryReqVo 实例对象
      * @return 对象列表
      */
-    Page<SysUser> selectList(Page<SysUser> page, @Param("req") UserVo userVo);
+    Page<SysUser> selectList(Page<SysUser> page, @Param("req") UserQueryReqVo userQueryReqVo);
 
     /**
      * 新增数据
