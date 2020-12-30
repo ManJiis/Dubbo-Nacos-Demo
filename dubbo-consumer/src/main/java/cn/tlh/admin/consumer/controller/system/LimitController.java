@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 接口限流测试类
  */
 @RestController
-@RequestMapping("/api/limit")
+@RequestMapping("system/limit")
 @Api(tags = "系统：限流测试管理")
 public class LimitController {
 

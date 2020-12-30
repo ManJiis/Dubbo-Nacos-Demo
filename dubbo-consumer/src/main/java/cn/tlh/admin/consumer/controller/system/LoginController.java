@@ -39,7 +39,7 @@ import java.util.regex.Pattern;
  */
 @Slf4j
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("system/auth")
 @Api(tags = "系统：系统授权接口")
 public class LoginController {
 //    private final OnlineUserService onlineUserService;

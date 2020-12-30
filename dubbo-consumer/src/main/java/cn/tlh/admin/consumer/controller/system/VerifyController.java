@@ -20,7 +20,7 @@ import java.util.Objects;
  */
 @Api(tags = "系统：验证码管理")
 @RestController
-@RequestMapping("/api/code")
+@RequestMapping("system/code")
 @Validated
 public class VerifyController {
 

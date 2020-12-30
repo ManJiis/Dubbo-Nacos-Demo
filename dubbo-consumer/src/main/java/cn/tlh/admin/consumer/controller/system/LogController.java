@@ -17,7 +17,7 @@ import java.io.IOException;
  * @date 2020-12-18
  */
 @RestController
-@RequestMapping("/api/log")
+@RequestMapping("system/log")
 @Api(tags = "系统：日志管理")
 public class LogController {
 

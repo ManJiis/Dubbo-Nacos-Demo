@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 //// @RequiredArgsConstructor
 @Api(tags = "系统-服务监控管理")
-@RequestMapping("/api/monitor")
+@RequestMapping("system/monitor")
 public class MonitorController {
 
     //    private final MonitorService serverService;

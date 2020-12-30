@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  */
 @Api(tags = "系统：用户管理")
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("system/users")
 public class UserController {
 
 //    PasswordEncoder passwordEncoder;

@@ -29,7 +29,7 @@ import java.util.Set;
  */
 @RestController
 @Api(tags = "系统：角色管理")
-@RequestMapping("/api/roles")
+@RequestMapping("system/roles")
 public class RoleController {
 
     @Reference(version = "${service.version}", check = false)
