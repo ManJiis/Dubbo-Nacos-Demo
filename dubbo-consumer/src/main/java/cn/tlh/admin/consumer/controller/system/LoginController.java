@@ -74,6 +74,8 @@ public class LoginController {
         } else if (emailMatcher.matches()) {
             System.out.println("登录方式: 邮箱 " + loginAccount);
         }
+        // TODO 暂时不做验证码校验
+/*
         // 验证码校验
         String code = (String) redisTemplateUtil.get(this.getVerifyKey(RedisCacheKey.CALCULATE_VERIFICATION_CODE, userVo.getUuid()));
         // 清除验证码
@@ -84,6 +86,7 @@ public class LoginController {
         if (StringUtils.isBlank(userVo.getCode()) || !userVo.getCode().equalsIgnoreCase(code)) {
             throw new BusinessErrorException("验证码错误");
         }
+*/
         //用户认证信息
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(loginAccount, userVo.getPassword());
