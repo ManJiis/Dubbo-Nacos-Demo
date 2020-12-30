@@ -27,13 +27,12 @@ public class AdminConstants {
     /**
      * 用户状态  0：禁用   1：正常  3:冻结
      */
-    public static final int SYS_USER_STATUS_PROHIBIT = -1;
+    public static final int SYS_USER_STATUS_PROHIBIT = 0;
     public static final int SYS_USER_STATUS_NORMAL = 1;
     public static final int SYS_USER_STATUS_FROZEN = 2;
 
     /**
      * 发送状态： 0 发送中 1 成功 -1 失败
-     *
      */
     public static final String ORDER_SENDING = "0";
     public static final String ORDER_SEND_SUCCESS = "1";

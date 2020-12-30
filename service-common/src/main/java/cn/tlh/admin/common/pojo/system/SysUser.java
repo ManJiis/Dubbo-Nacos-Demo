@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,8 +20,7 @@ import java.util.Objects;
  * @author TANG
  * @since 2020-12-17 09:51:55
  */
-@Getter
-@Setter
+@Data
 @Table(name = "sys_user")
 public class SysUser implements Serializable {
     private static final long serialVersionUID = 649715419116774602L;
