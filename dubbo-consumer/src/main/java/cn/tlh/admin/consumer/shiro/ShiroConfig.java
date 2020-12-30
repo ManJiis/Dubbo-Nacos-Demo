@@ -143,8 +143,11 @@ public class ShiroConfig {
         // 不在地址栏显示sessionId
         sessionManager.setSessionIdUrlRewritingEnabled(false);
         sessionManager.setSessionValidationSchedulerEnabled(true);
-        // 设置sessionId超时时间  一天
-        sessionManager.setGlobalSessionTimeout(60 * 60 * 24 * 1000L);
+        // 超时时间，默认30分钟，设置sessionId超时时间，方法单位：毫秒
+        // 一天
+//        sessionManager.setGlobalSessionTimeout(60 * 60 * 24 * 1000L);
+        // 10分钟
+        sessionManager.setGlobalSessionTimeout(60 * 10 * 1000L);
         return sessionManager;
     }
 
@@ -158,6 +161,8 @@ public class ShiroConfig {
         redisSessionDAO.setRedisManager(redisManager());
         // 设置缓存名前缀
 //        redisSessionDAO.setKeyPrefix("shiro:session:");
+        // 自定义sessionId生成器
+        redisSessionDAO.setSessionIdGenerator(new CustomsSessionIdGenerator());
         return redisSessionDAO;
     }
 

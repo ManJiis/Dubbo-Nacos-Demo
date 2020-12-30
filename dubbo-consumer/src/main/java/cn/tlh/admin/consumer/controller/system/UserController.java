@@ -83,7 +83,7 @@ public class UserController {
         }
         System.out.println("generateSalt = " + generateSalt);
         user.setSalt(generateSalt);
-        userService.create(user,ShiroUtils.getUserEntity());
+        userService.create(user, ShiroUtils.getUserEntity());
         return BusinessResponse.ok();
     }
 
