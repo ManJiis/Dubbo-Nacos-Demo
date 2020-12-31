@@ -3,11 +3,10 @@ package cn.tlh.admin.consumer.controller.system;
 import cn.hutool.core.util.IdUtil;
 import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.common.base.vo.req.AuthUserVo;
-import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
+import cn.tlh.admin.common.util.AdminConstants;
 import cn.tlh.admin.common.util.RedisCacheKey;
 import cn.tlh.admin.common.util.RedisTemplateUtil;
 import cn.tlh.admin.service.aop.annotaion.rest.AnonymousGetMapping;
-import cn.tlh.admin.service.aop.annotaion.rest.AnonymousPostMapping;
 import cn.tlh.admin.service.system.UserService;
 import com.wf.captcha.ArithmeticCaptcha;
 import io.swagger.annotations.Api;
@@ -31,7 +30,6 @@ import javax.validation.constraints.NotBlank;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 登录
@@ -54,12 +52,6 @@ public class LoginController {
     @Autowired
     RedisTemplateUtil redisTemplateUtil;
 
-    private static Pattern PHONE_REX = Pattern.compile("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
-    /**
-     * 只允许英文字母、数字、下划线、英文句号、以及中划线组成
-     */
-    private static Pattern EMAIL_REX = Pattern.compile("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
-
     private String getVerifyKey(String codeType, String uuid) {
         return String.format(codeType, uuid);
     }
@@ -72,8 +64,8 @@ public class LoginController {
 //        String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, userVo.getPassword());
         log.info("login acount::{}", userVo.toString());
         @NotBlank(message = "登录账号不能为空") String loginAccount = userVo.getLoginAccount();
-        Matcher phoneMatcher = PHONE_REX.matcher(loginAccount);
-        Matcher emailMatcher = EMAIL_REX.matcher(loginAccount);
+        Matcher phoneMatcher = AdminConstants.PHONE_REX.matcher(loginAccount);
+        Matcher emailMatcher = AdminConstants.EMAIL_REX.matcher(loginAccount);
         // TODO 多种方式登录
         if (phoneMatcher.matches()) {
             System.out.println("登录方式: 手机号 " + loginAccount);

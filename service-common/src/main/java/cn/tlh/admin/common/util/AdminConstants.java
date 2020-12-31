@@ -1,11 +1,22 @@
 package cn.tlh.admin.common.util;
 
+import java.util.regex.Pattern;
+
 /**
  * @author TANG
  * @description: 常量类
  * @date: 2020-12-05
  */
 public class AdminConstants {
+
+    /**
+     * 手机号
+     */
+    public static Pattern PHONE_REX = Pattern.compile("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
+    /**
+     * 邮箱 只允许英文字母、数字、下划线、英文句号、以及中划线组成
+     */
+    public static Pattern EMAIL_REX = Pattern.compile("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
 
     /**
      * 验证码类型
