@@ -6,6 +6,7 @@ import cn.tlh.admin.common.base.vo.req.AuthUserVo;
 import cn.tlh.admin.common.util.AdminConstants;
 import cn.tlh.admin.common.util.RedisCacheKey;
 import cn.tlh.admin.common.util.RedisTemplateUtil;
+import cn.tlh.admin.consumer.shiro.ShiroUtils;
 import cn.tlh.admin.service.aop.annotaion.rest.AnonymousGetMapping;
 import cn.tlh.admin.service.system.UserService;
 import com.wf.captcha.ArithmeticCaptcha;
@@ -20,10 +21,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
@@ -85,7 +83,7 @@ public class LoginController {
             throw new BusinessErrorException("验证码错误");
         }
 */
-        //用户认证信息
+        // 获取shiro Subject对象
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(loginAccount, userVo.getPassword());
         // 由shiro校验
@@ -102,13 +100,12 @@ public class LoginController {
         SecurityUtils.getSubject().logout();
         return BusinessResponse.ok("loginout success");
     }
-/*
-    @ApiOperation("获取用户信息")
-    @GetMapping(value = "/info")
-    public ResponseEntity<Object> getUserInfo() {
-        return ResponseEntity.ok(SecurityUtils.getCurrentUser());
+
+    @ApiOperation("获取当前登录用户信息")
+    @GetMapping(value = "/currentUserInfo")
+    public BusinessResponse getUserInfo() {
+        return BusinessResponse.ok(ShiroUtils.getUserEntity());
     }
-*/
 
     @ApiOperation("获取验证码")
     @AnonymousGetMapping(value = "/code")
@@ -133,11 +130,5 @@ public class LoginController {
         return BusinessResponse.ok(imgResult);
     }
 
-/*    @ApiOperation("退出登录")
-    @AnonymousDeleteMapping(value = "/logout")
-    public ResponseEntity<Object> logout(HttpServletRequest request) {
-        onlineUserService.logout(tokenProvider.getToken(request));
-        return new ResponseEntity<>(HttpStatus.OK);
-    }*/
 
 }
