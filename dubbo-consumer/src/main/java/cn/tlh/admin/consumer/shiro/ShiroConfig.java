@@ -137,7 +137,7 @@ public class ShiroConfig {
         // 设置缓存名前缀
 //        redisSessionDAO.setKeyPrefix("shiro:session:");
         // 自定义sessionId生成器
-        redisSessionDAO.setSessionIdGenerator(new CustomsSessionIdGenerator());
+        redisSessionDAO.setSessionIdGenerator(new CustomSessionIdGenerator());
         return redisSessionDAO;
     }
 

@@ -11,7 +11,7 @@ import java.util.UUID;
  * @description 自定义 sessionId 的生成器
  * @date 2020-12-30
  */
-public class CustomsSessionIdGenerator implements SessionIdGenerator {
+public class CustomSessionIdGenerator implements SessionIdGenerator {
 
     @Override
     public Serializable generateId(Session session) {
