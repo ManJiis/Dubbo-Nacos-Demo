@@ -14,6 +14,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -39,6 +40,14 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    /**
+     * shiro未授权异常
+     */
+    @ExceptionHandler({UnauthorizedException.class, AuthorizationException.class})
+    public BusinessResponse unauthorizedExceptionHandler() {
+        return BusinessResponse.fail("403", "No permission!");
+    }
 
     /**
      * 处理shiro异常
