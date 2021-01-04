@@ -1,6 +1,6 @@
 package cn.tlh.admin.service.mq.queue;
 
-import cn.tlh.admin.common.util.AdminConstants;
+import cn.tlh.admin.common.util.constant.AdminConstants;
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

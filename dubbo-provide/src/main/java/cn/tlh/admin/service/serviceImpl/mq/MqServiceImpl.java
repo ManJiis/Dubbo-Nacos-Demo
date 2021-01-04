@@ -1,8 +1,8 @@
 package cn.tlh.admin.service.serviceImpl.mq;
 
 import cn.tlh.admin.common.pojo.DlxMessage;
-import cn.tlh.admin.common.util.AdminConstants;
-import cn.tlh.admin.common.util.SnowFlakeUtil;
+import cn.tlh.admin.common.util.constant.AdminConstants;
+import cn.tlh.admin.common.util.id.SnowFlakeUtil;
 import cn.tlh.admin.dao.BrokerMessageLogDao;
 import cn.tlh.admin.service.mq.MqService;
 import org.apache.dubbo.config.annotation.Service;

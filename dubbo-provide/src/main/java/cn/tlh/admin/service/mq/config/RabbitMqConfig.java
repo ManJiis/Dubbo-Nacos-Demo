@@ -1,6 +1,6 @@
 package cn.tlh.admin.service.mq.config;
 
-import cn.tlh.admin.common.util.AdminConstants;
+import cn.tlh.admin.common.util.constant.AdminConstants;
 import cn.tlh.admin.dao.BrokerMessageLogDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

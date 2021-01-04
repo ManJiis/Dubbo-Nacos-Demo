@@ -1,10 +1,10 @@
 package cn.tlh.admin.service.mq.processor;
 
 
-import cn.tlh.admin.dao.OrderDao;
 import cn.tlh.admin.common.pojo.DlxMessage;
 import cn.tlh.admin.common.pojo.Order;
-import cn.tlh.admin.common.util.AdminConstants;
+import cn.tlh.admin.common.util.constant.AdminConstants;
+import cn.tlh.admin.dao.OrderDao;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.rabbitmq.client.Channel;
