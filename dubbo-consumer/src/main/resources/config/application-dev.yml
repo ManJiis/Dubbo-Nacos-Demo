@@ -13,7 +13,7 @@ spring:
     #    driver-class-name: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
+    password: root@123
   # redis相关配置
   redis:
     database: 0

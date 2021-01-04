@@ -3,11 +3,11 @@ package cn.tlh.admin.consumer.controller.system;
 import cn.hutool.core.util.IdUtil;
 import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.common.base.vo.req.AuthUserVo;
-import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
+import cn.tlh.admin.common.util.AdminConstants;
 import cn.tlh.admin.common.util.RedisCacheKey;
 import cn.tlh.admin.common.util.RedisTemplateUtil;
+import cn.tlh.admin.consumer.shiro.ShiroUtils;
 import cn.tlh.admin.service.aop.annotaion.rest.AnonymousGetMapping;
-import cn.tlh.admin.service.aop.annotaion.rest.AnonymousPostMapping;
 import cn.tlh.admin.service.system.UserService;
 import com.wf.captcha.ArithmeticCaptcha;
 import io.swagger.annotations.Api;
@@ -21,17 +21,13 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 登录
@@ -54,12 +50,6 @@ public class LoginController {
     @Autowired
     RedisTemplateUtil redisTemplateUtil;
 
-    private static Pattern PHONE_REX = Pattern.compile("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
-    /**
-     * 只允许英文字母、数字、下划线、英文句号、以及中划线组成
-     */
-    private static Pattern EMAIL_REX = Pattern.compile("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
-
     private String getVerifyKey(String codeType, String uuid) {
         return String.format(codeType, uuid);
     }
@@ -72,8 +62,8 @@ public class LoginController {
 //        String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, userVo.getPassword());
         log.info("login acount::{}", userVo.toString());
         @NotBlank(message = "登录账号不能为空") String loginAccount = userVo.getLoginAccount();
-        Matcher phoneMatcher = PHONE_REX.matcher(loginAccount);
-        Matcher emailMatcher = EMAIL_REX.matcher(loginAccount);
+        Matcher phoneMatcher = AdminConstants.PHONE_REX.matcher(loginAccount);
+        Matcher emailMatcher = AdminConstants.EMAIL_REX.matcher(loginAccount);
         // TODO 多种方式登录
         if (phoneMatcher.matches()) {
             System.out.println("登录方式: 手机号 " + loginAccount);
@@ -93,7 +83,7 @@ public class LoginController {
             throw new BusinessErrorException("验证码错误");
         }
 */
-        //用户认证信息
+        // 获取shiro Subject对象
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(loginAccount, userVo.getPassword());
         // 由shiro校验
@@ -110,13 +100,12 @@ public class LoginController {
         SecurityUtils.getSubject().logout();
         return BusinessResponse.ok("loginout success");
     }
-/*
-    @ApiOperation("获取用户信息")
-    @GetMapping(value = "/info")
-    public ResponseEntity<Object> getUserInfo() {
-        return ResponseEntity.ok(SecurityUtils.getCurrentUser());
+
+    @ApiOperation("获取当前登录用户信息")
+    @GetMapping(value = "/currentUserInfo")
+    public BusinessResponse getUserInfo() {
+        return BusinessResponse.ok(ShiroUtils.getUserEntity());
     }
-*/
 
     @ApiOperation("获取验证码")
     @AnonymousGetMapping(value = "/code")
@@ -141,11 +130,5 @@ public class LoginController {
         return BusinessResponse.ok(imgResult);
     }
 
-/*    @ApiOperation("退出登录")
-    @AnonymousDeleteMapping(value = "/logout")
-    public ResponseEntity<Object> logout(HttpServletRequest request) {
-        onlineUserService.logout(tokenProvider.getToken(request));
-        return new ResponseEntity<>(HttpStatus.OK);
-    }*/
 
 }
