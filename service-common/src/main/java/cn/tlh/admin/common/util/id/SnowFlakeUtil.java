@@ -1,4 +1,4 @@
-package cn.tlh.admin.common.util;
+package cn.tlh.admin.common.util.id;
 
 import cn.hutool.core.util.IdUtil;
 

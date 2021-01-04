@@ -1,12 +1,12 @@
 package cn.tlh.admin.common.exception.handler;
 
+import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
 import cn.tlh.admin.common.exception.customexception.EntityExistException;
 import cn.tlh.admin.common.exception.customexception.EntityNotFoundException;
-import cn.tlh.admin.common.util.AdminConstants;
 import cn.tlh.admin.common.util.ThrowableUtil;
+import cn.tlh.admin.common.util.constant.AdminConstants;
 import cn.tlh.admin.common.util.enums.BusinessMsgEnum;
-import cn.tlh.admin.common.base.vo.BusinessResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.rpc.RpcException;
 import org.apache.shiro.ShiroException;

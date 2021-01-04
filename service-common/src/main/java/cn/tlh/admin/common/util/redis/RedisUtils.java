@@ -1,4 +1,4 @@
-package cn.tlh.admin.common.util;
+package cn.tlh.admin.common.util.redis;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
