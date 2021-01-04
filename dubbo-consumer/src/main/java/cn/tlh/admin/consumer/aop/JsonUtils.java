@@ -1,4 +1,4 @@
-package cn.tlh.admin.service.aop;
+package cn.tlh.admin.consumer.aop;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -14,8 +14,7 @@ public class JsonUtils {
      */
     public static String objectToJson(Object data) {
         try {
-            String string = MAPPER.writeValueAsString(data);
-            return string;
+            return MAPPER.writeValueAsString(data);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -27,8 +26,7 @@ public class JsonUtils {
      */
     public static <T> T jsonToPoJo(String jsonData, Class<T> beanType) {
         try {
-            T t = MAPPER.readValue(jsonData, beanType);
-            return t;
+            return MAPPER.readValue(jsonData, beanType);
         } catch (Exception e) {
             e.printStackTrace();
         }

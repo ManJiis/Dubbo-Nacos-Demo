@@ -2,8 +2,7 @@
 package cn.tlh.admin.consumer.controller.system;
 
 import cn.tlh.admin.common.util.DateUtil;
-import cn.tlh.admin.service.aop.annotaion.Limit;
-//import cn.tlh.provide.aop.annotaion.rest.AnonymousGetMapping;
+import cn.tlh.admin.consumer.aop.annotaion.Limit;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -19,8 +18,10 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
+//import cn.tlh.provide.aop.annotaion.rest.AnonymousGetMapping;
+
 /**
- * @author /
+ * @author TANG
  * 接口限流测试类
  */
 @RestController
@@ -38,12 +39,10 @@ public class LimitController {
     /**
      * 测试限流注解，下面配置说明该接口 60秒内最多只能访问 10次，保存到redis的键名为 limit_test，
      */
-//    @AnonymousGetMapping
     @ApiOperation("测试")
     @Limit(description = "testLimit", prefix = "limit", key = "test", period = 60, count = 10)
     @GetMapping
     public int test() {
-
         String date = DateUtil.localDateTimeFormatyMdHms(LocalDateTime.now());
         RedisAtomicInteger limitCounter = new RedisAtomicInteger("limitCounter", Objects.requireNonNull(redisTemplate.getConnectionFactory()));
         System.out.println(date + " 累计访问次数：" + limitCounter.getAndIncrement());

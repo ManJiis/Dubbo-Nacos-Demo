@@ -1,13 +1,13 @@
-package cn.tlh.admin.service.aop.aspect;
+package cn.tlh.admin.consumer.aop.aspect;
 
 import cn.tlh.admin.common.pojo.system.SysLog;
-import cn.tlh.admin.common.util.spring.RequestHolder;
 import cn.tlh.admin.common.util.StringUtils;
 import cn.tlh.admin.common.util.ThrowableUtil;
-import cn.tlh.admin.service.aop.JsonUtils;
-import cn.tlh.admin.service.aop.annotaion.Log;
+import cn.tlh.admin.common.util.spring.RequestHolder;
+import cn.tlh.admin.consumer.aop.JsonUtils;
+import cn.tlh.admin.consumer.aop.annotaion.Log;
+import cn.tlh.admin.consumer.shiro.ShiroUtils;
 import cn.tlh.admin.service.system.LogService;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -15,6 +15,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,8 +28,9 @@ import java.lang.reflect.Method;
  */
 @Component
 @Aspect
-@Slf4j
 public class LogAspect {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogAspect.class);
 
     private final LogService logService;
 
@@ -41,7 +44,7 @@ public class LogAspect {
     /**
      * 配置切入点
      */
-    @Pointcut("@annotation(cn.tlh.admin.service.aop.annotaion.Log)")
+    @Pointcut("@annotation(cn.tlh.admin.consumer.aop.annotaion.Log)")
     public void logPointcut() {
         // 该方法无方法体,主要为了让同类中其他方法使用此切入点
     }
@@ -87,8 +90,7 @@ public class LogAspect {
         log.setRequestIp(ip);
         log.setAddress(cityInfo);
         log.setMethod(actionMethod);
-        String username = this.getUsername();
-        log.setUsername("username");
+        log.setUsername(this.getUsername());
         log.setParams(params.toString());
         log.setBrowser(browser);
         log.setDescription(description);
@@ -139,8 +141,7 @@ public class LogAspect {
         log.setRequestIp(ip);
         log.setAddress(cityInfo);
         log.setMethod(actionMethod);
-        String username = this.getUsername();
-        log.setUsername("username");
+        log.setUsername(this.getUsername());
         log.setParams(params.toString());
         log.setBrowser(StringUtils.getBrowser(request));
         log.setDescription(description);
@@ -157,8 +158,7 @@ public class LogAspect {
      */
     public String getUsername() {
         try {
-//            return SecurityUtils.getCurrentUsername();
-            return "username";
+            return ShiroUtils.getUserEntity().getUsername();
         } catch (Exception e) {
             return "";
         }

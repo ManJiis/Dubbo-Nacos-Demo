@@ -1,4 +1,4 @@
-package cn.tlh.admin.service.aop.annotaion;
+package cn.tlh.admin.consumer.aop.annotaion;
 
 
 import java.lang.annotation.*;

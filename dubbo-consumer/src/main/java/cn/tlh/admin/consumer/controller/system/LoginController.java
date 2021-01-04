@@ -6,8 +6,8 @@ import cn.tlh.admin.common.base.vo.req.AuthUserVo;
 import cn.tlh.admin.common.util.AdminConstants;
 import cn.tlh.admin.common.util.RedisCacheKey;
 import cn.tlh.admin.common.util.RedisTemplateUtil;
+import cn.tlh.admin.consumer.aop.annotaion.rest.AnonymousGetMapping;
 import cn.tlh.admin.consumer.shiro.ShiroUtils;
-import cn.tlh.admin.service.aop.annotaion.rest.AnonymousGetMapping;
 import cn.tlh.admin.service.system.UserService;
 import com.wf.captcha.ArithmeticCaptcha;
 import io.swagger.annotations.Api;
@@ -55,7 +55,6 @@ public class LoginController {
     }
 
     @ApiOperation("登录")
-//    @AnonymousPostMapping(value = "/login")
     @PostMapping(value = "/login")
     public BusinessResponse login(@Validated @RequestBody AuthUserVo userVo, HttpServletRequest request) {
         // 前端传过来公钥加密的密码 这里进行解密

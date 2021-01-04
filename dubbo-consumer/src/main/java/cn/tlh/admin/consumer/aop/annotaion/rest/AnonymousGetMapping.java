@@ -1,6 +1,6 @@
-package cn.tlh.admin.service.aop.annotaion.rest;
+package cn.tlh.admin.consumer.aop.annotaion.rest;
 
-import cn.tlh.admin.service.aop.annotaion.AnonymousAccess;
+import cn.tlh.admin.consumer.aop.annotaion.AnonymousAccess;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -8,23 +8,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.lang.annotation.*;
 
 /**
- * Annotation for mapping HTTP {@code PATCH} requests onto specific handler
+ * Annotation for mapping HTTP {@code GET} requests onto specific handler
  * methods.
- * * 支持匿名访问    PatchMapping
+ * <p>
+ * 支持匿名访问   GetMapping
  *
  * @author liaojinlong
- * @see AnonymousGetMapping
- * @see AnonymousPostMapping
- * @see AnonymousPutMapping
- * @see AnonymousDeleteMapping
  * @see RequestMapping
  */
 @AnonymousAccess
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@RequestMapping(method = RequestMethod.PATCH)
-public @interface AnonymousPatchMapping {
+@RequestMapping(method = RequestMethod.GET)
+public @interface AnonymousGetMapping {
 
     /**
      * Alias for {@link RequestMapping#name}.
@@ -58,6 +55,8 @@ public @interface AnonymousPatchMapping {
 
     /**
      * Alias for {@link RequestMapping#consumes}.
+     *
+     * @since 4.3.5
      */
     @AliasFor(annotation = RequestMapping.class)
     String[] consumes() default {};

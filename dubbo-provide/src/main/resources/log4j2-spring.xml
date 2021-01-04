@@ -11,7 +11,7 @@
         <!-- %logger{36} 表示 Logger 名字最长36个字符 -->
         <!--        <property name="LOG_PATTERN" value="%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>-->
         <!-- 定义日志存储的路径 -->
-        <property name="FILE_PATH" value="SDND_LOG"/>
+        <property name="FILE_PATH" value="ADMIN_SDND_LOG"/>
         <!-- 你的项目名称 -->
         <property name="FILE_NAME" value="SDND"/>
     </Properties>
@@ -94,24 +94,23 @@
     <!--Logger节点用来单独指定日志的形式，比如要为指定包下的class指定不同的日志级别等。-->
     <!--然后定义loggers，只有定义了logger并引入的appender，appender才会生效-->
     <loggers>
-
         <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
-        <logger name="org.mybatis" level="info" additivity="false">
+        <Logger name="org.mybatis" level="info" additivity="false">
             <AppenderRef ref="Console"/>
-        </logger>
+        </Logger>
         <!--监控系统信息-->
         <!--若是additivity设为false，则 子Logger 只会在自己的appender里输出，而不会在 父Logger 的appender里输出。-->
         <Logger name="org.springframework" level="info" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
 
-        <root level="info">
+        <Root level="info">
             <appender-ref ref="Console"/>
             <appender-ref ref="Filelog"/>
             <appender-ref ref="RollingFileInfo"/>
             <appender-ref ref="RollingFileWarn"/>
             <appender-ref ref="RollingFileError"/>
-        </root>
+        </Root>
     </loggers>
 
 </configuration>

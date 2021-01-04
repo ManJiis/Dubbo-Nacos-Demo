@@ -10,14 +10,15 @@ import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
 import cn.tlh.admin.common.pojo.system.SysUser;
 import cn.tlh.admin.common.util.*;
 import cn.tlh.admin.common.util.enums.CodeEnum;
+import cn.tlh.admin.consumer.aop.annotaion.Log;
 import cn.tlh.admin.consumer.shiro.ShiroUtils;
-import cn.tlh.admin.service.aop.annotaion.Log;
 import cn.tlh.admin.service.system.RoleService;
 import cn.tlh.admin.service.system.UserService;
 import cn.tlh.admin.service.system.VerifyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.Reference;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +31,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-//import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author TANG
@@ -40,8 +40,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("system/user")
 public class UserController {
-
-//    PasswordEncoder passwordEncoder;
 
     @Reference(version = "${service.version}", check = false)
     UserService userService;
@@ -54,14 +52,14 @@ public class UserController {
 
     @ApiOperation("查询用户")
     @GetMapping
-    // // @PreAuthorize("@el.check('SysUser:list')")
+    @RequiresPermissions("@el.check('SysUser:list')")
     public BusinessResponse query(UserQueryReqVo userQueryReqVo) {
         return BusinessResponse.ok(userService.selectList(userQueryReqVo));
     }
 
     @ApiOperation("导出用户数据")
     @GetMapping(value = "/download")
-    // // @PreAuthorize("@el.check('SysUser:list')")
+    // @RequiresPermissions("@el.check('SysUser:list')")
     public void download(HttpServletResponse response, UserQueryReqVo userQueryReqVo) throws IOException {
         List<SysUser> records = userService.selectList(userQueryReqVo).getRecords();
         List<UserDto> userDtoList = userMapper.toDto(records);
@@ -71,7 +69,7 @@ public class UserController {
     @Log(description = "新增用户")
     @ApiOperation("新增用户")
     @PostMapping("/add")
-    // // @PreAuthorize("@el.check('SysUser:add')")
+    // @RequiresPermissions("@el.check('SysUser:add')")
     public BusinessResponse create(@Validated @RequestBody SysUser user) {
 //        checkLevel(user);
         String generateSalt = EncryptUtils.generateSalt();
@@ -90,7 +88,7 @@ public class UserController {
     @Log(description = "修改用户")
     @ApiOperation("修改用户")
     @PutMapping("/update")
-    // // @PreAuthorize("@el.check('SysUser:edit')")
+    // @RequiresPermissions("@el.check('SysUser:edit')")
     public BusinessResponse update(@Validated @RequestBody SysUser resources) {
 //        checkLevel(resources);
         userService.update(resources);
@@ -112,7 +110,7 @@ public class UserController {
     @Log(description = "删除用户")
     @ApiOperation("删除用户")
     @DeleteMapping("/del")
-    // // @PreAuthorize("@el.check('SysUser:del')")
+    // @RequiresPermissions("@el.check('SysUser:del')")
     public BusinessResponse delete(@RequestBody Set<Long> ids) {
         Integer currentUserId = 1;
         List<Integer> integerList = new ArrayList<>();

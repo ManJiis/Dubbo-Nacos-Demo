@@ -1,8 +1,8 @@
 package cn.tlh.admin.consumer.controller.system;
 
-import cn.tlh.admin.common.base.vo.req.LogReqVo;
 import cn.tlh.admin.common.base.vo.BusinessResponse;
-import cn.tlh.admin.service.aop.annotaion.Log;
+import cn.tlh.admin.common.base.vo.req.LogReqVo;
+import cn.tlh.admin.consumer.aop.annotaion.Log;
 import cn.tlh.admin.service.system.LogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +27,7 @@ public class LogController {
     @Log(description = "导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    // @PreAuthorize("@el.check()")
+    // @RequiresPermissions("@el.check()")
     public void download(HttpServletResponse response, LogReqVo logReqVo) throws IOException {
         logReqVo.setLogType("INFO");
 //        logService.download(logService.selectList(logReq), response);
@@ -36,7 +36,7 @@ public class LogController {
     @Log(description = "导出错误数据")
     @ApiOperation("导出错误数据")
     @GetMapping(value = "/error/download")
-    // @PreAuthorize("@el.check()")
+    // @RequiresPermissions("@el.check()")
     public void downloadErrorLog(HttpServletResponse response, LogReqVo logReqVo) throws IOException {
         logReqVo.setLogType("ERROR");
         logService.download(logService.selectList(logReqVo), response);
@@ -44,7 +44,7 @@ public class LogController {
 
     @GetMapping("/get")
     @ApiOperation("日志查询")
-    // @PreAuthorize("@el.check()")
+    // @RequiresPermissions("@el.check()")
     public BusinessResponse query(LogReqVo logReqVo) {
         logReqVo.setLogType("INFO");
         return BusinessResponse.ok(logService.selectList(logReqVo));
@@ -61,7 +61,7 @@ public class LogController {
 
     @GetMapping(value = "/error/{id}")
     @ApiOperation("日志异常详情查询")
-    // @PreAuthorize("@el.check()")
+    // @RequiresPermissions("@el.check()")
     public BusinessResponse queryErrorLogs(@PathVariable Long id) {
         return BusinessResponse.ok(logService.findByErrDetail(id));
     }
@@ -69,7 +69,7 @@ public class LogController {
     @DeleteMapping(value = "/del/error")
     @Log(description = "删除所有ERROR日志")
     @ApiOperation("删除所有ERROR日志")
-    // @PreAuthorize("@el.check()")
+    // @RequiresPermissions("@el.check()")
     public BusinessResponse delAllErrorLog() {
         logService.delAllByError();
         return BusinessResponse.ok();
@@ -78,7 +78,7 @@ public class LogController {
     @DeleteMapping(value = "/del/info")
     @Log(description = "删除所有INFO日志")
     @ApiOperation("删除所有INFO日志")
-    // @PreAuthorize("@el.check()")
+    // @RequiresPermissions("@el.check()")
     public BusinessResponse delAllInfoLog() {
         logService.delAllByInfo();
         return BusinessResponse.ok();

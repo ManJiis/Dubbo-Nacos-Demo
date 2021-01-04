@@ -2,12 +2,12 @@ package cn.tlh.admin.consumer.controller.system;
 
 import cn.hutool.core.lang.Dict;
 import cn.tlh.admin.common.base.dto.RoleDto;
+import cn.tlh.admin.common.base.mapstruct.RoleMapper;
+import cn.tlh.admin.common.base.vo.BusinessResponse;
 import cn.tlh.admin.common.base.vo.req.RoleReqVo;
 import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
-import cn.tlh.admin.common.base.mapstruct.RoleMapper;
 import cn.tlh.admin.common.pojo.system.SysRole;
-import cn.tlh.admin.common.base.vo.BusinessResponse;
-import cn.tlh.admin.service.aop.annotaion.Log;
+import cn.tlh.admin.consumer.aop.annotaion.Log;
 import cn.tlh.admin.service.system.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,14 +42,14 @@ public class RoleController {
 
     @ApiOperation("获取单个role")
     @GetMapping(value = "/{id}")
-    // // @PreAuthorize("@el.check('roles:list')")
+    // @RequiresPermissions("@el.check('roles:list')")
     public BusinessResponse query(@PathVariable Long id) {
         return BusinessResponse.ok(roleService.findById(id));
     }
 
     @ApiOperation("导出角色数据")
     @GetMapping(value = "/download")
-    // // @PreAuthorize("@el.check('SysRole:list')")
+    // @RequiresPermissions("@el.check('SysRole:list')")
     public void download(HttpServletResponse response, RoleReqVo roleReqVo) throws IOException {
         List<SysRole> sysRoles = roleService.selectList(roleReqVo).getRecords();
         List<RoleDto> roleDtoList = roleMapper.toDto(sysRoles);
@@ -58,7 +58,7 @@ public class RoleController {
 
     @ApiOperation("查询角色")
     @GetMapping
-    // // @PreAuthorize("@el.check('roles:list')")
+    // @RequiresPermissions("@el.check('roles:list')")
     public BusinessResponse query(RoleReqVo roleReqVo) {
         return BusinessResponse.ok(roleService.selectList(roleReqVo));
     }
@@ -72,7 +72,7 @@ public class RoleController {
     @Log(description = "新增角色")
     @ApiOperation("新增角色")
     @PostMapping
-    // // @PreAuthorize("@el.check('roles:add')")
+    // @RequiresPermissions("@el.check('roles:add')")
     public BusinessResponse create(@Validated @RequestBody SysRole resources) {
         if (resources.getRoleId() != null) {
             throw new BusinessErrorException("A new " + ENTITY_NAME + " cannot already have an ID");
@@ -85,7 +85,7 @@ public class RoleController {
     @Log(description = "修改角色")
     @ApiOperation("修改角色")
     @PutMapping
-    // // @PreAuthorize("@el.check('roles:edit')")
+    // @RequiresPermissions("@el.check('roles:edit')")
     public BusinessResponse update(@Validated(SysRole.class) @RequestBody SysRole resources) {
         getLevels(resources.getLevel());
         roleService.update(resources);
@@ -95,7 +95,7 @@ public class RoleController {
     @Log(description = "修改角色菜单")
     @ApiOperation("修改角色菜单")
     @PutMapping(value = "/menu")
-    // // @PreAuthorize("@el.check('roles:edit')")
+    // @RequiresPermissions("@el.check('roles:edit')")
     public BusinessResponse updateMenu(@RequestBody SysRole resources) {
         RoleDto SysRole = roleService.findById(resources.getRoleId());
         getLevels(SysRole.getLevel());
@@ -106,7 +106,7 @@ public class RoleController {
     @Log(description = "删除角色")
     @ApiOperation("删除角色")
     @DeleteMapping
-    // // @PreAuthorize("@el.check('roles:del')")
+    // @RequiresPermissions("@el.check('roles:del')")
     public BusinessResponse delete(@RequestBody Set<Long> ids) {
         for (Long id : ids) {
             RoleDto SysRole = roleService.findById(id);

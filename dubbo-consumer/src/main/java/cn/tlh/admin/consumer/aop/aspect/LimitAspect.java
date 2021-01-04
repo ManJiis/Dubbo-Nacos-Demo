@@ -1,10 +1,10 @@
-package cn.tlh.admin.service.aop.aspect;
+package cn.tlh.admin.consumer.aop.aspect;
 
 import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
-import cn.tlh.admin.common.util.spring.RequestHolder;
 import cn.tlh.admin.common.util.StringUtils;
-import cn.tlh.admin.service.aop.annotaion.Limit;
-import cn.tlh.admin.service.aop.annotaion.LimitType;
+import cn.tlh.admin.common.util.spring.RequestHolder;
+import cn.tlh.admin.consumer.aop.annotaion.Limit;
+import cn.tlh.admin.consumer.aop.annotaion.LimitType;
 import com.google.common.collect.ImmutableList;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -32,19 +32,12 @@ public class LimitAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(LimitAspect.class);
 
-/*    private final RedisTemplate<Object, Object> objectRedisTemplate;
-    // 构造注入
-    public LimitAspect(RedisTemplate<Object, Object> objectRedisTemplate) {
-        this.objectRedisTemplate = objectRedisTemplate;
-    }
-*/
-
     @Autowired(required = false)
     @Qualifier("objectRedisTemplate")
     RedisTemplate<Object, Object> objectRedisTemplate;
 
 
-    @Pointcut("@annotation(cn.tlh.admin.service.aop.annotaion.Limit)")
+    @Pointcut("@annotation(cn.tlh.admin.consumer.aop.annotaion.Limit)")
     public void pointcut() {
     }
 

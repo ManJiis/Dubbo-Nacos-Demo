@@ -1,6 +1,6 @@
-package cn.tlh.admin.service.aop.annotaion.rest;
+package cn.tlh.admin.consumer.aop.annotaion.rest;
 
-import cn.tlh.admin.service.aop.annotaion.AnonymousAccess;
+import cn.tlh.admin.consumer.aop.annotaion.AnonymousAccess;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
