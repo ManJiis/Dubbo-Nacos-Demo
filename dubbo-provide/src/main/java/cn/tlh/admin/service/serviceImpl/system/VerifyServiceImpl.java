@@ -6,13 +6,12 @@ import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
-import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
 import cn.tlh.admin.common.base.vo.req.EmailVo;
-import cn.tlh.admin.common.util.RedisTemplateUtil;
+import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
+import cn.tlh.admin.common.util.redis.RedisTemplateUtil;
 import cn.tlh.admin.service.system.VerifyService;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
