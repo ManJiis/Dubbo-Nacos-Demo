@@ -17,16 +17,16 @@ import java.util.Arrays;
  * @author TANG
  * @date 2020/12/30
  */
-public class ShiroByteSource implements ByteSource, Serializable {
+public class CustomByteSource implements ByteSource, Serializable {
     private static final long serialVersionUID = -6814336607612999610L;
     private volatile byte[] bytes;
     private String cachedHex;
     private String cachedBase64;
 
-    public ShiroByteSource() {
+    public CustomByteSource() {
     }
 
-    public ShiroByteSource(String string) {
+    public CustomByteSource(String string) {
         this.bytes = CodecSupport.toBytes(string);
     }
 
@@ -86,6 +86,6 @@ public class ShiroByteSource implements ByteSource, Serializable {
     }
 
     public static ByteSource of(String string) {
-        return new ShiroByteSource(string);
+        return new CustomByteSource(string);
     }
 }

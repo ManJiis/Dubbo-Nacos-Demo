@@ -3,7 +3,7 @@ package cn.tlh.admin.consumer.shiro;
 import cn.hutool.core.util.ArrayUtil;
 import cn.tlh.admin.common.pojo.system.SysRole;
 import cn.tlh.admin.common.pojo.system.SysUser;
-import cn.tlh.admin.common.util.AdminConstants;
+import cn.tlh.admin.common.util.constant.AdminConstants;
 import cn.tlh.admin.dao.SysMenuDao;
 import cn.tlh.admin.dao.SysRoleDao;
 import cn.tlh.admin.dao.SysUserDao;
@@ -35,9 +35,9 @@ import java.util.Set;
  * @date 20120-12-21
  */
 @Component
-public class ShiroAuthorizingRealm extends AuthorizingRealm implements Authorizer {
+public class CustomAuthorizingRealm extends AuthorizingRealm implements Authorizer {
 
-    private final Logger logger = LoggerFactory.getLogger(ShiroAuthorizingRealm.class);
+    private final Logger logger = LoggerFactory.getLogger(CustomAuthorizingRealm.class);
 
     @Autowired(required = false)
     SysMenuDao sysMenuDao;
@@ -96,9 +96,9 @@ public class ShiroAuthorizingRealm extends AuthorizingRealm implements Authorize
         if (user.getEnabled() == AdminConstants.SYS_USER_STATUS_PROHIBIT) {
             throw new LockedAccountException();
         }
-        ShiroByteSource shiroByteSource = new ShiroByteSource(user.getSalt());
+        CustomByteSource customByteSource = new CustomByteSource(user.getSalt());
 //        ByteSource byteSource = ByteSource.Util.bytes(user.getSalt());
-        return new SimpleAuthenticationInfo(user, user.getPassword(), shiroByteSource, getName());
+        return new SimpleAuthenticationInfo(user, user.getPassword(), customByteSource, getName());
     }
 
     @Override

@@ -15,13 +15,13 @@ import java.io.Serializable;
  * @description 自定义sessionId获取
  * @date 2020-12-21
  */
-public class ShiroSessionManager extends DefaultWebSessionManager {
+public class CustomSessionManager extends DefaultWebSessionManager {
 
     private static final String HEADER_TOKEN_NAME = "token";
 
     private static final String REFERENCED_SESSION_ID_SOURCE = "Stateless request";
 
-    public ShiroSessionManager() {
+    public CustomSessionManager() {
         super();
     }
 
@@ -33,7 +33,7 @@ public class ShiroSessionManager extends DefaultWebSessionManager {
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
         String id = WebUtils.toHttp(request).getHeader(HEADER_TOKEN_NAME);
         // 如果请求头中有 token 则其值为sessionId
-        if (!StringUtils.isEmpty(id)) {
+        if (StringUtils.isNotBlank(id)) {
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, REFERENCED_SESSION_ID_SOURCE);
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, id);
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);

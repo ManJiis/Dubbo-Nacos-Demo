@@ -89,20 +89,25 @@ public class ShiroConfig {
         return redisManager;
     }
 
+    /**
+     * 自定义Realm
+     *
+     * @return /
+     */
     @Bean
-    public ShiroAuthorizingRealm userRealm() {
-        ShiroAuthorizingRealm shiroAuthorizingRealm = new ShiroAuthorizingRealm();
+    public CustomAuthorizingRealm userRealm() {
+        CustomAuthorizingRealm customAuthorizingRealm = new CustomAuthorizingRealm();
         // 开启缓存
-        shiroAuthorizingRealm.setCachingEnabled(true);
+        customAuthorizingRealm.setCachingEnabled(true);
         // 开启身份验证缓存，即缓存AuthenticationInfo信息
-        shiroAuthorizingRealm.setAuthenticationCachingEnabled(true);
+        customAuthorizingRealm.setAuthenticationCachingEnabled(true);
         // 设置身份缓存名称前缀
-        shiroAuthorizingRealm.setAuthenticationCacheName("userinfo_cache");
+        customAuthorizingRealm.setAuthenticationCacheName("userinfo_cache");
         // 开启授权缓存
-        shiroAuthorizingRealm.setAuthorizationCachingEnabled(true);
+        customAuthorizingRealm.setAuthorizationCachingEnabled(true);
         // 这是权限缓存名称前缀
-        shiroAuthorizingRealm.setAuthorizationCacheName("authorization_cache");
-        return shiroAuthorizingRealm;
+        customAuthorizingRealm.setAuthorizationCacheName("authorization_cache");
+        return customAuthorizingRealm;
     }
 
     /**
@@ -111,7 +116,7 @@ public class ShiroConfig {
     @Bean
     public SessionManager sessionManager() {
         // 自定义SessionManager
-        ShiroSessionManager sessionManager = new ShiroSessionManager();
+        CustomSessionManager sessionManager = new CustomSessionManager();
         sessionManager.setSessionDAO(redisSessionDAO);
         // 定时清理失效会话, 清理用户直接关闭浏览器造成的孤立会话
         sessionManager.setSessionValidationInterval(1800000);
@@ -129,6 +134,8 @@ public class ShiroConfig {
     /**
      * RedisSessionDAO shiro sessionDao层的实现，实现sessionId管理
      * 使用的是shiro-redis开源插件
+     *
+     * @return /
      */
     @Bean
     public RedisSessionDAO redisSessionDAO() {
@@ -144,6 +151,8 @@ public class ShiroConfig {
     /**
      * cacheManager 缓存 redis实现 ,将用户信息缓存在redis
      * 使用的是shiro-redis开源插件
+     *
+     * @return /
      */
     @Bean
     public RedisCacheManager redisCacheManager() {
