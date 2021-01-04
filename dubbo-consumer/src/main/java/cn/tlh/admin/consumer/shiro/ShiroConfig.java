@@ -1,12 +1,12 @@
 package cn.tlh.admin.consumer.shiro;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.mgt.SessionsSecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
-import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -57,14 +57,8 @@ public class ShiroConfig {
         // 必须设置SecuritManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
-        //配置拦截器,实现无权限返回401,而不是跳转到登录页
-        filters.put("authc", new LoginFilter());
-        // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-//        shiroFilterFactoryBean.setLoginUrl("/login");
-        // 登录成功后要跳转的链接
-//        shiroFilterFactoryBean.setSuccessUrl("/index");
-        // 未授权界面;
-//        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        // 配置拦截器,实现无权限返回401,而不是跳转到登录页
+        filters.put("authc", new ShiroLoginFilter());
         // 拦截器
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         // 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边
@@ -82,26 +76,6 @@ public class ShiroConfig {
     }
 
     /**
-     * 路径过滤规则
-     */
-    @Bean
-    public ShiroFilterChainDefinition shiroFilterChainDefinition() {
-        DefaultShiroFilterChainDefinition chain = new DefaultShiroFilterChainDefinition();
-        //哪些请求可以匿名访问 顺序判断
-//        chain.addPathDefinition("/**", "anon");
-/*        chain.addPathDefinition("/swagger/**", "anon");
-        chain.addPathDefinition("/v2/**", "anon");
-        chain.addPathDefinition("/webjars/**", "anon");
-        chain.addPathDefinition("/swagger-resources/**", "anon");
-        chain.addPathDefinition("/swagger-ui.html", "anon");
-        chain.addPathDefinition("/doc.html/**", "anon");
-        chain.addPathDefinition("/system/auth/**", "anon");
-        //除了以上的请求外，其它请求都需要登录
-        chain.addPathDefinition("/**", "authc");*/
-        return chain;
-    }
-
-    /**
      * shiro中配置redis信息
      *
      * @return RedisManager
@@ -109,7 +83,6 @@ public class ShiroConfig {
     private RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
         redisManager.setHost(redisHost + ":" + redisPort);
-//        redisManager.setPort(redisPort);
         if (StringUtils.isNotBlank(redisPassword)) {
             redisManager.setPassword(redisPassword);
         }
@@ -140,9 +113,11 @@ public class ShiroConfig {
         // 自定义SessionManager
         ShiroSessionManager sessionManager = new ShiroSessionManager();
         sessionManager.setSessionDAO(redisSessionDAO);
+        // 定时清理失效会话, 清理用户直接关闭浏览器造成的孤立会话
+        sessionManager.setSessionValidationInterval(1800000);
+        sessionManager.setSessionValidationSchedulerEnabled(true);
         // 不在地址栏显示sessionId
         sessionManager.setSessionIdUrlRewritingEnabled(false);
-        sessionManager.setSessionValidationSchedulerEnabled(true);
         // 超时时间，默认30分钟，设置sessionId超时时间，方法单位：毫秒
         // 一天
 //        sessionManager.setGlobalSessionTimeout(60 * 60 * 24 * 1000L);
@@ -222,13 +197,20 @@ public class ShiroConfig {
     }
 
     /**
-     * 开启Shiro的注解
-     * （如@RequiresRoles,@RequiresPermissions）,需借助SpringAOP
+     * 开启Shiro的注解(如@RequiresRoles,//@RequiresPermissions)
+     * 需配置以下两个bean(DefaultAdvisorAutoProxyCreator和AuthorizationAttributeSourceAdvisor)
      */
     @Bean
     public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
         advisorAutoProxyCreator.setProxyTargetClass(true);
         return advisorAutoProxyCreator;
+    }
+
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+        return authorizationAttributeSourceAdvisor;
     }
 }
