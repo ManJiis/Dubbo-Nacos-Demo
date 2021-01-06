@@ -95,7 +95,7 @@ public class ShiroConfig {
      * @return /
      */
     @Bean
-    public CustomAuthorizingRealm userRealm() {
+    public CustomAuthorizingRealm customAuthorizingRealm() {
         CustomAuthorizingRealm customAuthorizingRealm = new CustomAuthorizingRealm();
         // 开启缓存
         customAuthorizingRealm.setCachingEnabled(true);
@@ -196,8 +196,8 @@ public class ShiroConfig {
     @Bean
     public SessionsSecurityManager sessionsSecurityManager(List<Realm> realms, SessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager(realms);
-        // 配置 SecurityManager，并注入 UserRealm
-        securityManager.setRealm(userRealm());
+        // 配置 SecurityManager，并注入 CustomAuthorizingRealm
+        securityManager.setRealm(customAuthorizingRealm());
         // 配置 rememberMeCookie
         securityManager.setRememberMeManager(rememberMeManager());
         securityManager.setSessionManager(sessionManager);
