@@ -14,56 +14,74 @@ import java.util.Date;
 /**
  * @author TANG
  * @description jwt工具类
+ * {@literal
  * <p>
- * JWT构成
- * 1. header
- * jwt 的头部承载两部分信息:
- * - 声明类型，这里是 jwt
- * - 声明加密的算法 通常直接使用 HMAC SHA256
- * 例如:
+ *      JWT构成
+ *          1. header
+ *              jwt 的头部承载两部分信息:
+ *                  - 声明类型，这里是 jwt
+ *                  - 声明加密的算法 通常直接使用 HMAC SHA256
+ *              例如:
+ *
  * <pre>
+ *     {@code
  *                  {
  *                      'typ': 'JWT',
  *                      'alg': 'HS256'
  *                  }
- *              </pre>
- * 然后进行base64加密: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
- * 2. payload
- * 存放有效信息的地方,分三个部分:
- * - 标准中注册的声明
- * - 公共的声明
- * - 私有的声明
- * 例如:
+ *      }
+ * </pre>
+ *      然后进行base64加密: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+ * <p>
+ *          2. payload
+ *              存放有效信息的地方,分三个部分:
+ *                  - 标准中注册的声明
+ *                  - 公共的声明
+ *              - 私有的声明
+ *              例如:
  * <pre>
+ *     {@code
  *                  {
  *                      "sub": "1234567890",
  *                      "name": "John Doe",
  *                      "admin": true
  *                  }
- *              </pre>
- * 然后进行base64加密: eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9
- * 3. signature
- * jwt 的第三部分是一个签证信息，这个签证信息由三部分组成：
- * - header (base64 后的)
- * - payload (base64 后的)
- * - secret
- * 这部分 base64 加密后的 header 和 base64 加密后的 payload 使用. 连接组成的字符串，然后通过 header 中声明的加密方式进行加盐 secret 组合加密，然后就构成了 jwt 的第三部分。
- * var encodedString = base64UrlEncode(header) + '.' + base64UrlEncode(payload);
- * var signature = HMACSHA256(encodedString, 'secret'); // TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
- * 将这三部分用  . 连接成一个完整的字符串，构成了最终的 jwt:
- * eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
- * eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.
- * TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
- * 应用:
- * 一般是在请求头里加入 Authorization，并加上 Bearer 标注：
+ *      }
+ * </pre>
+ *          然后进行base64加密: eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9
+ * </p>
+ * <p>
+ *          3. signature
+ *              jwt 的第三部分是一个签证信息，这个签证信息由三部分组成：
+ *                  - header (base64 后的)
+ *                  - payload (base64 后的)
+ *                  - secret
+ *          这部分 base64 加密后的 header 和 base64 加密后的 payload 使用. 连接组成的字符串，然后通过 header 中声明的加密方式进行加盐 secret 组合加密，然后就构成了 jwt 的第三部分。
+ *          <pre>
+ *              {@code
+ *                  var encodedString = base64UrlEncode(header) + '.' + base64UrlEncode(payload);
+ *                  var signature = HMACSHA256(encodedString, 'secret'); // TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+ *              }
+ *          </pre>
+ *
+ *          将这三部分用  . 连接成一个完整的字符串，构成了最终的 jwt:
+ *              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+ *              eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.
+ *              TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+ *          应用:
+ *              一般是在请求头里加入 Authorization，并加上 Bearer 标注：
+ * </p>
  * <pre>
+ *     {@code
  *          fetch('api/user/1', {
  *              headers: {
  *                  'Authorization': 'Bearer ' + token
  *              }
  *          })
- *         <pre>
- * <p/>
+ *      }
+ *  <pre>
+ *  </p>
+ * }
  * @date 2021-1-4
  */
 public class JwtUtil {
