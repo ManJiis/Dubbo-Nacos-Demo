@@ -14,7 +14,7 @@ public class BusinessErrorException extends RuntimeException {
     /**
      * 异常码
      */
-    private String code;
+    private Integer code;
 
     /**
      * 异常提示信息
@@ -22,7 +22,7 @@ public class BusinessErrorException extends RuntimeException {
     private String message;
 
     public BusinessErrorException(String msg) {
-        this.code = "500";
+        this.code = 500;
         this.message = msg;
     }
 
@@ -31,11 +31,11 @@ public class BusinessErrorException extends RuntimeException {
         this.message = businessMsgEnum.msg();
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 

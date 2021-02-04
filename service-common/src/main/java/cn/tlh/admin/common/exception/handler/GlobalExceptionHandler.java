@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({UnauthorizedException.class, AuthorizationException.class})
     public BusinessResponse unauthorizedExceptionHandler() {
-        return BusinessResponse.fail("403", "No permission!");
+        return BusinessResponse.fail(403, "No permission!");
     }
 
     /**
@@ -106,7 +106,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(BusinessErrorException.class)
     public BusinessResponse handleBusinessError(BusinessErrorException bex) {
-        String code = bex.getCode();
+        Integer code = bex.getCode();
         String message = bex.getMessage();
         return BusinessResponse.fail(code, message);
     }
@@ -119,7 +119,7 @@ public class GlobalExceptionHandler {
         // 打印堆栈信息
         log.error(ThrowableUtil.getStackTrace(e));
         String message = e.getMessage();
-        return BusinessResponse.fail("400", message);
+        return BusinessResponse.fail(400, message);
     }
 
     /**
@@ -130,7 +130,7 @@ public class GlobalExceptionHandler {
         // 打印堆栈信息
         log.error(ThrowableUtil.getStackTrace(e));
         String message = e.getMessage();
-        return BusinessResponse.fail("400", message);
+        return BusinessResponse.fail(400, message);
     }
 
 
@@ -143,7 +143,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public BusinessResponse handleHttpMessageNotReadableException(MissingServletRequestParameterException ex) {
         LOGGER.error("缺少请求参数，{}", ex.getMessage());
-        return BusinessResponse.fail("400", "缺少必要的请求参数");
+        return BusinessResponse.fail(400, "缺少必要的请求参数");
     }
 
     //  Validated 请求参数校验异常处理
@@ -157,7 +157,7 @@ public class GlobalExceptionHandler {
         List<String> collect = fieldErrors.stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return BusinessResponse.fail(collect, "400", AdminConstants.BAD_REQUEST_MSG);
+        return BusinessResponse.fail(collect, 400, AdminConstants.BAD_REQUEST_MSG);
     }
 
     /**
@@ -169,7 +169,7 @@ public class GlobalExceptionHandler {
         List<String> collect = fieldErrors.stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return BusinessResponse.fail(collect, "400", AdminConstants.BAD_REQUEST_MSG);
+        return BusinessResponse.fail(collect, 400, AdminConstants.BAD_REQUEST_MSG);
     }
 
     /**
@@ -181,6 +181,6 @@ public class GlobalExceptionHandler {
         List<String> collect = constraintViolations.stream()
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.toList());
-        return BusinessResponse.fail(collect, "400", AdminConstants.BAD_REQUEST_MSG);
+        return BusinessResponse.fail(collect, 400, AdminConstants.BAD_REQUEST_MSG);
     }
 }

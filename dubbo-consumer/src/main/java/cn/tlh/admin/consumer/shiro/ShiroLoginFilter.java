@@ -46,7 +46,7 @@ public class ShiroLoginFilter extends FormAuthenticationFilter {
             resp.setHeader("Access-Control-Allow-Credentials", "true");
             resp.setContentType("application/json; charset=utf-8");
             resp.setCharacterEncoding("UTF-8");
-            BusinessResponse bfpResult = BusinessResponse.fail("401", "没有登录或登陆已过期，请重新登录");
+            BusinessResponse bfpResult = BusinessResponse.fail(401, "没有登录或登陆已过期，请重新登录");
             PrintWriter out = resp.getWriter();
             out.println(JSON.toJSONString(bfpResult));
             out.flush();

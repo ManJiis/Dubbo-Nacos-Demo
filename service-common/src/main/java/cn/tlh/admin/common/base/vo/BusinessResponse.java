@@ -21,36 +21,36 @@ import lombok.Setter;
 public class BusinessResponse {
 
     private Object data;
-    private String code;
+    private Integer code;
     private String msg;
 
     // ------------------ 成功模板 ------------------------ //
     public static BusinessResponse ok() {
-        return new BusinessResponse("", "0", "操作成功！");
+        return new BusinessResponse("", 0, "操作成功！");
     }
 
-    public static BusinessResponse ok(String code, String msg) {
+    public static BusinessResponse ok(Integer code, String msg) {
         return new BusinessResponse("", code, msg);
     }
 
     public static BusinessResponse ok(Object data) {
-        return new BusinessResponse(data, "0", "操作成功！");
+        return new BusinessResponse(data, 200, "操作成功！");
     }
 
-    public static BusinessResponse ok(Object data, String code, String msg) {
+    public static BusinessResponse ok(Object data, Integer code, String msg) {
         return new BusinessResponse(data, code, msg);
     }
 
     // ------------------ 失败模板 ------------------------ //
     public static BusinessResponse fail(String message) {
-        return new BusinessResponse("", "-1", message);
+        return new BusinessResponse("", 400, message);
     }
 
-    public static BusinessResponse fail(String code, String message) {
+    public static BusinessResponse fail(Integer code, String message) {
         return new BusinessResponse("", code, message);
     }
 
-    public static BusinessResponse fail(Object data, String code, String msg) {
+    public static BusinessResponse fail(Object data, Integer code, String msg) {
         return new BusinessResponse(data, code, msg);
     }
 

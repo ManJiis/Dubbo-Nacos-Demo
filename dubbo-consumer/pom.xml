@@ -37,34 +37,34 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-ehcache</artifactId>
         </dependency>-->
-<!--        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring-boot-web-starter</artifactId>
-        </dependency>-->
-<!--        <dependency>
+        <!--        <dependency>
+                    <groupId>org.apache.shiro</groupId>
+                    <artifactId>shiro-spring-boot-web-starter</artifactId>
+                </dependency>-->
+        <dependency>
             <groupId>org.crazycake</groupId>
             <artifactId>shiro-redis-spring-boot-starter</artifactId>
-        </dependency>-->
-        <dependency>
-            <groupId>org.crazycake</groupId>
-            <artifactId>shiro-redis</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>shiro-core</artifactId>
-                    <groupId>org.apache.shiro</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>shiro-core</artifactId>
+        <!--        <dependency>
+                    <groupId>org.crazycake</groupId>
+                    <artifactId>shiro-redis</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <artifactId>shiro-core</artifactId>
+                            <groupId>org.apache.shiro</groupId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <dependency>
                     <groupId>org.apache.shiro</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+                    <artifactId>shiro-spring</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <artifactId>shiro-core</artifactId>
+                            <groupId>org.apache.shiro</groupId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>dubbo-provide</artifactId>
