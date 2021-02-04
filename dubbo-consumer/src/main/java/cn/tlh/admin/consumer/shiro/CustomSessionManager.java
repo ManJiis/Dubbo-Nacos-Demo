@@ -17,7 +17,7 @@ import java.io.Serializable;
  */
 public class CustomSessionManager extends DefaultWebSessionManager {
 
-    private static final String HEADER_TOKEN_NAME = "token";
+    private static final String HEADER_TOKEN_NAME = "sdnd-token";
 
     private static final String REFERENCED_SESSION_ID_SOURCE = "Stateless request";
 
