@@ -129,7 +129,7 @@ public class RedisTemplateUtil {
      * @param value value
      * @return long
      */
-    public long leftPush(String key, String value) {
+    public long lLeftPush(String key, String value) {
         ListOperations<String, String> listOperations = redisTemplate.opsForList();
         return listOperations.leftPush(key, value);
     }
@@ -141,7 +141,7 @@ public class RedisTemplateUtil {
      * @param value value
      * @return long
      */
-    public long rightPush(String key, String value) {
+    public long lRightPush(String key, String value) {
         ListOperations<String, String> listOperations = redisTemplate.opsForList();
         return listOperations.rightPush(key, value);
     }
@@ -153,7 +153,7 @@ public class RedisTemplateUtil {
      * @param list value
      * @return long
      */
-    public long rightPushAll(String key, List list) {
+    public long lRightPushAll(String key, List list) {
         return redisTemplate.opsForList().rightPushAll(key, list);
     }
 
@@ -165,7 +165,7 @@ public class RedisTemplateUtil {
      * @param end   end
      * @return
      */
-    public List<String> getList(String key, long start, long end) {
+    public List<String> lRange(String key, long start, long end) {
         return redisTemplate.opsForList().range(key, start, end);
     }
 
@@ -175,7 +175,7 @@ public class RedisTemplateUtil {
      * @param key key
      * @param map Map<hk,hv>
      */
-    public void hash2PutAll(String key, Map map) {
+    public void hPutAll(String key, Map map) {
         BoundHashOperations<String, String, Object> boundHashOps = redisTemplate.boundHashOps(key);
         boundHashOps.putAll(map);
     }
@@ -186,7 +186,7 @@ public class RedisTemplateUtil {
      * @param key    key
      * @param hkList list<hk>
      */
-    public List<Object> hash2MultiGet(String key, List<String> hkList) {
+    public List<Object> hMultiGet(String key, List<String> hkList) {
         BoundHashOperations<String, String, Object> boundHashOps = redisTemplate.boundHashOps(key);
         return boundHashOps.multiGet(hkList);
     }
@@ -247,7 +247,7 @@ public class RedisTemplateUtil {
      * @param circle 面积对象 (坐标,范围) new Circle(new Point(x,y), new Distance(5, Metrics.KILOMETERS)) 半径5km的范围
      * @return GeoResults
      */
-    public GeoResults<RedisGeoCommands.GeoLocation<String>> geoNearByXy(String key, Circle circle) {
+    public GeoResults<RedisGeoCommands.GeoLocation<String>> nearByXy(String key, Circle circle) {
         /*
          * 使用 GeoRadiusCommandArgs 封装 GEORADIUS 的一些可选命令参数
          * includeDistance 包含距离
@@ -265,7 +265,7 @@ public class RedisTemplateUtil {
      * <p>
      * redis命令：georadiusbymember key 北京 100 km WITHDIST WITHCOORD ASC COUNT 5
      */
-    public GeoResults<RedisGeoCommands.GeoLocation<String>> geoNearByPlace(String key, String member, Distance distance, long count) {
+    public GeoResults<RedisGeoCommands.GeoLocation<String>> nearByPlace(String key, String member, Distance distance, long count) {
         // includeDistance 包含距离
         // includeCoordinates 包含经纬度
         // sortAscending 正序排序
