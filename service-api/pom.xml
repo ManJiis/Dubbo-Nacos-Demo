@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>dubbo-nacos-demo</artifactId>
-        <groupId>cn.tlh</groupId>
+        <artifactId>springboot-dubbo-nacos-demo</artifactId>
+        <groupId>cn.tlh.admin</groupId>
         <version>1.0.0</version>
     </parent>
     <artifactId>service-api</artifactId>
-    <version>1.0.0</version>
     <name>service-api</name>
+    <version>1.0.0</version>
     <description>service of api</description>
 
     <properties>
@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>service-common</artifactId>
+            <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

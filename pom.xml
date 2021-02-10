@@ -9,18 +9,19 @@
         <version>2.1.5.RELEASE</version>
     </parent>
 
-    <groupId>cn.tlh</groupId>
-    <artifactId>dubbo-nacos-demo</artifactId>
+    <groupId>cn.tlh.amdin</groupId>
+    <artifactId>springboot-dubbo-nacos-demo</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
 
     <modules>
-        <module>dubbo-provide</module>
-        <module>dubbo-consumer</module>
+        <module>service-provide</module>
+        <module>service-apimanager</module>
+        <module>web-admin</module>
         <module>service-api</module>
-        <module>service-common</module>
-        <module>service-mapper</module>
-        <module>demo-test</module>
+        <module>common</module>
+        <module>common-mapper</module>
+        <module>web-test</module>
     </modules>
 
     <properties>
