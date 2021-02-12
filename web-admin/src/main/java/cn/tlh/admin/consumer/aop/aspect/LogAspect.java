@@ -31,7 +31,7 @@ import java.lang.reflect.Method;
 @Aspect
 public class LogAspect {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LogAspect.class);
+    private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
     @Reference(version = "${service.version}", check = false)
     LogService logService;

@@ -18,6 +18,13 @@
     </properties>
 
     <dependencies>
+        <!-- redis 分布式锁-->
+        <!-- https://mvnrepository.com/artifact/org.redisson/redisson-spring-boot-starter -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.10.6</version>
+        </dependency>
         <!--模板引擎-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

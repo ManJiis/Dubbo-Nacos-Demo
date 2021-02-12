@@ -8,7 +8,7 @@ spring:
   freemarker:
     check-template-location: false #检查模板路径是否存在
   application:
-    name: dubbo-provide
+    name: service-provide
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/sdnd?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
     #    driver-class-name: com.mysql.jdbc.Driver
@@ -56,8 +56,8 @@ spring:
   rabbitmq:
     host: 127.0.0.1
     port: 5672
-    username: guest
-    password: guest
+    username: admin
+    password: admin
     listener:
       simple:
         retry:
@@ -77,7 +77,7 @@ spring:
 # mybatis-plus
 mybatis-plus:
   #多个package用逗号或者分号分隔
-  typeAliasesPackage: cn.tlh.admin.common.pojo
+  typeAliasesPackage: cn.tlh.admin.common
   mapper-locations: classpath:/mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -107,9 +107,8 @@ dubbo:
   #    loadbalance: roundrobin  # 负载均衡算法 , 缺省是随机 random。还可以配置轮询 roundrobin、最不活跃优先 4 leastactive 和一致性哈希 consistenthash 等
   protocol:
     # 随机端口
-    #    port: 20083
-    port: 20084
-    name: dubbo
+    #    port: 20031
+    port: 20041
 
 
 task:

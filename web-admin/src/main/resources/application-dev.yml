@@ -7,7 +7,7 @@ spring:
   freemarker:
     check-template-location: false #检查模板路径是否存在
   application:
-    name: dubbo-consumer
+    name: web-admin
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/sdnd?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
     #    driver-class-name: com.mysql.jdbc.Driver

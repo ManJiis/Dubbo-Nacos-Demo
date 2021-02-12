@@ -32,10 +32,10 @@ public class HttpUtil {
         // 读取响应输入流
         BufferedReader in = null;
         String params = encodeParam(parameters);
-        String fullUrl = url + "?" + params;
-        logger.info("sendGet fullUrl : {}", fullUrl);
+        String requestUrl = url + "?" + params;
+        logger.info("sendGet requestUrl : {}", requestUrl);
         // 创建URL对象
-        URL connUrl = new URL(fullUrl);
+        URL connUrl = new URL(requestUrl);
         // 打开URL连接
         java.net.HttpURLConnection httpUrlConnection = (java.net.HttpURLConnection) connUrl.openConnection();
         // 设置通用属性
@@ -47,11 +47,11 @@ public class HttpUtil {
         // 响应头部获取
         Map<String, List<String>> headers = httpUrlConnection.getHeaderFields();
         // 遍历所有的响应头字段
-        logger.info("===============开始遍历所有的响应头字段");
+        logger.info("---------------------------------------------------------开始遍历响应头字段");
         for (String key : headers.keySet()) {
             logger.info(key + "\t：\t" + headers.get(key));
         }
-        logger.info("===============响应头字段遍历结束");
+        logger.info("---------------------------------------------------------响应头字段遍历结束");
         // 定义BufferedReader输入流来读取URL的响应,并设置编码方式
         in = new BufferedReader(new InputStreamReader(httpUrlConnection.getInputStream(), StandardCharsets.UTF_8));
         String line;
@@ -116,7 +116,7 @@ public class HttpUtil {
         // flush输出流的缓冲
         out.flush();
         // 定义BufferedReader输入流来读取URL的响应，设置编码方式
-        in = new BufferedReader(new InputStreamReader(httpUrlConnection.getInputStream(), "UTF-8"));
+        in = new BufferedReader(new InputStreamReader(httpUrlConnection.getInputStream(), StandardCharsets.UTF_8));
         String line;
         // 读取返回的内容
         while ((line = in.readLine()) != null) {
@@ -152,9 +152,11 @@ public class HttpUtil {
             // 获取所有响应头字段
             Map<String, List<String>> map = connection.getHeaderFields();
             // 遍历所有的响应头字段
+            logger.info("===============开始遍历所有的响应头字段");
             for (String key : map.keySet()) {
                 System.out.println(key + "--->" + map.get(key));
             }
+            logger.info("===============响应头字段遍历结束");
             // 定义 BufferedReader输入流来读取URL的响应
             in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
@@ -185,7 +187,7 @@ public class HttpUtil {
     public static String sendPost(String url, String param) {
         PrintWriter out = null;
         BufferedReader in = null;
-        String result = "";
+        StringBuilder result = new StringBuilder();
         try {
             URL realUrl = new URL(url);
             // 打开和URL之间的连接
@@ -207,7 +209,7 @@ public class HttpUtil {
             in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = in.readLine()) != null) {
-                result += line;
+                result.append(line);
             }
         } catch (Exception e) {
             System.out.println("发送 POST 请求出现异常！" + e);
@@ -224,7 +226,7 @@ public class HttpUtil {
                 ex.printStackTrace();
             }
         }
-        return result;
+        return result.toString();
     }
 
     public static void main(String[] args) throws IOException {

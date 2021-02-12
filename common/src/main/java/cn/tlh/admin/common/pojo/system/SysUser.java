@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,14 +24,12 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @TableName(value = "sys_user")
 public class SysUser implements Serializable {
     private static final long serialVersionUID = 649715419116774602L;
 
-    // @Id
-    // @Column(name = "user_id")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.INPUT)
     @ApiModelProperty(value = "ID", hidden = true)
     private Long userId;
     /**

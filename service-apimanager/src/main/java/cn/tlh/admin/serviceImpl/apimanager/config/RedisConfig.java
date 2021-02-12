@@ -1,4 +1,4 @@
-package cn.tlh.admin.common.config;
+package cn.tlh.admin.serviceImpl.apimanager.config;
 
 import com.alibaba.fastjson.parser.ParserConfig;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +17,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.lang.Nullable;
 
 /**
  * @author TANG
@@ -29,8 +30,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableConfigurationProperties(RedisProperties.class)
 public class RedisConfig extends CachingConfigurerSupport {
 
-
-    @SuppressWarnings("all")
     @Bean(name = "redisTemplate")
     @ConditionalOnMissingBean(name = "redisTemplate")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
@@ -55,7 +54,6 @@ public class RedisConfig extends CachingConfigurerSupport {
         return redisTemplate;
     }
 
-    @SuppressWarnings("all")
     @Bean(name = "objectRedisTemplate")
     @ConditionalOnMissingBean(name = "objectRedisTemplate")
     public RedisTemplate<Object, Object> objectRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
@@ -76,12 +74,19 @@ public class RedisConfig extends CachingConfigurerSupport {
         return template;
     }
 
+
+    /**
+     * redis数据操作异常处理 这里的处理：在日志中打印出错误信息，但是放行
+     * 保证redis服务器出现连接等问题的时候不影响程序的正常运行，使得能够出问题时不用缓存
+     */
     @Bean
+    @Nullable
     @Override
     public CacheErrorHandler errorHandler() {
         // 异常处理，当Redis发生异常时，打印日志，但是程序正常走
         log.info("初始化 -> [{}]", "Redis CacheErrorHandler");
         return new CacheErrorHandler() {
+
             @Override
             public void handleCacheGetError(RuntimeException e, Cache cache, Object key) {
                 log.error("Redis occur handleCacheGetError：key -> [{}]", key, e);

@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
      * shiro未授权异常
@@ -58,16 +58,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ShiroException.class)
     public BusinessResponse handleShiroException(ShiroException e) {
         if (e instanceof UnknownAccountException) {
-            LOGGER.error("ShiroException -->UnknownAccountException {}", "账号不存在");
+            logger.error("ShiroException -->UnknownAccountException {}", "账号不存在");
             return BusinessResponse.fail("账号不存在");
         } else if (e instanceof IncorrectCredentialsException) {
-            LOGGER.error("ShiroException -->IncorrectCredentialsException {}", "密码错误");
+            logger.error("ShiroException -->IncorrectCredentialsException {}", "密码错误");
             return BusinessResponse.fail("密码错误");
         } else if (e instanceof LockedAccountException) {
-            LOGGER.error("ShiroException -->LockedAccountException {}", "账户已被禁用");
+            logger.error("ShiroException -->LockedAccountException {}", "账户已被禁用");
             return BusinessResponse.fail("账户已被禁用");
         } else if (e instanceof AuthorizationException) {
-            LOGGER.error("ShiroException -->AuthorizationException {}", "没有权限");
+            logger.error("ShiroException -->AuthorizationException {}", "没有权限");
             return BusinessResponse.fail("没有权限");
         }
         return BusinessResponse.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
@@ -82,7 +82,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(RpcException.class)
     public BusinessResponse rpcExceptionHandler(RpcException e) {
-        LOGGER.error("服务器运行异常 Message: " + e.getMessage());
+        logger.error("服务器运行异常 Message: " + e.getMessage());
         return BusinessResponse.fail(e.getMessage());
     }
 
@@ -94,7 +94,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public BusinessResponse handleUnexpectedServer(Exception ex) {
-        LOGGER.error("系统异常：", ex);
+        logger.error("系统异常：", ex);
         return BusinessResponse.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
     }
 
@@ -142,7 +142,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public BusinessResponse handleHttpMessageNotReadableException(MissingServletRequestParameterException ex) {
-        LOGGER.error("缺少请求参数，{}", ex.getMessage());
+        logger.error("缺少请求参数，{}", ex.getMessage());
         return BusinessResponse.fail(400, "缺少必要的请求参数");
     }
 

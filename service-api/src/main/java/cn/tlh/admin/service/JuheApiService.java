@@ -6,4 +6,9 @@ public interface JuheApiService {
 
     JuheResponse getTodayInHistory();
 
+    JuheResponse getPhoneAttribution(String phone);
+
+    JuheResponse getAdministrativeDivisions(String id);
+
+    JuheResponse getSimpleWeather(String city);
 }

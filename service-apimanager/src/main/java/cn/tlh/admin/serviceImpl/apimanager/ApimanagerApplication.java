@@ -1,6 +1,7 @@
 package cn.tlh.admin.serviceImpl.apimanager;
 
 import cn.tlh.admin.common.util.spring.SpringContextHolder;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
  * @author musui
  */
 @SpringBootApplication
+@EnableDubbo
 public class ApimanagerApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

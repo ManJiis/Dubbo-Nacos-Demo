@@ -21,12 +21,12 @@ import java.net.UnknownHostException;
  */
 @EnableDubbo
 @SpringBootApplication
-public class ConsumerApplication extends SpringBootServletInitializer {
+public class WebAdminApplication extends SpringBootServletInitializer {
 
-    static Logger logger = LoggerFactory.getLogger(ConsumerApplication.class);
+    static Logger logger = LoggerFactory.getLogger(WebAdminApplication.class);
 
     public static void main(String[] args) throws UnknownHostException {
-        ConfigurableApplicationContext applicationContext = SpringApplication.run(ConsumerApplication.class, args);
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(WebAdminApplication.class, args);
         Environment env = applicationContext.getEnvironment();
         String host = InetAddress.getLocalHost().getHostAddress();
         String port = env.getProperty("server.port");
@@ -44,7 +44,7 @@ public class ConsumerApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(ConsumerApplication.class);
+        return application.sources(WebAdminApplication.class);
     }
 
     @Bean

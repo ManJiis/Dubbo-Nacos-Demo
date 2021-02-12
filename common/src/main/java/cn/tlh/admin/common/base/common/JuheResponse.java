@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class JuheResponse implements Serializable {
     private static final long serialVersionUID = 2347059227849421617L;
     private String reason;
+    private String resultcode;
     private Object result;
     private Integer error_code;
 }

@@ -31,7 +31,7 @@ public class LimitController {
 
     private static final AtomicInteger ATOMIC_INTEGER = new AtomicInteger();
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LimitController.class);
+    private static final Logger logger = LoggerFactory.getLogger(LimitController.class);
 
     @Autowired(required = false)
     RedisTemplate<String, Object> redisTemplate;
