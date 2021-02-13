@@ -17,7 +17,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.lang.Nullable;
 
 /**
  * @author TANG
@@ -80,7 +79,6 @@ public class RedisConfig extends CachingConfigurerSupport {
      * 保证redis服务器出现连接等问题的时候不影响程序的正常运行，使得能够出问题时不用缓存
      */
     @Bean
-    @Nullable
     @Override
     public CacheErrorHandler errorHandler() {
         // 异常处理，当Redis发生异常时，打印日志，但是程序正常走

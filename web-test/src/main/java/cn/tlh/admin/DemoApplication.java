@@ -1,5 +1,6 @@
-package cn.tlh;
+package cn.tlh.admin;
 
+import cn.tlh.admin.common.util.spring.SpringContextHolder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,4 +18,8 @@ public class DemoApplication {
         return new RestTemplate();
     }
 
+    @Bean
+    public SpringContextHolder springContextHolder() {
+        return new SpringContextHolder();
+    }
 }

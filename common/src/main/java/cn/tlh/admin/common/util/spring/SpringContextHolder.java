@@ -20,14 +20,14 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     private static final List<CallBack> CALL_BACKS = new ArrayList<>();
     private static boolean addCallback = true;
 
-    private static final Set<String> BEANNAME_SET = new HashSet<>();
+    private static final Set<String> BEAN_NAME_SET = new HashSet<>();
 
     public static Set<String> getBeanNameSet() {
-        return BEANNAME_SET;
+        return BEAN_NAME_SET;
     }
 
     public static Boolean isInBeanNameSet(String beanName) {
-        return BEANNAME_SET.contains(beanName);
+        return BEAN_NAME_SET.contains(beanName);
     }
 
     /**
@@ -128,7 +128,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
         if (SpringContextHolder.applicationContext != null) {
             log.warn("SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:" + SpringContextHolder.applicationContext);
         }
-        BEANNAME_SET.addAll(Arrays.asList(applicationContext.getBeanDefinitionNames()));
+        BEAN_NAME_SET.addAll(Arrays.asList(applicationContext.getBeanDefinitionNames()));
         SpringContextHolder.applicationContext = applicationContext;
         if (addCallback) {
             for (CallBack callBack : SpringContextHolder.CALL_BACKS) {
