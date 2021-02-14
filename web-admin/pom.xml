@@ -20,10 +20,10 @@
 
     <dependencies>
         <!-- ex: http://localhost:8080/actuator/health -->
-        <dependency>
+<!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
@@ -70,6 +70,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>service-provide</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>service-apimanager</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

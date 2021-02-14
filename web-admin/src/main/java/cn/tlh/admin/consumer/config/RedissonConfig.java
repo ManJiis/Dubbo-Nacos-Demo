@@ -1,4 +1,4 @@
-package cn.tlh.admin.service.serviceImpl.config;
+package cn.tlh.admin.consumer.config;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;

@@ -42,7 +42,7 @@
         <shiro-redis-spring-boot-starter.version>3.2.1</shiro-redis-spring-boot-starter.version>
         <shiro-redis.version>3.2.3</shiro-redis.version>
         <shiro-spring.version>1.4.0</shiro-spring.version>
-        <redisson-spring-boot-starter.version>3.10.6</redisson-spring-boot-starter.version>
+        <redisson-spring-boot-starter.version>3.13.6</redisson-spring-boot-starter.version>
         <hutool.version>5.5.8</hutool.version>
         <swagger.version>2.9.2</swagger.version>
         <commons-lang3.version>3.9</commons-lang3.version>
