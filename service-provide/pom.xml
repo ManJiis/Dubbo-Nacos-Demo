@@ -9,8 +9,9 @@
         <version>1.0.0</version>
         <relativePath/>
     </parent>
+    <packaging>jar</packaging>
     <artifactId>service-provide</artifactId>
-    <name>service-provide</name>
+    <name>${artifactId}</name>
     <version>1.0.0</version>
 
     <properties>

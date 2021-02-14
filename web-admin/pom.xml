@@ -9,9 +9,9 @@
         <version>1.0.0</version>
         <relativePath/>
     </parent>
-    <!--    <packaging>war</packaging>-->
+    <packaging>jar</packaging>
     <artifactId>web-admin</artifactId>
-    <name>web-admin</name>
+    <name>${artifactId}</name>
     <version>1.0.0</version>
 
     <properties>
@@ -20,10 +20,10 @@
 
     <dependencies>
         <!-- ex: http://localhost:8080/actuator/health -->
-<!--        <dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>

@@ -8,8 +8,9 @@
         <version>1.0.0</version>
         <relativePath/>
     </parent>
+    <packaging>jar</packaging>
     <artifactId>service-apimanager</artifactId>
-    <name>service-apimanager</name>
+    <name>${artifactId}</name>
     <description>第三方api调用管理</description>
 
     <properties>
