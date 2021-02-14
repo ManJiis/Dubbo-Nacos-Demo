@@ -14,15 +14,22 @@
  Date: 31/12/2020 23:37:03
 */
 
+CREATE
+database if NOT EXISTS `sdnd` default character set utf8mb4 collate utf8mb4_unicode_ci;
+use
+`sdnd`;
+
 SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
+SET
+FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for sys_broker_message_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_broker_message_log`;
-CREATE TABLE `sys_broker_message_log`  (
-  `message_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息唯一ID',
+CREATE TABLE `sys_broker_message_log`
+(
+    `message_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息唯一ID',
   `message` varchar(4000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息内容',
   `try_count` int(4) NULL DEFAULT 0 COMMENT '重试次数',
   `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '消息投递状态 0投递中，1投递成功，2投递失败',
