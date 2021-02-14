@@ -22,10 +22,11 @@ public class VOTest {
         // 声明
         VO vo = null;
         // 匿名内部类
-        vo = new VO(21) {
-            // 第一层花括号定义了一个继承于ArrayList的匿名内部类 (Anonymous Inner Class), 继承VO对象。
+        vo = new VO(1, 21) {
+            // 第一层花括号定义了一个继承于VO的匿名内部类 (Anonymous Inner Class), 继承VO对象。
             // 第二层花括号实际上是这个匿名内部类实例初始化块 (Instance Initializer Block)（或称为非静态初始化块）
             {
+                // 实例初始化块（构造代码块)
                 System.out.println("6-->匿名内部类 普通代码块....");
                 // 年龄增加10
                 this.setAge(this.getAge() + 10);
