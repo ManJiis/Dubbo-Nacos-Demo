@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class HttpUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(HttpUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(HttpUtil.class);
 
     /**
      * 发送GET请求
@@ -160,7 +160,7 @@ public class HttpUtil {
                 result.append(line);
             }
         } catch (Exception e) {
-            logger.error("An exception occurred when sending a GET request! {}", e.getMessage());
+            log.error("An exception occurred when sending a GET request! {}", e.getMessage());
         } finally {
             try {
                 if (in != null) {
@@ -209,7 +209,7 @@ public class HttpUtil {
             }
         } catch (Exception e) {
             System.out.println("发送 POST 请求出现异常！" + e);
-            logger.error("An exception occurred when sending a POST request! {}", e.getMessage());
+            log.error("An exception occurred when sending a POST request! {}", e.getMessage());
         } finally {
             try {
                 if (out != null) {

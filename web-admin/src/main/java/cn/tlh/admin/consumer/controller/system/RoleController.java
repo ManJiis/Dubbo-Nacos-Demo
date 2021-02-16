@@ -5,7 +5,7 @@ import cn.tlh.admin.common.base.common.BusinessResponse;
 import cn.tlh.admin.common.base.dto.RoleDto;
 import cn.tlh.admin.common.base.mapstruct.RoleMapper;
 import cn.tlh.admin.common.base.vo.req.RoleReqVo;
-import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
+import cn.tlh.admin.common.exception.myexception.BusinessErrorException;
 import cn.tlh.admin.common.pojo.system.SysRole;
 import cn.tlh.admin.consumer.aop.annotaion.Log;
 import cn.tlh.admin.service.system.RoleService;

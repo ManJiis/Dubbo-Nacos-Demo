@@ -25,7 +25,7 @@ import static cn.tlh.admin.common.util.constant.JuheApiConstants.*;
 @Component
 public class JuheApiServiceImpl implements JuheApiService {
 
-    private static final Logger logger = LoggerFactory.getLogger(JuheApiServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(JuheApiServiceImpl.class);
 
     @Autowired
     RestTemplate restTemplate;
@@ -47,12 +47,12 @@ public class JuheApiServiceImpl implements JuheApiService {
         params.put("key", KEY_TODAY_IN_HISTORY);
         // 2/10
         params.put("date", todayDate);
-        logger.info("==========历史上的今天 param : {}", JSON.toJSONString(params));
+        log.info("==========历史上的今天 param : {}", JSON.toJSONString(params));
         String sendGet = "";
         try {
             sendGet = HttpUtil.sendGet(URL_TODAY_IN_HISTORY, params);
         } catch (Exception e) {
-            logger.error("历史上的今天 接口请求错误 : {}", e.getMessage());
+            log.error("历史上的今天 接口请求错误 : {}", e.getMessage());
         }
         return JSON.parseObject(sendGet, JuheResponse.class);
     }
@@ -70,12 +70,12 @@ public class JuheApiServiceImpl implements JuheApiService {
         params.put("phone", phone);
         // 返回数据的格式,xml或json，默认json
         params.put("dtype", "");
-        logger.info("================手机号归属地查询 param : {}", JSON.toJSONString(params));
+        log.info("================手机号归属地查询 param : {}", JSON.toJSONString(params));
         String sendGet = "";
         try {
             sendGet = HttpUtil.sendGet(URL_MOBILE_PHONE_NUMBER_ATTRIBUTION, params);
         } catch (Exception e) {
-            logger.error("手机号归属地查询 接口请求错误 : {}", e.getMessage());
+            log.error("手机号归属地查询 接口请求错误 : {}", e.getMessage());
         }
         return JSON.parseObject(sendGet, JuheResponse.class);
     }
@@ -95,12 +95,12 @@ public class JuheApiServiceImpl implements JuheApiService {
         Map<String, String> params = new HashMap<>();
         params.put("key", KEY_ADMINISTRATIVE_DIVISIONS);
         params.put("fid", id);
-        logger.info("================行政区划查询 param : {}", JSON.toJSONString(params));
+        log.info("================行政区划查询 param : {}", JSON.toJSONString(params));
         String sendGet = "";
         try {
             sendGet = HttpUtil.sendGet(URL_ADMINISTRATIVE_DIVISIONS, params);
         } catch (Exception e) {
-            logger.error("行政区划查询 接口请求错误 : {}", e.getMessage());
+            log.error("行政区划查询 接口请求错误 : {}", e.getMessage());
         }
         return JSON.parseObject(sendGet, JuheResponse.class);
     }
@@ -119,12 +119,12 @@ public class JuheApiServiceImpl implements JuheApiService {
         Map<String, String> params = new HashMap<>();
         params.put("key", KEY_SIMPLE_WEATHER);
         params.put("city", city);
-        logger.info("================天气查询 param : {}", JSON.toJSONString(params));
+        log.info("================天气查询 param : {}", JSON.toJSONString(params));
         String sendGet = "";
         try {
             sendGet = HttpUtil.sendGet(URL_SIMPLE_WEATHER, params);
         } catch (Exception e) {
-            logger.error("天气查询 接口请求错误 : {}", e.getMessage());
+            log.error("天气查询 接口请求错误 : {}", e.getMessage());
         }
         return JSON.parseObject(sendGet, JuheResponse.class);
     }

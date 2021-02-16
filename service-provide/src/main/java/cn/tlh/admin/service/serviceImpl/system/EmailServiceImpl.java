@@ -3,7 +3,7 @@ package cn.tlh.admin.service.serviceImpl.system;
 import cn.hutool.extra.mail.Mail;
 import cn.hutool.extra.mail.MailAccount;
 import cn.tlh.admin.common.base.vo.req.EmailVo;
-import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
+import cn.tlh.admin.common.exception.myexception.BusinessErrorException;
 import cn.tlh.admin.common.pojo.system.EmailConfig;
 import cn.tlh.admin.common.util.EncryptUtils;
 import cn.tlh.admin.dao.EmailConfigDao;

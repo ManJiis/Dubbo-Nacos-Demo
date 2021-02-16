@@ -6,13 +6,13 @@ import cn.tlh.admin.common.base.dto.UserDto;
 import cn.tlh.admin.common.base.mapstruct.UserMapper;
 import cn.tlh.admin.common.base.vo.req.UserPassReqVo;
 import cn.tlh.admin.common.base.vo.req.UserQueryReqVo;
-import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
+import cn.tlh.admin.common.exception.myexception.BusinessErrorException;
 import cn.tlh.admin.common.pojo.system.SysUser;
 import cn.tlh.admin.common.util.EncryptUtils;
 import cn.tlh.admin.common.util.RsaProperties;
 import cn.tlh.admin.common.util.RsaUtils;
 import cn.tlh.admin.common.util.StringUtils;
-import cn.tlh.admin.common.util.constant.AdminConstants;
+import cn.tlh.admin.common.util.constant.RabbitMqConstants;
 import cn.tlh.admin.common.util.enums.CodeEnum;
 import cn.tlh.admin.consumer.aop.annotaion.Log;
 import cn.tlh.admin.consumer.shiro.ShiroUtils;
@@ -79,7 +79,7 @@ public class UserController {
         String generateSalt = EncryptUtils.generateSalt();
         if (StringUtils.isBlank(user.getPassword())) {
             // 默认密码 123456
-            user.setPassword(ShiroUtils.sha256(AdminConstants.DEFAULT_PASSWORD, generateSalt));
+            user.setPassword(ShiroUtils.sha256(RabbitMqConstants.DEFAULT_PASSWORD, generateSalt));
         } else {
             user.setPassword(ShiroUtils.sha256(user.getPassword(), generateSalt));
         }

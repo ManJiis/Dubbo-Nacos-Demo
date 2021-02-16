@@ -1,5 +1,6 @@
 package cn.tlh.admin.consumer;
 
+import cn.tlh.admin.common.util.redis.RedisTemplateUtil;
 import cn.tlh.admin.common.util.spring.SpringContextHolder;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.slf4j.Logger;
@@ -23,14 +24,14 @@ import java.net.UnknownHostException;
 @SpringBootApplication
 public class WebAdminApplication extends SpringBootServletInitializer {
 
-    static Logger logger = LoggerFactory.getLogger(WebAdminApplication.class);
+    static Logger log = LoggerFactory.getLogger(WebAdminApplication.class);
 
     public static void main(String[] args) throws UnknownHostException {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(WebAdminApplication.class, args);
         Environment env = applicationContext.getEnvironment();
         String host = InetAddress.getLocalHost().getHostAddress();
         String port = env.getProperty("server.port");
-        logger.info("\n----------------------------------------------------------\n\t" +
+        log.info("\n----------------------------------------------------------\n\t" +
                         "Application '{}' is running! Access URLs:\n\t" +
                         "Local: \t\thttp://localhost:{}\n\t" +
                         "External: \thttp://{}:{}\n\t" +
@@ -50,5 +51,10 @@ public class WebAdminApplication extends SpringBootServletInitializer {
     @Bean
     public SpringContextHolder springContextHolder() {
         return new SpringContextHolder();
+    }
+
+    @Bean
+    public RedisTemplateUtil redisTemplateUtil() {
+        return new RedisTemplateUtil();
     }
 }

@@ -13,4 +13,7 @@ spring:
 #    config: classpath:log4j2-spring.xml
 #    level:
 #        cn.tlh.*: info
+# log config
+logging:
+  config: classpath:logback.xml
 

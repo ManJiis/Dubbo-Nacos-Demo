@@ -1,5 +1,6 @@
 server:
   port: 8090
+#  address: 0.0.0.0
 spring:
   profiles:
     active: dev
@@ -11,4 +12,7 @@ spring:
 #  config: classpath:log4j2-spring.xml
 #  level:
 #    cn.tlh.*: info
+# log config
+logging:
+  config: classpath:logback.xml
 

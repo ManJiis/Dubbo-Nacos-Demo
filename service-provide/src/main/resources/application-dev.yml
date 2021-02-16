@@ -16,7 +16,6 @@ spring:
     name: service-provide
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/sdnd?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
-    #    driver-class-name: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root@123
@@ -76,7 +75,7 @@ spring:
         acknowledge-mode: manual
     #        prefetch: 1
     # 开启发送确认
-    publisher-confirms: true
+    publisher-confirm-type: simple
     # 开启发送失败退回
     publisher-returns: true
 # mybatis-plus
@@ -112,9 +111,22 @@ dubbo:
   #    loadbalance: roundrobin  # 负载均衡算法 , 缺省是随机 random。还可以配置轮询 roundrobin、最不活跃优先 4 leastactive 和一致性哈希 consistenthash 等
   protocol:
     # 随机端口
-    #    port: 20031
-    port: 20041
-
+    port: 20031
+#    port: 20041
+### xxl-job admin address list, such as "http://address" or "http://address01,http://address02"
+xxl:
+  job:
+    admin:
+      addresses: http://localhost:8080/xxl-job-admin
+    accessToken:      # xxl-job, access token
+    # xxl-job executor server-info
+    executor:
+      appname: sdnd-xxl-job  # xxl-job executor appname
+      address:        # xxl-job executor registry-address: default use address to registry , otherwise use ip:port if address is null
+      ip:
+      port: 9999
+      logpath: /data/applogs/sdnd/xxl-job/jobhandler  # xxl-job executor log-path
+      logretentiondays: 30   # xxl-job executor log-retention-days
 
 task:
   pool:

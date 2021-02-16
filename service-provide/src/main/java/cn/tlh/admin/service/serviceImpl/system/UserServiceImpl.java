@@ -6,8 +6,8 @@ package cn.tlh.admin.service.serviceImpl.system;
 import cn.tlh.admin.common.base.dto.RoleSmallDto;
 import cn.tlh.admin.common.base.dto.UserDto;
 import cn.tlh.admin.common.base.vo.req.UserQueryReqVo;
-import cn.tlh.admin.common.exception.customexception.EntityExistException;
-import cn.tlh.admin.common.exception.customexception.EntityNotFoundException;
+import cn.tlh.admin.common.exception.myexception.EntityExistException;
+import cn.tlh.admin.common.exception.myexception.EntityNotFoundException;
 import cn.tlh.admin.common.pojo.system.SysUser;
 import cn.tlh.admin.common.util.StringUtils;
 import cn.tlh.admin.common.util.ValidationUtil;
@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotBlank;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -192,7 +191,8 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isNotBlank(oldPath)) {
 //            FileUtil.del(oldPath);
         }
-        @NotBlank String username = SysUser.getUsername();
+//        @NotBlank String username = SysUser.getUsername();
+        String username = SysUser.getUsername();
 //        redisUtils.del(CacheKey.USER_NAME + username);
         flushCache(username);
         return new HashMap<String, String>(1) {{

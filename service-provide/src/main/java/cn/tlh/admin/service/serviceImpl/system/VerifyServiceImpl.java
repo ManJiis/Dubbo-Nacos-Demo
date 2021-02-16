@@ -7,7 +7,7 @@ import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
 import cn.tlh.admin.common.base.vo.req.EmailVo;
-import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
+import cn.tlh.admin.common.exception.myexception.BusinessErrorException;
 import cn.tlh.admin.common.util.redis.RedisTemplateUtil;
 import cn.tlh.admin.service.system.VerifyService;
 import org.apache.dubbo.config.annotation.Service;

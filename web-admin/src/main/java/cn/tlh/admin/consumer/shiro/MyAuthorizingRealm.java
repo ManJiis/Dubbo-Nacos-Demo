@@ -3,7 +3,7 @@ package cn.tlh.admin.consumer.shiro;
 import cn.hutool.core.util.ArrayUtil;
 import cn.tlh.admin.common.pojo.system.SysRole;
 import cn.tlh.admin.common.pojo.system.SysUser;
-import cn.tlh.admin.common.util.constant.AdminConstants;
+import cn.tlh.admin.common.util.constant.RabbitMqConstants;
 import cn.tlh.admin.dao.SysMenuDao;
 import cn.tlh.admin.dao.SysRoleDao;
 import cn.tlh.admin.dao.SysUserDao;
@@ -37,7 +37,7 @@ import java.util.Set;
 @Component
 public class MyAuthorizingRealm extends AuthorizingRealm implements Authorizer {
 
-    private final Logger logger = LoggerFactory.getLogger(MyAuthorizingRealm.class);
+    private final Logger log = LoggerFactory.getLogger(MyAuthorizingRealm.class);
 
     @Autowired(required = false)
     SysMenuDao sysMenuDao;
@@ -53,12 +53,12 @@ public class MyAuthorizingRealm extends AuthorizingRealm implements Authorizer {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
         SysUser user = (SysUser) principal.getPrimaryPrincipal();
         Long userId = user.getUserId();
-        logger.info("==============授权---登录用户的信息===============:{}", JSON.toJSONString(user));
+        log.info("==============授权---登录用户的信息===============:{}", JSON.toJSONString(user));
         Set<String> permsList = new HashSet<>();
         // 系统管理员，拥有全部权限
-        if (ArrayUtil.contains(AdminConstants.ADMINS, userId)) {
+        if (ArrayUtil.contains(RabbitMqConstants.ADMINS, userId)) {
             permsList = sysMenuDao.findAllPerm();
-            logger.info("==============授权---系统管理员，拥有全部权限===============:{}", JSON.toJSONString(permsList));
+            log.info("==============授权---系统管理员，拥有全部权限===============:{}", JSON.toJSONString(permsList));
         } else {
             // 用户对应多个角色
             Set<SysRole> roles = sysRoleDao.findByUserId(userId);
@@ -67,7 +67,7 @@ public class MyAuthorizingRealm extends AuthorizingRealm implements Authorizer {
                 // 合并权限
                 permsList.addAll(new HashSet<>(Arrays.asList(permArray)));
             }
-            logger.info("==============授权---拥有什么权限===============:{}", JSON.toJSONString(permsList));
+            log.info("==============授权---拥有什么权限===============:{}", JSON.toJSONString(permsList));
         }
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setStringPermissions(permsList);
@@ -79,21 +79,21 @@ public class MyAuthorizingRealm extends AuthorizingRealm implements Authorizer {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authToken) throws AuthenticationException {
-        logger.info(
+        log.info(
                 "\n==============认证---token===============:\r\n" +
                         JSON.toJSONString(authToken) + "\n\r" +
                         "=========================================");
         // 查询用户信息
 //        SysUser user = sysUserDao.findByPhone((String) authToken.getPrincipal());
         SysUser user = sysUserDao.findByUsername((String) authToken.getPrincipal());
-        logger.info(
+        log.info(
                 "\n==============认证---用户信息===============\n\r" +
                         JSON.toJSONString(user) + "\r\n" +
                         "=========================================");
         if (user == null || StringUtils.isBlank(user.getPassword())) {
             throw new UnknownAccountException();
         }
-        if (user.getEnabled() == AdminConstants.SYS_USER_STATUS_PROHIBIT) {
+        if (user.getEnabled() == RabbitMqConstants.SYS_USER_STATUS_PROHIBIT) {
             throw new LockedAccountException();
         }
         ByteSource byteSource = new ByteSource(user.getSalt());

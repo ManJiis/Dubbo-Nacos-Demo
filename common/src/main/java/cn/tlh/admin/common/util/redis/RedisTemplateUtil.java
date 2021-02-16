@@ -29,14 +29,14 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("all")
 public class RedisTemplateUtil {
 
-    private final static Logger logger = LoggerFactory.getLogger(RedisTemplateUtil.class);
+    private final static Logger log = LoggerFactory.getLogger(RedisTemplateUtil.class);
 
     @Autowired
     RedisTemplate redisTemplate;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    public String inc(String k) {
+    public String incr(String k) {
         return String.valueOf(redisTemplate.opsForValue().increment(k, 1L));
     }
 
@@ -45,7 +45,7 @@ public class RedisTemplateUtil {
             stringRedisTemplate.opsForValue().set(key, String.valueOf(value));
             return true;
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
             return false;
         }
     }
@@ -103,7 +103,7 @@ public class RedisTemplateUtil {
             }
             return true;
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
             return false;
         }
     }

@@ -3,7 +3,7 @@ package cn.tlh.admin.service.serviceImpl.rabbitmq.processor;
 
 import cn.tlh.admin.common.pojo.DlxMessage;
 import cn.tlh.admin.common.pojo.Order;
-import cn.tlh.admin.common.util.constant.AdminConstants;
+import cn.tlh.admin.common.util.constant.RabbitMqConstants;
 import cn.tlh.admin.dao.OrderDao;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
@@ -26,13 +26,13 @@ import java.io.IOException;
 @Component
 public class OrderTimeoutProcessor {
 
-    private static final Logger logger = LoggerFactory.getLogger(OrderTimeoutProcessor.class);
+    private static final Logger log = LoggerFactory.getLogger(OrderTimeoutProcessor.class);
 
     @Resource
     OrderDao orderDao;
 
     @RabbitHandler
-    @RabbitListener(queues = AdminConstants.ORDER_TIMEOUT_QUEUE)
+    @RabbitListener(queues = RabbitMqConstants.ORDER_TIMEOUT_QUEUE)
     public void process(String content, Channel channel, Message messages) {
         try {
             DlxMessage message = JSON.parseObject(content, DlxMessage.class);

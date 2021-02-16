@@ -1,6 +1,6 @@
 package cn.tlh.admin.service.serviceImpl.rabbitmq.queue;
 
-import cn.tlh.admin.common.util.constant.AdminConstants;
+import cn.tlh.admin.common.util.constant.RabbitMqConstants;
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,9 +27,9 @@ public class OrderDelayQueueConfig {
         // 设置超时转发策略
         // 超时后消息会通过 x-dead-letter-exchange 转发到 x-dead-letter-routing-key绑定的队列中
         Map<String, Object> arguments = new HashMap<>(2);
-        arguments.put("x-dead-letter-exchange", AdminConstants.ORDER_DLX_EXCHANGE);
-        arguments.put("x-dead-letter-routing-key", AdminConstants.ORDER_DLK_KEY);
-        return QueueBuilder.durable(AdminConstants.ORDER_DELAY_QUEUE).withArguments(arguments).build();
+        arguments.put("x-dead-letter-exchange", RabbitMqConstants.ORDER_DLX_EXCHANGE);
+        arguments.put("x-dead-letter-routing-key", RabbitMqConstants.ORDER_DLK_KEY);
+        return QueueBuilder.durable(RabbitMqConstants.ORDER_DELAY_QUEUE).withArguments(arguments).build();
     }
 
     /**
@@ -37,7 +37,7 @@ public class OrderDelayQueueConfig {
      */
     @Bean
     public DirectExchange orderDelayExchange() {
-        return new DirectExchange(AdminConstants.ORDER_EXCHANGE, true, false, null);
+        return new DirectExchange(RabbitMqConstants.ORDER_EXCHANGE, true, false, null);
     }
 
     /**
@@ -45,7 +45,7 @@ public class OrderDelayQueueConfig {
      */
     @Bean
     public DirectExchange orderProcessExchange() {
-        return new DirectExchange(AdminConstants.ORDER_DLX_EXCHANGE);
+        return new DirectExchange(RabbitMqConstants.ORDER_DLX_EXCHANGE);
     }
 
     /**
@@ -53,7 +53,7 @@ public class OrderDelayQueueConfig {
      */
     @Bean
     public Binding orderQueueBinding() {
-        return BindingBuilder.bind(orderDelayQueue()).to(orderDelayExchange()).with(AdminConstants.ORDER_DLK_KEY);
+        return BindingBuilder.bind(orderDelayQueue()).to(orderDelayExchange()).with(RabbitMqConstants.ORDER_DLK_KEY);
     }
 
     /**
@@ -61,7 +61,7 @@ public class OrderDelayQueueConfig {
      */
     @Bean
     public Queue orderTimeoutQueue() {
-        return QueueBuilder.durable(AdminConstants.ORDER_TIMEOUT_QUEUE).build();
+        return QueueBuilder.durable(RabbitMqConstants.ORDER_TIMEOUT_QUEUE).build();
     }
 
 
@@ -70,6 +70,6 @@ public class OrderDelayQueueConfig {
      */
     @Bean
     public Binding orderTimeoutQueueBinding() {
-        return BindingBuilder.bind(orderTimeoutQueue()).to(orderProcessExchange()).with(AdminConstants.ORDER_DLK_KEY);
+        return BindingBuilder.bind(orderTimeoutQueue()).to(orderProcessExchange()).with(RabbitMqConstants.ORDER_DLK_KEY);
     }
 }

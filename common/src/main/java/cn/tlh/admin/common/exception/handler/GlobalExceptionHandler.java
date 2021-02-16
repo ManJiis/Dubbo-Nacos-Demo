@@ -1,13 +1,12 @@
 package cn.tlh.admin.common.exception.handler;
 
 import cn.tlh.admin.common.base.common.BusinessResponse;
-import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
-import cn.tlh.admin.common.exception.customexception.EntityExistException;
-import cn.tlh.admin.common.exception.customexception.EntityNotFoundException;
+import cn.tlh.admin.common.exception.myexception.BusinessErrorException;
+import cn.tlh.admin.common.exception.myexception.EntityExistException;
+import cn.tlh.admin.common.exception.myexception.EntityNotFoundException;
 import cn.tlh.admin.common.util.ThrowableUtil;
-import cn.tlh.admin.common.util.constant.AdminConstants;
+import cn.tlh.admin.common.util.constant.RabbitMqConstants;
 import cn.tlh.admin.common.util.enums.BusinessMsgEnum;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.rpc.RpcException;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -35,11 +34,10 @@ import java.util.stream.Collectors;
  * @author TANG
  * @date 2020-11-23
  */
-@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
      * shiro未授权异常
@@ -58,16 +56,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ShiroException.class)
     public BusinessResponse handleShiroException(ShiroException e) {
         if (e instanceof UnknownAccountException) {
-            logger.error("ShiroException -->UnknownAccountException {}", "账号不存在");
+            log.error("ShiroException -->UnknownAccountException {}", "账号不存在");
             return BusinessResponse.fail("账号不存在");
         } else if (e instanceof IncorrectCredentialsException) {
-            logger.error("ShiroException -->IncorrectCredentialsException {}", "密码错误");
+            log.error("ShiroException -->IncorrectCredentialsException {}", "密码错误");
             return BusinessResponse.fail("密码错误");
         } else if (e instanceof LockedAccountException) {
-            logger.error("ShiroException -->LockedAccountException {}", "账户已被禁用");
+            log.error("ShiroException -->LockedAccountException {}", "账户已被禁用");
             return BusinessResponse.fail("账户已被禁用");
         } else if (e instanceof AuthorizationException) {
-            logger.error("ShiroException -->AuthorizationException {}", "没有权限");
+            log.error("ShiroException -->AuthorizationException {}", "没有权限");
             return BusinessResponse.fail("没有权限");
         }
         return BusinessResponse.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
@@ -82,7 +80,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(RpcException.class)
     public BusinessResponse rpcExceptionHandler(RpcException e) {
-        logger.error("服务器运行异常 Message: " + e.getMessage());
+        log.error("服务器运行异常 Message: " + e.getMessage());
         return BusinessResponse.fail(e.getMessage());
     }
 
@@ -94,7 +92,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public BusinessResponse handleUnexpectedServer(Exception ex) {
-        logger.error("系统异常：", ex);
+        log.error("系统异常：", ex);
         return BusinessResponse.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
     }
 
@@ -142,7 +140,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public BusinessResponse handleHttpMessageNotReadableException(MissingServletRequestParameterException ex) {
-        logger.error("缺少请求参数，{}", ex.getMessage());
+        log.error("缺少请求参数，{}", ex.getMessage());
         return BusinessResponse.fail(400, "缺少必要的请求参数");
     }
 
@@ -157,7 +155,7 @@ public class GlobalExceptionHandler {
         List<String> collect = fieldErrors.stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return BusinessResponse.fail(collect, 400, AdminConstants.BAD_REQUEST_MSG);
+        return BusinessResponse.fail(collect, 400, RabbitMqConstants.BAD_REQUEST_MSG);
     }
 
     /**
@@ -169,7 +167,7 @@ public class GlobalExceptionHandler {
         List<String> collect = fieldErrors.stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return BusinessResponse.fail(collect, 400, AdminConstants.BAD_REQUEST_MSG);
+        return BusinessResponse.fail(collect, 400, RabbitMqConstants.BAD_REQUEST_MSG);
     }
 
     /**
@@ -181,6 +179,6 @@ public class GlobalExceptionHandler {
         List<String> collect = constraintViolations.stream()
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.toList());
-        return BusinessResponse.fail(collect, 400, AdminConstants.BAD_REQUEST_MSG);
+        return BusinessResponse.fail(collect, 400, RabbitMqConstants.BAD_REQUEST_MSG);
     }
 }

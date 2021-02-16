@@ -85,7 +85,7 @@ import java.util.Date;
  * @date 2021-1-4
  */
 public class JwtUtil {
-    private final static Logger logger = LogManager.getLogger(JwtUtil.class);
+    private final static Logger log = LogManager.getLogger(JwtUtil.class);
 
     /**
      * 一小时
@@ -144,7 +144,7 @@ public class JwtUtil {
                 .withClaim("userInfo", JSON.toJSONString(token))
                 .withExpiresAt(date)
                 .sign(algorithm);
-        logger.debug(String.format("JWT:%s", jwtString));
+        log.debug(String.format("JWT:%s", jwtString));
         return jwtString;
     }
 

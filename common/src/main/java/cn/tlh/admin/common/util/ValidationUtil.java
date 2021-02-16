@@ -2,7 +2,7 @@
 package cn.tlh.admin.common.util;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.tlh.admin.common.exception.customexception.BusinessErrorException;
+import cn.tlh.admin.common.exception.myexception.BusinessErrorException;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 
 /**

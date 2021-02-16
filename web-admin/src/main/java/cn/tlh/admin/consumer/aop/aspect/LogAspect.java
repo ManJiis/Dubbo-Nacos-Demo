@@ -31,7 +31,7 @@ import java.lang.reflect.Method;
 @Aspect
 public class LogAspect {
 
-    private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
+    private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
 
     @Reference(version = "${service.version}", check = false)
     LogService logService;
@@ -61,7 +61,7 @@ public class LogAspect {
         log.setLogType("INFO");
         Object result;
         result = pjp.proceed();
-        // 请求方法  poc.representation.systemManage.UserController.queryUserLists
+        // 请求方法  ex: poc.representation.systemManage.UserController.queryUserLists
         String actionMethod = pjp.getTarget().getClass().getName() + "." + pjp.getSignature().getName();
         // controller中方法名 例如: login
         String actionMethodName = pjp.getSignature().getName();
