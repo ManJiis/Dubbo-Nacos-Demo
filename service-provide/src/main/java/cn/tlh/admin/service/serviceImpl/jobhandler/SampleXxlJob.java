@@ -41,10 +41,8 @@ public class SampleXxlJob {
 
     @XxlJob("demoJob2")
     public void demoJob2() throws Exception {
-        for (int i = 0; i < 5; i++) {
-            log.info("当前时间: {}", LocalDateTime.now());
-            TimeUnit.SECONDS.sleep(2);
-        }
+        log.info("demoJob2 running -----> 当前时间: {}", LocalDateTime.now());
+        XxlJobHelper.handleSuccess();
     }
 
 

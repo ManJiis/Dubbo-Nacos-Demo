@@ -1,5 +1,6 @@
 package cn.tlh.admin.service.serviceImpl.config;
 
+import cn.tlh.admin.common.util.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.codec.Codec;
@@ -24,8 +25,8 @@ public class RedissonConfig {
     @Value("${spring.redis.port}")
     private Integer redisPort;
 
-//    @Value("${spring.redis.password}")
-//    private String redisPassword;
+    @Value("${spring.redis.password}")
+    private String redisPassword;
 
     @Bean
     public RedissonClient getRedisson() {
@@ -33,6 +34,9 @@ public class RedissonConfig {
         //单机模式  依次设置redis地址和密码
         config.useSingleServer().
                 setAddress("redis://" + redisHost + ":" + redisPort);
+        if (StringUtils.isNotBlank(redisPassword)) {
+            config.useSingleServer().setPassword(redisPassword);
+        }
         //使用json序列化方式
         Codec codec = new JsonJacksonCodec();
         config.setCodec(codec);

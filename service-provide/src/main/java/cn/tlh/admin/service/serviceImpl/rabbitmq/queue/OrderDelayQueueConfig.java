@@ -1,6 +1,6 @@
 package cn.tlh.admin.service.serviceImpl.rabbitmq.queue;
 
-import cn.tlh.admin.common.util.constant.RabbitMqConstants;
+import cn.tlh.admin.common.util.constants.RabbitMqConstants;
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -7,7 +7,7 @@ import cn.tlh.admin.common.base.mapstruct.RoleMapper;
 import cn.tlh.admin.common.base.vo.req.RoleReqVo;
 import cn.tlh.admin.common.exception.myexception.BusinessErrorException;
 import cn.tlh.admin.common.pojo.system.SysRole;
-import cn.tlh.admin.consumer.aop.annotaion.Log;
+import cn.tlh.admin.consumer.annotaion.Log;
 import cn.tlh.admin.service.system.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

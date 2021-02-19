@@ -3,10 +3,10 @@ package cn.tlh.admin.consumer.controller.system;
 import cn.hutool.core.util.IdUtil;
 import cn.tlh.admin.common.base.common.BusinessResponse;
 import cn.tlh.admin.common.base.vo.req.AuthUserReq;
-import cn.tlh.admin.common.util.constant.RabbitMqConstants;
+import cn.tlh.admin.common.util.constants.RabbitMqConstants;
 import cn.tlh.admin.common.util.redis.RedisCacheKey;
-import cn.tlh.admin.common.util.redis.RedisTemplateUtil;
-import cn.tlh.admin.consumer.aop.annotaion.rest.AnonymousGetMapping;
+import cn.tlh.admin.common.util.redis.RedisTemplateUtils;
+import cn.tlh.admin.consumer.annotaion.rest.AnonymousGetMapping;
 import cn.tlh.admin.consumer.shiro.ShiroUtils;
 import cn.tlh.admin.service.system.UserService;
 import com.wf.captcha.ArithmeticCaptcha;
@@ -48,7 +48,7 @@ public class LoginController {
     @Reference(version = "${service.version}", check = false)
     UserService userService;
     @Autowired(required = false)
-    RedisTemplateUtil redisTemplateUtil;
+    RedisTemplateUtils redisTemplateUtils;
 
     private String getVerifyKey(String codeType, String uuid) {
         return String.format(codeType, uuid);
@@ -121,7 +121,7 @@ public class LoginController {
         }
         String key = this.getVerifyKey(RedisCacheKey.CALCULATE_VERIFICATION_CODE, uuid);
         // 保存
-        redisTemplateUtil.set2Minutes(key, result, expiration);
+        redisTemplateUtils.set2Minutes(key, result, expiration);
         // 验证码信息
         Map<String, Object> imgResult = new HashMap<String, Object>(2);
         imgResult.put("img", captcha.toBase64());

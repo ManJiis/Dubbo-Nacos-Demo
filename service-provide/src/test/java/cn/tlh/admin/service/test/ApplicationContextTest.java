@@ -1,7 +1,7 @@
 package cn.tlh.admin.service.test;
 
 import cn.tlh.admin.common.util.spring.SpringContextHolder;
-import cn.tlh.admin.service.serviceImpl.ProvideApplication;
+import cn.tlh.admin.service.serviceImpl.ServiceProvideApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ProvideApplication.class)
+@SpringBootTest(classes = ServiceProvideApplication.class)
 public class ApplicationContextTest implements ApplicationContextAware {
 
 

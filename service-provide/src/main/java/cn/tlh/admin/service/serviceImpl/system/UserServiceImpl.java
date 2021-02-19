@@ -10,7 +10,7 @@ import cn.tlh.admin.common.exception.myexception.EntityExistException;
 import cn.tlh.admin.common.exception.myexception.EntityNotFoundException;
 import cn.tlh.admin.common.pojo.system.SysUser;
 import cn.tlh.admin.common.util.StringUtils;
-import cn.tlh.admin.common.util.ValidationUtil;
+import cn.tlh.admin.common.util.ValidationUtils;
 import cn.tlh.admin.dao.SysUserDao;
 import cn.tlh.admin.service.system.UserService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public void update(SysUser resources) {
         SysUser SysUser = sysUserDao.queryById(resources.getUserId());
-        ValidationUtil.isNull(SysUser.getUserId(), "SysUser", "id", resources.getUserId());
+        ValidationUtils.isNull(SysUser.getUserId(), "SysUser", "id", resources.getUserId());
         SysUser user1 = sysUserDao.findByUsername(resources.getUsername());
         SysUser user2 = sysUserDao.findByEmail(resources.getEmail());
         SysUser user3 = sysUserDao.findByPhone(resources.getPhone());

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 
-import static cn.tlh.admin.common.util.constant.RabbitMqConstants.ORDER_DELAY_QUEUE;
+import static cn.tlh.admin.common.util.constants.RabbitMqConstants.ORDER_DELAY_QUEUE;
 
 /**
  * 今日订单(Order)表服务实现类

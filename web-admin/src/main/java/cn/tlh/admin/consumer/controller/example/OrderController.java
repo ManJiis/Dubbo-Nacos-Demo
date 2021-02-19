@@ -4,7 +4,7 @@ import cn.tlh.admin.common.base.common.BusinessResponse;
 import cn.tlh.admin.common.base.vo.req.OrderReqPageVo;
 import cn.tlh.admin.common.base.vo.req.OrderReqVo;
 import cn.tlh.admin.common.pojo.Order;
-import cn.tlh.admin.common.util.id.SnowFlakeUtil;
+import cn.tlh.admin.common.util.id.IdUtils;
 import cn.tlh.admin.service.OrderService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
@@ -50,7 +50,7 @@ public class OrderController {
     @GetMapping("add")
     public BusinessResponse add() {
         OrderReqVo vo = new OrderReqVo();
-        vo.setId(SnowFlakeUtil.createSnowflakeId().toString());
+        vo.setId(IdUtils.snowflakeId().toString());
         vo.setOrderSource(0);
         // 交易状态 0:待支付 1:交易成功 2:交易失败
         vo.setState(0);

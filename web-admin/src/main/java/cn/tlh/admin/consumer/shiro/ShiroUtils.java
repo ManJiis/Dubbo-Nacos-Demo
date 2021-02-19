@@ -16,20 +16,24 @@ public class ShiroUtils {
     /**
      * 加密算法
      */
-    public final static String hashAlgorithmName = "SHA-256";
+    public final static String HASH_ALGORITHM_NAME = "SHA-256";
     /**
      * 循环次数
      */
-    public final static int hashIterations = 16;
+    public final static int HASH_ITERATIONS = 16;
 
     /**
      * 生成随机盐
      *
-     * @param length 字节长度，一个字节2位16进制数表示
+     * @param length 字节长度，一个字节2位  16进制数表示
      * @return string  salt
      */
-    public static String genRandomSalt(int length) {
-        return new SecureRandomNumberGenerator().nextBytes(length).toHex();
+    public static String getRandomSalt(Integer length) {
+        return new SecureRandomNumberGenerator().nextBytes(length == null ? 6 : length).toHex();
+    }
+
+    public static String getRandomSalt() {
+        return new SecureRandomNumberGenerator().nextBytes(6).toHex();
     }
 
     /**
@@ -49,7 +53,7 @@ public class ShiroUtils {
      * @return /
      */
     public static String sha256(String password, String salt) {
-        return new SimpleHash(hashAlgorithmName, password, salt, hashIterations).toString();
+        return new SimpleHash(HASH_ALGORITHM_NAME, password, salt, HASH_ITERATIONS).toString();
     }
 
     /**
@@ -71,15 +75,14 @@ public class ShiroUtils {
     }
 
     public static void main(String[] args) {
-        String randomSalt = genRandomSalt(6);
-        String s = ShiroUtils.sha256("admin", randomSalt);
-        String s1 = ShiroUtils.sha256("wang", randomSalt);
-        String s2 = ShiroUtils.sha256("guest", randomSalt);
-        System.out.println("s = " + s);
-        System.out.println("s.length() = " + s.length());
-        System.out.println("s1 = " + s1);
-        System.out.println("s1.length() = " + s1.length());
-        System.out.println("s2 = " + s2);
-        System.out.println("s2.length() = " + s2.length());
+        String randomSalt = getRandomSalt(6);
+        String pass1 = ShiroUtils.sha256("admin", randomSalt);
+        String pass2 = ShiroUtils.sha256("guest", randomSalt);
+        System.out.println("salt = " + randomSalt + " pass1 = " + pass1 + " pass1.length() = " + pass1.length());
+        System.out.println("salt = " + randomSalt + " pass2 = " + pass2 + " pass2.length() = " + pass2.length());
+        String randomSalt1 = getRandomSalt();
+        String pass3 = ShiroUtils.sha256("admin", randomSalt1);
+        System.out.println("salt = " + randomSalt1 + " pass3 = " + pass1 + " pass3.length() = " + pass3.length());
+
     }
 }

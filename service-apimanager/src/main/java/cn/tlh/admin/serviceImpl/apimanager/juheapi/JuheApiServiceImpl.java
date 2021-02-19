@@ -1,7 +1,7 @@
 package cn.tlh.admin.serviceImpl.apimanager.juheapi;
 
 import cn.tlh.admin.common.base.common.JuheResponse;
-import cn.tlh.admin.common.util.http.HttpUtil;
+import cn.tlh.admin.common.util.http.HttpUtils;
 import cn.tlh.admin.service.JuheApiService;
 import com.alibaba.fastjson.JSON;
 import org.apache.dubbo.config.annotation.Service;
@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-import static cn.tlh.admin.common.util.constant.JuheApiConstants.*;
+import static cn.tlh.admin.common.util.constants.JuheApiConstants.*;
 
 /**
  * @author musui
@@ -50,7 +50,7 @@ public class JuheApiServiceImpl implements JuheApiService {
         log.info("==========历史上的今天 param : {}", JSON.toJSONString(params));
         String sendGet = "";
         try {
-            sendGet = HttpUtil.sendGet(URL_TODAY_IN_HISTORY, params);
+            sendGet = HttpUtils.sendGet(URL_TODAY_IN_HISTORY, params);
         } catch (Exception e) {
             log.error("历史上的今天 接口请求错误 : {}", e.getMessage());
         }
@@ -73,7 +73,7 @@ public class JuheApiServiceImpl implements JuheApiService {
         log.info("================手机号归属地查询 param : {}", JSON.toJSONString(params));
         String sendGet = "";
         try {
-            sendGet = HttpUtil.sendGet(URL_MOBILE_PHONE_NUMBER_ATTRIBUTION, params);
+            sendGet = HttpUtils.sendGet(URL_MOBILE_PHONE_NUMBER_ATTRIBUTION, params);
         } catch (Exception e) {
             log.error("手机号归属地查询 接口请求错误 : {}", e.getMessage());
         }
@@ -98,7 +98,7 @@ public class JuheApiServiceImpl implements JuheApiService {
         log.info("================行政区划查询 param : {}", JSON.toJSONString(params));
         String sendGet = "";
         try {
-            sendGet = HttpUtil.sendGet(URL_ADMINISTRATIVE_DIVISIONS, params);
+            sendGet = HttpUtils.sendGet(URL_ADMINISTRATIVE_DIVISIONS, params);
         } catch (Exception e) {
             log.error("行政区划查询 接口请求错误 : {}", e.getMessage());
         }
@@ -122,7 +122,7 @@ public class JuheApiServiceImpl implements JuheApiService {
         log.info("================天气查询 param : {}", JSON.toJSONString(params));
         String sendGet = "";
         try {
-            sendGet = HttpUtil.sendGet(URL_SIMPLE_WEATHER, params);
+            sendGet = HttpUtils.sendGet(URL_SIMPLE_WEATHER, params);
         } catch (Exception e) {
             log.error("天气查询 接口请求错误 : {}", e.getMessage());
         }

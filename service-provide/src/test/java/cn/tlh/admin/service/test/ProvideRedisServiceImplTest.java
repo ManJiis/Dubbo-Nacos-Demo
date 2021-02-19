@@ -1,7 +1,7 @@
 package cn.tlh.admin.service.test;
 
 import cn.tlh.admin.dao.OrderDao;
-import cn.tlh.admin.service.serviceImpl.ProvideApplication;
+import cn.tlh.admin.service.serviceImpl.ServiceProvideApplication;
 import lombok.Builder;
 import lombok.Data;
 import org.junit.Test;
@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ProvideApplication.class)
+@SpringBootTest(classes = ServiceProvideApplication.class)
 public class ProvideRedisServiceImplTest {
 
     @Resource

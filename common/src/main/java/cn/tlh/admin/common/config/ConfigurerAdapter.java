@@ -1,7 +1,7 @@
 /*
 package cn.tlh.admin.common.config;
 
-import cn.tlh.admin.common.util.FileProperties;
+import cn.tlh.admin.common.util.properties.FileProperties;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;

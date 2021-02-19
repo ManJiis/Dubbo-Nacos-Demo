@@ -2,7 +2,7 @@ package cn.tlh.admin.consumer.controller.system;
 
 import cn.tlh.admin.common.base.common.BusinessResponse;
 import cn.tlh.admin.common.base.vo.req.LogReqVo;
-import cn.tlh.admin.consumer.aop.annotaion.Log;
+import cn.tlh.admin.consumer.annotaion.Log;
 import cn.tlh.admin.service.system.LogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

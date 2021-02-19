@@ -1,8 +1,8 @@
 package cn.tlh.admin.service.serviceImpl.rabbitmq;
 
 import cn.tlh.admin.common.pojo.DlxMessage;
-import cn.tlh.admin.common.util.constant.RabbitMqConstants;
-import cn.tlh.admin.common.util.id.SnowFlakeUtil;
+import cn.tlh.admin.common.util.constants.RabbitMqConstants;
+import cn.tlh.admin.common.util.id.IdUtils;
 import cn.tlh.admin.dao.BrokerMessageLogDao;
 import cn.tlh.admin.service.rabbitmq.MqService;
 import org.apache.dubbo.config.annotation.Service;
@@ -65,7 +65,7 @@ public class MqServiceImpl implements MqService, RabbitTemplate.ConfirmCallback,
 
     @Override
     public void send(String queueName, Object msg) {
-        String msgId = SnowFlakeUtil.createSnowflakeId().toString();
+        String msgId = IdUtils.snowflakeId().toString();
         log.info("send msg，队列名：{}，消息： {}，CorrelationData：{}", queueName, msg, msgId);
         this.rabbitTemplate.convertAndSend(queueName, msg, new CorrelationData(msgId));
     }

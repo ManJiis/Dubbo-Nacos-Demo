@@ -3,7 +3,7 @@ package cn.tlh.admin.consumer.shiro;
 import cn.hutool.core.util.ArrayUtil;
 import cn.tlh.admin.common.pojo.system.SysRole;
 import cn.tlh.admin.common.pojo.system.SysUser;
-import cn.tlh.admin.common.util.constant.RabbitMqConstants;
+import cn.tlh.admin.common.util.constants.RabbitMqConstants;
 import cn.tlh.admin.dao.SysMenuDao;
 import cn.tlh.admin.dao.SysRoleDao;
 import cn.tlh.admin.dao.SysUserDao;
@@ -105,9 +105,9 @@ public class MyAuthorizingRealm extends AuthorizingRealm implements Authorizer {
     public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
         HashedCredentialsMatcher shaCredentialsMatcher = new HashedCredentialsMatcher();
         // 散列算法
-        shaCredentialsMatcher.setHashAlgorithmName(ShiroUtils.hashAlgorithmName);
+        shaCredentialsMatcher.setHashAlgorithmName(ShiroUtils.HASH_ALGORITHM_NAME);
         // 散列次数
-        shaCredentialsMatcher.setHashIterations(ShiroUtils.hashIterations);
+        shaCredentialsMatcher.setHashIterations(ShiroUtils.HASH_ITERATIONS);
         super.setCredentialsMatcher(shaCredentialsMatcher);
     }
 
@@ -143,7 +143,7 @@ public class MyAuthorizingRealm extends AuthorizingRealm implements Authorizer {
         }
         System.out.println(s);
 
-        SimpleHash simpleHash = new SimpleHash(ShiroUtils.hashAlgorithmName, "123456", "RGrgG00X1E0tUxJKhE5y", 16);
+        SimpleHash simpleHash = new SimpleHash(ShiroUtils.HASH_ALGORITHM_NAME, "123456", "RGrgG00X1E0tUxJKhE5y", 16);
         System.out.println(simpleHash);
     }
 }

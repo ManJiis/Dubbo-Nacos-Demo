@@ -3,6 +3,7 @@ package cn.tlh.admin.common.util;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import cn.tlh.admin.common.util.constants.ElAdminConstant;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.slf4j.Logger;

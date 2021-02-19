@@ -1,6 +1,6 @@
 package cn.tlh.admin.service.serviceImpl.rabbitmq.config;
 
-import cn.tlh.admin.common.util.constant.RabbitMqConstants;
+import cn.tlh.admin.common.util.constants.RabbitMqConstants;
 import cn.tlh.admin.dao.BrokerMessageLogDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

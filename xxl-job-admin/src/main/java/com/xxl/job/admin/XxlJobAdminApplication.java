@@ -4,7 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * admin/123456
+ * 调度中心
+ * 执行器: 任务的绑定的执行器(定时任务写在哪 哪个服务就是执行器)
+ * web: admin/123456
  *
  * @author xuxueli 2018-10-28 00:38:13
  */

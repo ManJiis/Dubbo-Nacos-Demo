@@ -1,6 +1,6 @@
 package cn.tlh.admin.service.test;
 
-import cn.tlh.admin.service.serviceImpl.ProvideApplication;
+import cn.tlh.admin.service.serviceImpl.ServiceProvideApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.redisson.api.RBucket;
@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2021-02-12
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ProvideApplication.class)
+@SpringBootTest(classes = ServiceProvideApplication.class)
 public class RedissionTest {
 
     private static final Logger log = LoggerFactory.getLogger(RedissionTest.class);

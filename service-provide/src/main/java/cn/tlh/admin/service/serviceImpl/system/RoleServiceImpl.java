@@ -11,7 +11,7 @@ import cn.tlh.admin.common.exception.myexception.BusinessErrorException;
 import cn.tlh.admin.common.exception.myexception.EntityExistException;
 import cn.tlh.admin.common.pojo.system.SysRole;
 import cn.tlh.admin.common.pojo.system.SysUser;
-import cn.tlh.admin.common.util.ValidationUtil;
+import cn.tlh.admin.common.util.ValidationUtils;
 import cn.tlh.admin.dao.SysRoleDao;
 import cn.tlh.admin.dao.SysUserDao;
 import cn.tlh.admin.service.system.RoleService;
@@ -73,7 +73,7 @@ public class RoleServiceImpl implements RoleService {
     @Transactional(rollbackFor = Exception.class)
     public void update(SysRole resources) {
         SysRole SysRole = sysRoleDao.queryById(resources.getRoleId());
-        ValidationUtil.isNull(SysRole.getRoleId(), "SysRole", "id", resources.getRoleId());
+        ValidationUtils.isNull(SysRole.getRoleId(), "SysRole", "id", resources.getRoleId());
 
         SysRole role1 = sysRoleDao.findByName(resources.getName());
 

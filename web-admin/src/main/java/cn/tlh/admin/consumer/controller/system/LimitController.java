@@ -2,9 +2,9 @@
 package cn.tlh.admin.consumer.controller.system;
 
 import cn.tlh.admin.common.base.common.BusinessResponse;
-import cn.tlh.admin.common.util.DateUtil;
-import cn.tlh.admin.consumer.aop.annotaion.AccessLimit;
-import cn.tlh.admin.consumer.aop.annotaion.LimitType;
+import cn.tlh.admin.common.util.DateUtils;
+import cn.tlh.admin.consumer.annotaion.AccessLimit;
+import cn.tlh.admin.consumer.annotaion.LimitType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -45,7 +45,7 @@ public class LimitController {
     @AccessLimit(description = "system/limit", keyPrefix = "api_limit", period = 60, count = 10)
     @GetMapping("/customer")
     public BusinessResponse limitByCustomer() {
-        String date = DateUtil.localDateTimeFormatyMdHms(LocalDateTime.now());
+        String date = DateUtils.localDateTimeFormatyMdHms(LocalDateTime.now());
         RedisAtomicInteger limitCounter = new RedisAtomicInteger("limitCounterByCustomer", Objects.requireNonNull(redisTemplate.getConnectionFactory()));
         int incrementAndGet = limitCounter.incrementAndGet();
         log.info("------------>> 当前时间: " + date + " 累计访问次数：" + incrementAndGet);
@@ -56,7 +56,7 @@ public class LimitController {
     @AccessLimit(description = "system/limit", keyPrefix = "api_limit", period = 60, count = 10, limitType = LimitType.IP)
     @GetMapping("/ip")
     public BusinessResponse limitByIp() {
-        String date = DateUtil.localDateTimeFormatyMdHms(LocalDateTime.now());
+        String date = DateUtils.localDateTimeFormatyMdHms(LocalDateTime.now());
         RedisAtomicInteger limitCounter = new RedisAtomicInteger("limitCounterByIp", Objects.requireNonNull(redisTemplate.getConnectionFactory()));
         int incrementAndGet = limitCounter.incrementAndGet();
         log.info("------------>> 当前时间: " + date + " 累计访问次数：" + incrementAndGet);

@@ -4,8 +4,8 @@ import cn.tlh.admin.common.base.common.BusinessResponse;
 import cn.tlh.admin.common.exception.myexception.BusinessErrorException;
 import cn.tlh.admin.common.exception.myexception.EntityExistException;
 import cn.tlh.admin.common.exception.myexception.EntityNotFoundException;
-import cn.tlh.admin.common.util.ThrowableUtil;
-import cn.tlh.admin.common.util.constant.RabbitMqConstants;
+import cn.tlh.admin.common.util.ThrowableUtils;
+import cn.tlh.admin.common.util.constants.RabbitMqConstants;
 import cn.tlh.admin.common.util.enums.BusinessMsgEnum;
 import org.apache.dubbo.rpc.RpcException;
 import org.apache.shiro.ShiroException;
@@ -115,7 +115,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = EntityExistException.class)
     public BusinessResponse entityExistException(EntityExistException e) {
         // 打印堆栈信息
-        log.error(ThrowableUtil.getStackTrace(e));
+        log.error(ThrowableUtils.getStackTrace(e));
         String message = e.getMessage();
         return BusinessResponse.fail(400, message);
     }
@@ -126,7 +126,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = EntityNotFoundException.class)
     public BusinessResponse entityNotFoundException(EntityNotFoundException e) {
         // 打印堆栈信息
-        log.error(ThrowableUtil.getStackTrace(e));
+        log.error(ThrowableUtils.getStackTrace(e));
         String message = e.getMessage();
         return BusinessResponse.fail(400, message);
     }

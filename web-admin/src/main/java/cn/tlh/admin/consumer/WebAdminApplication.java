@@ -1,6 +1,6 @@
 package cn.tlh.admin.consumer;
 
-import cn.tlh.admin.common.util.redis.RedisTemplateUtil;
+import cn.tlh.admin.common.util.redis.RedisTemplateUtils;
 import cn.tlh.admin.common.util.spring.SpringContextHolder;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.slf4j.Logger;
@@ -54,7 +54,7 @@ public class WebAdminApplication extends SpringBootServletInitializer {
     }
 
     @Bean
-    public RedisTemplateUtil redisTemplateUtil() {
-        return new RedisTemplateUtil();
+    public RedisTemplateUtils redisTemplateUtil() {
+        return new RedisTemplateUtils();
     }
 }

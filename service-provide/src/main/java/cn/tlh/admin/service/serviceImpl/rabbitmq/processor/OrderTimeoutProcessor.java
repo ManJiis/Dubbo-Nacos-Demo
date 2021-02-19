@@ -3,7 +3,7 @@ package cn.tlh.admin.service.serviceImpl.rabbitmq.processor;
 
 import cn.tlh.admin.common.pojo.DlxMessage;
 import cn.tlh.admin.common.pojo.Order;
-import cn.tlh.admin.common.util.constant.RabbitMqConstants;
+import cn.tlh.admin.common.util.constants.RabbitMqConstants;
 import cn.tlh.admin.dao.OrderDao;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
