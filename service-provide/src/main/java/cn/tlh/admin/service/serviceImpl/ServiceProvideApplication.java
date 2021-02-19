@@ -5,8 +5,6 @@ import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
@@ -18,15 +16,12 @@ import org.springframework.web.client.RestTemplate;
 @MapperScan("cn.tlh.admin.dao")
 @EnableDubbo
 @EnableAsync
-public class ServiceProvideApplication extends SpringBootServletInitializer {
+public class ServiceProvideApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ServiceProvideApplication.class);
-    }
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(ServiceProvideApplication.class);
+        System.out.println("====================== The service to starting....");
+        SpringApplication.run(ServiceProvideApplication.class, "hello", "world");
+        System.out.println("====================== The service to started");
     }
 
     @Bean
