@@ -7,7 +7,6 @@ import cn.smallbun.screw.core.engine.EngineTemplateType;
 import cn.smallbun.screw.core.execute.DocumentationExecute;
 import cn.smallbun.screw.core.process.ProcessConfig;
 import cn.tlh.admin.DemoApplication;
-import cn.tlh.admin.common.util.spring.SpringContextHolder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.sql.DataSource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author TANG
@@ -33,39 +34,11 @@ public class ScrewApplicationTests {
     @Autowired
     DataSource dataSource;
 
-    @Test
-    public void setApplicationContext() {
-        Boolean dataSource = SpringContextHolder.isInBeanNameSet("dataSource");
-        System.out.println("dataSource = " + dataSource);
-    }
-
-    @Test
-    public void mapTest() {
-        HashMap<String, String> h = new HashMap<String, String>() {
-            private static final long serialVersionUID = 6274888398954928088L;
-
-            {
-                put("a", "aaa");
-                put("b", "bbb");
-            }
-        };
-        System.out.println("h = " + h);
-    }
-
-    @Test
-    public void setApplicationContext2() {
-        Set<String> beanNameSet = SpringContextHolder.getBeanNameSet();
-        int i = 0;
-        for (String s : beanNameSet) {
-            i++;
-            System.out.println("bean" + i + " = " + s);
-        }
-    }
 
     @Test
     public void contextLoads() {
 //        DataSource dataSourceMysql = applicationContext.getBean(DataSource.class);
-        DataSource dataSourceMysql = applicationContext.getBean(DataSource.class);
+//        DataSource dataSourceMysql = applicationContext.getBean(DataSource.class);
 
         // 生成文件配置
         EngineConfig engineConfig = EngineConfig.builder()

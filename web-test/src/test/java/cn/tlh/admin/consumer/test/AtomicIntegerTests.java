@@ -1,6 +1,6 @@
 package cn.tlh.admin.consumer.test;
 
-import cn.tlh.admin.consumer.util.http.HttpUtil;
+import cn.tlh.admin.common.util.http.HttpUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -118,12 +118,12 @@ class AtomicIntegerTests {
                 try {
                     //阻塞到countDownLatch1为0时在开始执行
                     countDownLatch1.await();
-                    String id = HttpUtil.sendGet("http://localhost:8091/sysUser/selectMaxUserId", "");
+                    String id = HttpUtils.sendGet("http://localhost:8091/sysUser/selectMaxUserId", "");
                     Map<String, String> map = new HashMap<>();
                     map.put("id", id);
                     map.put("username", "zhubajie");
                     map.put("phone", "17688888888");
-                    String result = HttpUtil.sendPost("http://localhost:8091/sysUser/addUser", map);
+                    String result = HttpUtils.sendPost("http://localhost:8091/sysUser/addUser", map);
                     System.out.println("result.toString() = " + result.toString());
                     list.add(Integer.parseInt(id));
                     successCount.incrementAndGet();
@@ -160,13 +160,13 @@ class AtomicIntegerTests {
 
     @Test
     void addUserTest() throws InterruptedException, IOException {
-        String id = HttpUtil.sendGet("http://192.168.8.106:8091/sysUser/selectMaxUserId", "");
+        String id = HttpUtils.sendGet("http://192.168.8.106:8091/sysUser/selectMaxUserId", "");
         System.out.println("id = " + id);
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
         map.put("username", "zhubajie");
         map.put("phone", "17688888888");
-        String result = HttpUtil.sendPost("http://192.168.8.106:8091/sysUser/addUser", map);
+        String result = HttpUtils.sendPost("http://192.168.8.106:8091/sysUser/addUser", map);
         System.out.println("result.toString() = " + result.toString());
     }
 
