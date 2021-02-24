@@ -6,9 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * Mybatis plus config
+ *
  * @author TANG
- * @description: Mybatis plus config
- * @date: 2020-11-25
+ * @date 2020-11-25
  */
 @Configuration
 public class MybatisPlusConfig {

@@ -14,8 +14,9 @@ import java.io.PrintWriter;
 
 
 /**
+ * 自定义shiro登录过滤器
+ *
  * @author TANG
- * @description 自定义shiro登录过滤器
  * @date 2020-1-4
  */
 public class ShiroLoginFilter extends FormAuthenticationFilter {

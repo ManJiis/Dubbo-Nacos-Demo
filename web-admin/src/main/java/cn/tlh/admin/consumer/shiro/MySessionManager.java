@@ -11,8 +11,9 @@ import javax.servlet.ServletResponse;
 import java.io.Serializable;
 
 /**
+ * 自定义sessionId获取
+ *
  * @author TANG
- * @description 自定义sessionId获取
  * @date 2020-12-21
  */
 public class MySessionManager extends DefaultWebSessionManager {

@@ -30,8 +30,9 @@ import java.util.Set;
 
 
 /**
+ * 自定义Realm
+ *
  * @author TANG
- * @description 自定义Realm
  * @date 20120-12-21
  */
 @Component

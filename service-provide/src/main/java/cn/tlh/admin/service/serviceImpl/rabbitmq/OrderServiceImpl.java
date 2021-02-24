@@ -1,4 +1,4 @@
-package cn.tlh.admin.service.serviceImpl.example;
+package cn.tlh.admin.service.serviceImpl.rabbitmq;
 
 import cn.tlh.admin.common.base.vo.req.OrderReqPageVo;
 import cn.tlh.admin.common.base.vo.req.OrderReqVo;
@@ -11,12 +11,16 @@ import cn.tlh.admin.service.rabbitmq.MqService;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.dubbo.config.annotation.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 
+import static cn.tlh.admin.common.util.constants.RabbitMqConstants.MSG_SENDING;
 import static cn.tlh.admin.common.util.constants.RabbitMqConstants.ORDER_DELAY_QUEUE;
 
 /**
@@ -29,6 +33,7 @@ import static cn.tlh.admin.common.util.constants.RabbitMqConstants.ORDER_DELAY_Q
 @Component
 public class OrderServiceImpl implements OrderService {
 
+    private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
     @Resource
     OrderDao orderDao;
     @Resource
@@ -50,29 +55,31 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public String add(OrderReqVo orderReqVo) {
+    @Transactional(rollbackFor = Exception.class)
+    public Order addOrder(OrderReqVo orderReqVo) {
         Order order = new Order();
         BeanUtils.copyProperties(orderReqVo, order);
         // 新增数据
         orderDao.insert(order);
         //--------------------- 插入消息记录表数据 start ----------------------------//
         // 插入消息记录表数据
-        BrokerMessageLog brokerMessageLog = new BrokerMessageLog();
-        // 消息唯一ID
-        brokerMessageLog.setMessageId(order.getId());
-        // 保存消息整体 转为JSON 格式存储入库
-        brokerMessageLog.setMessage(JSON.toJSONString(order));
-        // 设置消息状态为0 表示发送中
-        brokerMessageLog.setStatus("0");
-        // 设置消息未确认超时时间窗口为 一分钟
-        brokerMessageLog.setNextRetry(order.getPayTimeStart().plusMinutes(1));
-        brokerMessageLog.setCreateTime(LocalDateTime.now());
-        brokerMessageLog.setUpdateTime(LocalDateTime.now());
-        brokerMessageLogDao.insertSelective(brokerMessageLog);
+        BrokerMessageLog brokerMessageLog = BrokerMessageLog
+                .builder()
+                // 消息唯一ID
+                .messageId(order.getId())
+                // 保存消息整体 转为JSON 格式存储入库
+                .message(JSON.toJSONString(order))
+                // 设置消息状态为0 表示发送中
+                .status(MSG_SENDING)
+                // 设置消息未确认超时时间窗口为 一分钟
+                .nextRetry(order.getPayTimeStart().plusMinutes(1))
+                .createTime(LocalDateTime.now())
+                .updateTime(LocalDateTime.now()).build();
+        brokerMessageLogDao.addDeliveryRecord(brokerMessageLog);
         //--------------------- 插入消息记录表数据 end ----------------------------//
-        // 发消息
-        mqService.sendDelay(ORDER_DELAY_QUEUE, order.getId(), 1000 * 3);
-        System.out.println("发送消息成功: orderId = [" + order.getId() + "]");
-        return order.getId();
+        // 发消息  3s
+        mqService.sendDelayOrder(order.getId(), ORDER_DELAY_QUEUE, order.getId(), 1000 * 3);
+        log.info("发送消息: orderId = [{}]", order.getId());
+        return order;
     }
 }

@@ -6,8 +6,9 @@ import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import java.io.Serializable;
 
 /**
+ * shiro session 管理
+ *
  * @author TANG
- * @description shiro session 管理
  * @date 2021-01-04
  */
 public class MyEnterpriseCacheSessionDAO extends EnterpriseCacheSessionDAO {

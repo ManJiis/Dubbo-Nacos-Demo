@@ -17,6 +17,6 @@ public interface OrderService {
 
     Page<Order> queryList(OrderReqPageVo orderReqPageVo);
 
+    Order addOrder(OrderReqVo orderReqVo);
 
-    String add(OrderReqVo orderReqVo);
 }

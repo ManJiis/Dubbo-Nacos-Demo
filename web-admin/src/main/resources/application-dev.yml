@@ -14,7 +14,6 @@ spring:
     name: web-admin
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/sdnd?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
-    #    driver-class-name: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root@123

@@ -14,14 +14,14 @@ public class JackJsonUtils {
     /**
      * 定义jackson对象
      */
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     /**
      * 将对象转换成json字符串。
      */
     public static String toJsonString(Object data) {
         try {
-            return MAPPER.writeValueAsString(data);
+            return OBJECT_MAPPER.writeValueAsString(data);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -33,7 +33,7 @@ public class JackJsonUtils {
      */
     public static <T> T toObject(String jsonData, Class<T> beanType) {
         try {
-            return MAPPER.readValue(jsonData, beanType);
+            return OBJECT_MAPPER.readValue(jsonData, beanType);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,7 +45,7 @@ public class JackJsonUtils {
      */
     public static <T> T toList(String jsonData, TypeReference<T> typeReference) {
         try {
-            return MAPPER.readValue(jsonData, typeReference);
+            return OBJECT_MAPPER.readValue(jsonData, typeReference);
         } catch (Exception e) {
             e.printStackTrace();
         }

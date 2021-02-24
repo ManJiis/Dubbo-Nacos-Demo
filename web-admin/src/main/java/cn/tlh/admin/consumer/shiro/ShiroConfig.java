@@ -57,9 +57,12 @@ public class ShiroConfig {
         // 必须设置SecuritManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边
         // authc：所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
+
+        filterChainDefinitionMap.put("/**", "anon");
+
         filterChainDefinitionMap.put("/swagger/**", "anon");
         filterChainDefinitionMap.put("/v2/**", "anon");
         filterChainDefinitionMap.put("/webjars/**", "anon");
@@ -68,10 +71,10 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/doc.html/**", "anon");
         filterChainDefinitionMap.put("/system/limit/**", "anon");
         filterChainDefinitionMap.put("/system/auth/**", "anon");
-        filterChainDefinitionMap.put("/**", "authc");
+//        filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         // 配置拦截器,实现无权限返回401,而不是跳转到登录页
-        filters.put("authc", new ShiroLoginFilter());
+//        filters.put("authc", new ShiroLoginFilter());
         return shiroFilterFactoryBean;
     }
 

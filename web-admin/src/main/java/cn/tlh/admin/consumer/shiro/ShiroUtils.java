@@ -7,8 +7,9 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 
 /**
+ * Shiro工具类
+ *
  * @author TANG
- * @description Shiro工具类
  * @date 2020-12-21
  */
 public class ShiroUtils {

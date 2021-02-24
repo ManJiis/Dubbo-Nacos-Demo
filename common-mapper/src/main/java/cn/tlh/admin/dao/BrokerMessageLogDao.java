@@ -3,7 +3,7 @@ package cn.tlh.admin.dao;
 import cn.tlh.admin.common.pojo.BrokerMessageLog;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -13,27 +13,33 @@ public interface BrokerMessageLogDao {
     /**
      * 查询消息状态为0(发送中) 且已经超时的消息集合
      *
-     * @return
+     * @return /
      */
     List<BrokerMessageLog> query4StatusAndTimeoutMessage();
 
     /**
      * 重新发送统计count发送次数 +1
      *
-     * @param messageId
-     * @param updateTime
+     * @param messageId /
+     * @param updateTime /
      */
-    void update4ReSend(@Param("messageId") String messageId, @Param("updateTime") Date updateTime);
+    void update4ReSend(@Param("messageId") String messageId, @Param("updateTime") LocalDateTime updateTime);
 
     /**
      * 更新最终消息发送结果 成功 or 失败
      *
-     * @param messageId
-     * @param status
-     * @param updateTime
+     * @param messageId /
+     * @param status /
+     * @param updateTime /
      */
-    void changeBrokerMessageLogStatus(@Param("messageId") String messageId, @Param("status") String status, @Param("updateTime") Date updateTime);
+    void changeBrokerMessageLogStatus(@Param("messageId") String messageId, @Param("status") String status, @Param("updateTime") LocalDateTime updateTime);
 
-    int insertSelective(BrokerMessageLog record);
+    /**
+     * 新增投递消息记录
+     *
+     * @param record 消息
+     * @return /
+     */
+    int addDeliveryRecord(BrokerMessageLog record);
 }
 

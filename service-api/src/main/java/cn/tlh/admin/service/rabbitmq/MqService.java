@@ -8,16 +8,18 @@ public interface MqService {
      * 正常发送
      *
      * @param queueName queueName
-     * @param msg msg
+     * @param message   msg
+     * @param messageId 消息唯一Id  IdUtils.snowflakeId().toString()
      */
-    void send(String queueName, Object msg);
+    void send(String queueName, Object message, String messageId);
 
     /**
      * 延时发送
      *
+     * @param messageId  消息唯一Id  IdUtils.snowflakeId().toString()
      * @param queueName 队列名称
-     * @param msg       消息
+     * @param message   消息
      * @param times     延时时间，单位毫秒
      */
-    void sendDelay(String queueName, String msg, Integer times);
+    void sendDelayOrder(String messageId, String queueName, String message, Integer times);
 }

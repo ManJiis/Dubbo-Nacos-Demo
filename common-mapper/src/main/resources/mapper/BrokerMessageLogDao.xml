@@ -17,15 +17,15 @@
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>
-        from broker_message_log
+        from sys_broker_message_log
         where message_id = #{messageId,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from broker_message_log
+    delete from sys_broker_message_log
     where message_id = #{messageId,jdbcType=VARCHAR}
   </delete>
     <insert id="insert" parameterType="cn.tlh.admin.common.pojo.BrokerMessageLog">
-        insert into broker_message_log (message_id, message, try_count,
+        insert into sys_broker_message_log (message_id, message, try_count,
                                         status, next_retry, create_time,
                                         update_time)
         values (#{messageId,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{tryCount,jdbcType=INTEGER},
@@ -33,8 +33,8 @@
                 #{updateTime,jdbcType=TIMESTAMP})
 
     </insert>
-    <insert id="insertSelective" parameterType="cn.tlh.admin.common.pojo.BrokerMessageLog">
-        insert into broker_message_log
+    <insert id="addDeliveryRecord" parameterType="cn.tlh.admin.common.pojo.BrokerMessageLog">
+        insert into sys_broker_message_log
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="messageId != null">
                 message_id,
@@ -83,7 +83,7 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="cn.tlh.admin.common.pojo.BrokerMessageLog">
-        update broker_message_log
+        update sys_broker_message_log
         <set>
             <if test="message != null">
                 message = #{message,jdbcType=VARCHAR},
@@ -107,7 +107,7 @@
         where message_id = #{messageId,jdbcType=VARCHAR}
     </update>
     <update id="updateByPrimaryKey" parameterType="cn.tlh.admin.common.pojo.BrokerMessageLog">
-    update broker_message_log
+    update sys_broker_message_log
     set message = #{message,jdbcType=VARCHAR},
       try_count = #{tryCount,jdbcType=INTEGER},
       status = #{status,jdbcType=VARCHAR},
@@ -122,7 +122,7 @@
           <![CDATA[
 
                   select message_id, message, try_count, status, next_retry, create_time, update_time
-                      from broker_message_log bml
+                      from sys_broker_message_log bml
                       where status = '0'
                       and next_retry <= sysdate()
 
@@ -130,14 +130,14 @@
     </select>
 
     <update id="update4ReSend">
-    update broker_message_log AS bml
+    update sys_broker_message_log AS bml
     set bml.try_count = bml.try_count + 1,
       bml.update_time = #{updateTime, jdbcType=TIMESTAMP}
     where bml.message_id = #{messageId,jdbcType=VARCHAR}
   </update>
 
     <update id="changeBrokerMessageLogStatus">
-    update broker_message_log bml
+    update sys_broker_message_log bml
     set bml.status = #{status,jdbcType=VARCHAR},
           bml.update_time = #{updateTime, jdbcType=TIMESTAMP}
     where bml.message_id = #{messageId,jdbcType=VARCHAR}

@@ -26,11 +26,10 @@ import java.time.LocalDateTime;
  */
 @RestController
 @RequestMapping("order")
-@Api(tags = "测试：订单服务",value = "mq延迟队列示例")
+@Api(tags = "测试：订单服务", value = "mq延迟队列示例")
 public class OrderController {
-    /**
-     * 服务对象
-     */
+
+
     @Reference(version = "${service.version}", check = false)
     private OrderService orderService;
 
@@ -63,8 +62,7 @@ public class OrderController {
         vo.setPayTimeEnd(LocalDateTime.now().plusMinutes(1));
         vo.setFinishTime(LocalDateTime.now().plusMinutes(1));
         vo.setCreateTime(LocalDate.now());
-        String add = this.orderService.add(vo);
-        return BusinessResponse.ok(add);
+        return BusinessResponse.ok(this.orderService.addOrder(vo));
     }
 
 }

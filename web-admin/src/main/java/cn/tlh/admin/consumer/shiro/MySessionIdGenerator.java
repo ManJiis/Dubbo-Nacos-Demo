@@ -7,8 +7,9 @@ import java.io.Serializable;
 import java.util.UUID;
 
 /**
+ * 自定义 sessionId 的生成器
+ *
  * @author TANG
- * @description 自定义 sessionId 的生成器
  * @date 2020-12-30
  */
 public class MySessionIdGenerator implements SessionIdGenerator {

@@ -64,26 +64,29 @@ spring:
     port: 5672
     username: admin
     password: admin
-    listener:
-      simple:
-        retry:
-          enabled: false
-        #  手动ACK 不开启自动ACK模式,目的是防止报错后未正确处理消息丢失 默认 为 none
-        # NONE：自动确认 / AUTO：根据情况确认 /MANUAL：手动确认
-        acknowledge-mode: manual
-        # 最大并发
-        max-concurrency: 10
-      direct:
-        acknowledge-mode: manual
-    #        prefetch: 1
     # 开启发送确认
     publisher-confirm-type: simple
     # 开启发送失败退回
     publisher-returns: true
+    listener:
+      simple:
+        retry:
+          # 是否支持重试
+          enabled: true
+        #  手动ACK 不开启自动ACK模式,目的是防止报错后未正确处理消息丢失 默认 为 none
+        # NONE：自动确认   AUTO：根据情况确认  MANUAL：手动确认
+        acknowledge-mode: manual
+        # 指定最小消费者数量
+        concurrency: 1
+        # 指定最大消费者数量
+        max-concurrency: 10
+      direct:
+        acknowledge-mode: manual
+    #        prefetch: 1
 # mybatis-plus
 mybatis-plus:
   #多个package用逗号或者分号分隔
-  typeAliasesPackage: cn.tlh.admin.common
+  typeAliasesPackage: cn.tlh.admin.common.pojo
   mapper-locations: classpath:/mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
