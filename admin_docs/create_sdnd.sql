@@ -11,25 +11,21 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 31/12/2020 23:37:03
+ Date: 24/02/2021 23:55:16
 */
 
-CREATE
-database if NOT EXISTS `sdnd` default character set utf8mb4 collate utf8mb4_unicode_ci;
-use
-`sdnd`;
+CREATE database if NOT EXISTS `sdnd` default character set utf8mb4 collate utf8mb4_unicode_ci;
+use `sdnd`;
 
 SET NAMES utf8mb4;
-SET
-FOREIGN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for sys_broker_message_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_broker_message_log`;
-CREATE TABLE `sys_broker_message_log`
-(
-    `message_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息唯一ID',
+CREATE TABLE `sys_broker_message_log`  (
+  `message_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息唯一ID',
   `message` varchar(4000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息内容',
   `try_count` int(4) NULL DEFAULT 0 COMMENT '重试次数',
   `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '消息投递状态 0投递中，1投递成功，2投递失败',
@@ -42,6 +38,10 @@ CREATE TABLE `sys_broker_message_log`
 -- ----------------------------
 -- Records of sys_broker_message_log
 -- ----------------------------
+INSERT INTO `sys_broker_message_log` VALUES ('1364593805130600448', '{\"amount\":56,\"body\":\"进货面粉\",\"cardNo\":\"15680764567\",\"createTime\":\"2021-02-24\",\"finishTime\":\"2021-02-24T23:12:30.727\",\"id\":\"1364593805130600448\",\"merName\":\"杭州小笼包\",\"merNo\":\"4301980876461234\",\"orderSource\":0,\"payTimeEnd\":\"2021-02-24T23:12:30.727\",\"payTimeStart\":\"2021-02-24T23:11:30.727\",\"state\":0}', 0, '1', '2021-02-24 23:12:31', '2021-02-24 23:11:30', '2021-02-24 23:11:31');
+INSERT INTO `sys_broker_message_log` VALUES ('1364595780740059136', '{\"amount\":56,\"body\":\"进货面粉\",\"cardNo\":\"15680764567\",\"createTime\":\"2021-02-24\",\"finishTime\":\"2021-02-24T23:20:21.749\",\"id\":\"1364595780740059136\",\"merName\":\"杭州小笼包\",\"merNo\":\"4301980876461234\",\"orderSource\":0,\"payTimeEnd\":\"2021-02-24T23:20:21.749\",\"payTimeStart\":\"2021-02-24T23:19:21.749\",\"state\":0}', 0, '1', '2021-02-24 23:20:22', '2021-02-24 23:19:21', '2021-02-24 23:19:22');
+INSERT INTO `sys_broker_message_log` VALUES ('1364596192025120768', '{\"amount\":56,\"body\":\"进货面粉\",\"cardNo\":\"15680764567\",\"createTime\":\"2021-02-24\",\"finishTime\":\"2021-02-24T23:21:59.807\",\"id\":\"1364596192025120768\",\"merName\":\"杭州小笼包\",\"merNo\":\"4301980876461234\",\"orderSource\":0,\"payTimeEnd\":\"2021-02-24T23:21:59.807\",\"payTimeStart\":\"2021-02-24T23:20:59.807\",\"state\":0}', 0, '1', '2021-02-24 23:22:00', '2021-02-24 23:20:59', '2021-02-24 23:21:00');
+INSERT INTO `sys_broker_message_log` VALUES ('1364600445699493888', '{\"amount\":56,\"body\":\"进货面粉\",\"cardNo\":\"15680764567\",\"createTime\":\"2021-02-24\",\"finishTime\":\"2021-02-24T23:38:53.962\",\"id\":\"1364600445699493888\",\"merName\":\"杭州小笼包\",\"merNo\":\"4301980876461234\",\"orderSource\":0,\"payTimeEnd\":\"2021-02-24T23:38:53.962\",\"payTimeStart\":\"2021-02-24T23:37:53.962\",\"state\":0}', 0, '1', '2021-02-24 23:38:54', '2021-02-24 23:37:53', '2021-02-24 23:37:54');
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -430,43 +430,16 @@ DROP TABLE IF EXISTS `t_order`;
 CREATE TABLE `t_order`  (
   `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '地区号（4位置） +  7（7位自增）+机器编号 如 1或者2或者3',
   `order_source` tinyint(1) NULL DEFAULT NULL COMMENT '订单来源 0：pos 1：app',
-  `trade_way` tinyint(2) NULL DEFAULT NULL COMMENT '交易方式 1：额度交易 2：银行卡交易 3：余额交易',
-  `trade_type` tinyint(2) NULL DEFAULT NULL COMMENT '账单交易类型 1：即时，2：远期',
   `state` tinyint(4) NULL DEFAULT 0 COMMENT '交易状态 0:待支付 1:交易成功 2:交易失败  (具体失败原因参考respCode)3:远期账单待确认（供应商确认） 4:远期账单待退款 7: 远期账单待结算（商户确认）',
-  `refund_state` tinyint(1) NULL DEFAULT 0 COMMENT '退款状态 0：无退款 1：退款成功 2：退款失败 3：发起退款 4：客服处理中',
-  `settle_st` tinyint(2) NULL DEFAULT NULL COMMENT '清算状态  -1: 等待清算  0:发起清算  1:清算成功  2:清算失败',
-  `apply_customer` tinyint(2) NULL DEFAULT 1 COMMENT '客服介入 1：无 2：响应中 3：已处理',
-  `mark_st` tinyint(2) NULL DEFAULT 0 COMMENT '操作类型 0:默认无需操作 1:强制平账 2:勾兑 3:退单 4：客服操作',
-  `check_st` tinyint(2) NULL DEFAULT 0 COMMENT '对账状态 0:未对账 1:对账成功(正常) 2:强制平账   3:短款(平台缺失) 4:长款(银行缺失) 5:交易状态不符 6:清算状态不符 7: 交易金额不符 8:清算金额不符',
   `amount` decimal(11, 2) NULL DEFAULT NULL COMMENT '交易金额',
-  `amount_settle` decimal(11, 2) NULL DEFAULT NULL COMMENT '清算金额 ',
-  `resp_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '平台返回码',
-  `is_risk` tinyint(2) NULL DEFAULT 0 COMMENT '是否触发风控',
-  `card_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '支付账号',
-  `mer_operator_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '交易账号，商户操作员姓名',
-  `mer_no` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '平台商户号',
+  `mer_no` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '平台商户号',
+  `sup_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '供应商号',
   `mer_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商户名',
-  `app_mer_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'app商户操作员唯一ID',
-  `terminal_no` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '受理账号，APP是供应商手机号，POS是终端号',
-  `sup_operator_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '受理账号，供应商操作员姓名',
-  `sup_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '供应商号',
-  `sup_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '供应商名',
-  `app_sup_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'app供应商操作员唯一ID',
+  `card_no` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '支付账号',
   `mer_card` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商户交易卡号（银行卡交易时有该字段）',
   `sup_card` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '供应商清算卡号',
   `body` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '订单描述',
   `error_msg` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '失败原因',
-  `bank_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '上送的银行',
-  `bank_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行名',
-  `bank_order_no` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '银行订单id',
-  `bank_order_st` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '银行订单状态  0：发起  1：成功 2：失败',
-  `bank_order_msg` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行订单返回描述',
-  `bank_order_settle_st` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行订单清算状态  0:发起  1: 成功  2: 失败',
-  `bank_resp_msg` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '银行订单清算描述',
-  `billing_doubt_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '账单疑义ID',
-  `contract_no` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '合同编号',
-  `propitiation_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '平台对账人员id',
-  `propitiation_time` datetime(0) NULL DEFAULT NULL COMMENT '平台对账人处理(退单等操作)时间',
   `pay_time_start` datetime(0) NULL DEFAULT NULL COMMENT '支付开始时间(pos时间)',
   `pay_time_end` datetime(0) NULL DEFAULT NULL COMMENT '支付结束时间(银行返回)',
   `settle_time_start` datetime(0) NULL DEFAULT NULL COMMENT '清算开始时间',
@@ -483,7 +456,10 @@ CREATE TABLE `t_order`  (
 -- ----------------------------
 -- Records of t_order
 -- ----------------------------
-INSERT INTO `t_order` VALUES ('1335554958778568704', 0, NULL, NULL, 0, 0, NULL, 1, 0, 0, 56.00, NULL, '', 0, '15680764567', NULL, '4301980876461234', '杭州小笼包', NULL, '', NULL, '', NULL, NULL, NULL, NULL, '进货面粉', '', '', NULL, '', '', NULL, NULL, '', NULL, NULL, '', NULL, '2020-12-06 20:01:30', '2020-12-06 20:02:30', NULL, NULL, NULL, '2020-12-06 20:02:30', '2020-12-06 00:00:00');
+INSERT INTO `t_order` VALUES ('1364593805130600448', 0, 2, 56.00, '4301980876461234', '', NULL, NULL, NULL, NULL, '进货面粉', '取消订单', '2021-02-24 23:11:31', '2021-02-24 23:12:31', NULL, NULL, NULL, '2021-02-24 23:12:31', '2021-02-24 00:00:00');
+INSERT INTO `t_order` VALUES ('1364595780740059136', 0, 2, 56.00, '4301980876461234', '', NULL, NULL, NULL, NULL, '进货面粉', '取消订单', '2021-02-24 23:19:22', '2021-02-24 23:20:22', NULL, NULL, NULL, '2021-02-24 23:20:22', '2021-02-24 00:00:00');
+INSERT INTO `t_order` VALUES ('1364596192025120768', 0, 2, 56.00, '4301980876461234', '', NULL, NULL, NULL, NULL, '进货面粉', '取消订单', '2021-02-24 23:21:00', '2021-02-24 23:22:00', NULL, NULL, NULL, '2021-02-24 23:22:00', '2021-02-24 00:00:00');
+INSERT INTO `t_order` VALUES ('1364600445699493888', 0, 2, 56.00, '4301980876461234', '', '杭州小笼包', '15680764567', NULL, NULL, '进货面粉', '取消订单', '2021-02-24 23:37:54', '2021-02-24 23:38:54', NULL, NULL, NULL, '2021-02-24 23:38:54', '2021-02-24 00:00:00');
 
 -- ----------------------------
 -- Table structure for tool_alipay_config
