@@ -32,9 +32,16 @@ public class OrderTimeoutProcessor {
     @Resource
     OrderDao orderDao;
 
+    /**
+     * 处理死信消息
+     *
+     * @param message /
+     * @param channel /
+     */
     @RabbitHandler
     @RabbitListener(queues = RabbitMqConstants.ORDER_TIMEOUT_QUEUE)
     public void process(Message<DlxMessage> message, Channel channel) {
+        MessageHeaders headers = message.getHeaders();
         try {
             log.info("======OrderTimeoutProcessor  message: {}", message);
             DlxMessage dlxMessage = message.getPayload();
@@ -45,10 +52,7 @@ public class OrderTimeoutProcessor {
             UpdateWrapper<Order> updateWrapper = new UpdateWrapper<>();
             orderDao.update(order, updateWrapper.eq("id", Objects.requireNonNull(dlxMessage).getContent()));
             log.info("超时订单 订单号: [{}] 取消完毕......", dlxMessage.getContent());
-            MessageHeaders headers = message.getHeaders();
-//            for (String key : headers.keySet()) {
-//                System.out.println(key + " = " + headers.get(key));
-//            }
+
             log.info("amqp_deliveryTag : {}", headers.get("amqp_deliveryTag"));
             /*
              *  第二个参数取值为 false 时，表示通知 RabbitMQ 当前消息被确认
@@ -56,6 +60,8 @@ public class OrderTimeoutProcessor {
              */
             channel.basicAck(Long.parseLong(Objects.requireNonNull(headers.get("amqp_deliveryTag")).toString()), false);
         } catch (IOException e) {
+            log.error("======OrderTimeoutProcessor  message: {}", message);
+            log.error("amqp_deliveryTag : {}", headers.get("amqp_deliveryTag"));
             log.error("OrderTimeout Processor error: {}", e.getMessage());
         }
     }

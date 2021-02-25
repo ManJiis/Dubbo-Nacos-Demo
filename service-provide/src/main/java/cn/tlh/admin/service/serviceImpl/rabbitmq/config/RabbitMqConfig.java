@@ -32,9 +32,9 @@ public class RabbitMqConfig {
         rabbitTemplate.setConnectionFactory(connectionFactory);
 
         //设置开启Mandatory,才能触发回调函数,无论消息推送结果怎么样都强制调用回调函数
-        rabbitTemplate.setMandatory(true);
+//        rabbitTemplate.setMandatory(true);
 
-        // 1. ConfirmCallback 消息发送确认  >>确认发送到交换机
+        // 1. ConfirmCallback 消息发送确认  >>确认发送到MQ Broker节点 （采用confirm方式发送，会有异步的返回结果）
         rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
             log.info("ConfirmCallback correlationData: " + correlationData);
             String messageId = Objects.requireNonNull(correlationData).getId();
@@ -47,7 +47,7 @@ public class RabbitMqConfig {
                 log.warn("ConfirmCallback -> 消息发布到交换器失败，错误原因为：{}", cause);
             }
         });
-        // 2. ReturnCallback 消息接收确认 >>消费者确认收到该消息
+        // 2. ReturnCallback 消息接收确认 >>消息到达MQ Broker后未被队列接收, 就会回到这里
         rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> {
             //表示消息发送到交换机，但是没有找到队列，这里记录日志
             log.warn("ReturnCallback -> 消息{}，发送到队列失败，应答码：{}，原因：{}，交换器: {}，路由键：{}",

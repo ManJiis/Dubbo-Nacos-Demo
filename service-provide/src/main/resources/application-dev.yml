@@ -64,10 +64,13 @@ spring:
     port: 5672
     username: admin
     password: admin
-    # 开启发送确认
+    # 确保生产者到交换器exchange消息有没有发送成功,发送成功会回调生产者
     publisher-confirm-type: simple
-    # 开启发送失败退回
+    # 消息在未被队列收到的情况下返回
     publisher-returns: true
+    # 指定消息在没有被队列接收时是否强行退回还是直接丢弃
+    template:
+      mandatory: true
     listener:
       simple:
         retry:
@@ -80,9 +83,15 @@ spring:
         concurrency: 1
         # 指定最大消费者数量
         max-concurrency: 10
+        # 每次签收一条消息
+        prefetch: 1
       direct:
+        retry:
+          enabled: true
         acknowledge-mode: manual
-    #        prefetch: 1
+        concurrency: 1
+        max-concurrency: 10
+        prefetch: 1
 # mybatis-plus
 mybatis-plus:
   #多个package用逗号或者分号分隔
@@ -116,7 +125,7 @@ dubbo:
   #    loadbalance: roundrobin  # 负载均衡算法 , 缺省是随机 random。还可以配置轮询 roundrobin、最不活跃优先 4 leastactive 和一致性哈希 consistenthash 等
   protocol:
     # 随机端口
-    port: 20031
+        port: 20031
 #    port: 20041
 ### xxl-job admin address list, such as "http://address" or "http://address01,http://address02"
 xxl:

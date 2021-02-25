@@ -3,7 +3,7 @@ package cn.tlh.admin.consumer.shiro;
 import cn.hutool.core.util.ArrayUtil;
 import cn.tlh.admin.common.pojo.system.SysRole;
 import cn.tlh.admin.common.pojo.system.SysUser;
-import cn.tlh.admin.common.util.constants.RabbitMqConstants;
+import cn.tlh.admin.common.util.constants.Constants;
 import cn.tlh.admin.dao.SysMenuDao;
 import cn.tlh.admin.dao.SysRoleDao;
 import cn.tlh.admin.dao.SysUserDao;
@@ -57,7 +57,7 @@ public class MyAuthorizingRealm extends AuthorizingRealm implements Authorizer {
         log.info("==============授权---登录用户的信息===============:{}", JSON.toJSONString(user));
         Set<String> permsList = new HashSet<>();
         // 系统管理员，拥有全部权限
-        if (ArrayUtil.contains(RabbitMqConstants.ADMINS, userId)) {
+        if (ArrayUtil.contains(Constants.ADMINS, userId)) {
             permsList = sysMenuDao.findAllPerm();
             log.info("==============授权---系统管理员，拥有全部权限===============:{}", JSON.toJSONString(permsList));
         } else {
@@ -94,7 +94,7 @@ public class MyAuthorizingRealm extends AuthorizingRealm implements Authorizer {
         if (user == null || StringUtils.isBlank(user.getPassword())) {
             throw new UnknownAccountException();
         }
-        if (user.getEnabled() == RabbitMqConstants.SYS_USER_STATUS_PROHIBIT) {
+        if (user.getEnabled() == Constants.SYS_USER_STATUS_PROHIBIT) {
             throw new LockedAccountException();
         }
         ByteSource byteSource = new ByteSource(user.getSalt());

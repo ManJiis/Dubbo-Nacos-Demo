@@ -3,7 +3,7 @@ package cn.tlh.admin.consumer.controller.system;
 import cn.hutool.core.util.IdUtil;
 import cn.tlh.admin.common.base.common.BusinessResponse;
 import cn.tlh.admin.common.base.vo.req.AuthUserReq;
-import cn.tlh.admin.common.util.constants.RabbitMqConstants;
+import cn.tlh.admin.common.util.constants.Constants;
 import cn.tlh.admin.common.util.redis.RedisCacheKey;
 import cn.tlh.admin.common.util.redis.RedisTemplateUtils;
 import cn.tlh.admin.consumer.annotaion.rest.AnonymousGetMapping;
@@ -61,8 +61,8 @@ public class LoginController {
 //        String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, userVo.getPassword());
         log.info("login acount::{}", userVo.toString());
         @NotBlank(message = "登录账号不能为空") String loginAccount = userVo.getLoginAccount();
-        Matcher phoneMatcher = RabbitMqConstants.PHONE_REX.matcher(loginAccount);
-        Matcher emailMatcher = RabbitMqConstants.EMAIL_REX.matcher(loginAccount);
+        Matcher phoneMatcher = Constants.PHONE_REX.matcher(loginAccount);
+        Matcher emailMatcher = Constants.EMAIL_REX.matcher(loginAccount);
         // TODO 多种方式登录
         if (phoneMatcher.matches()) {
             System.out.println("登录方式: 手机号 " + loginAccount);

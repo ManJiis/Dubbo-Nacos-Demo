@@ -41,12 +41,6 @@ public class Constants {
     public static final int SYS_USER_STATUS_NORMAL = 1;
     public static final int SYS_USER_STATUS_FROZEN = 2;
 
-    /**
-     * 发送状态： 0 发送中 1 成功 -1 失败
-     */
-    public static final String ORDER_SENDING = "0";
-    public static final String ORDER_SEND_SUCCESS = "1";
-    public static final String ORDER_SEND_FAILURE = "-1";
 
     /**
      * exception

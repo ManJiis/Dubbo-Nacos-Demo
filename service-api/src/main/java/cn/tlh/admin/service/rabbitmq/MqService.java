@@ -6,12 +6,11 @@ package cn.tlh.admin.service.rabbitmq;
 public interface MqService {
     /**
      * 正常发送
-     *
+     *  @param messageId 消息唯一Id  IdUtils.snowflakeId().toString()
      * @param queueName queueName
      * @param message   msg
-     * @param messageId 消息唯一Id  IdUtils.snowflakeId().toString()
      */
-    void send(String queueName, Object message, String messageId);
+    void send( String messageId,String queueName, Object message);
 
     /**
      * 延时发送

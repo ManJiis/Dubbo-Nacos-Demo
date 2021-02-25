@@ -11,7 +11,7 @@ import cn.tlh.admin.common.pojo.system.SysUser;
 import cn.tlh.admin.common.util.EncryptUtils;
 import cn.tlh.admin.common.util.RsaUtils;
 import cn.tlh.admin.common.util.StringUtils;
-import cn.tlh.admin.common.util.constants.RabbitMqConstants;
+import cn.tlh.admin.common.util.constants.Constants;
 import cn.tlh.admin.common.util.enums.CodeEnum;
 import cn.tlh.admin.common.util.properties.RsaProperties;
 import cn.tlh.admin.consumer.annotaion.Log;
@@ -79,7 +79,7 @@ public class UserController {
         String generateSalt = EncryptUtils.generateSalt();
         if (StringUtils.isBlank(user.getPassword())) {
             // 默认密码 123456
-            user.setPassword(ShiroUtils.sha256(RabbitMqConstants.DEFAULT_PASSWORD, generateSalt));
+            user.setPassword(ShiroUtils.sha256(Constants.DEFAULT_PASSWORD, generateSalt));
         } else {
             user.setPassword(ShiroUtils.sha256(user.getPassword(), generateSalt));
         }

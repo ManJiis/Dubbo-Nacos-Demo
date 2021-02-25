@@ -34,7 +34,7 @@ public class MqServiceImpl implements MqService {
 
 
     @Override
-    public void send(String queueName, Object msg, String messageId) {
+    public void send(String messageId, String queueName, Object msg) {
         log.info("send msg，队列名：{}，消息： {}，CorrelationData：{}", queueName, msg, messageId);
         this.rabbitTemplate.convertAndSend(queueName, msg, new CorrelationData(messageId));
     }
@@ -47,14 +47,16 @@ public class MqServiceImpl implements MqService {
             message.getMessageProperties().setExpiration(String.valueOf(times));
             return message;
         };
-        // 消息的投递方式默认为2（持久化） 看源码，Message的封装
+
+        // 当指定一个不存在的交换机，这样可以触发confirmCallback失败回调，进行重发尝试
+        // 发送消息的时候将消息的deliveryMode设置为2，在Spring Boot中消息默认就是持久化的。
         rabbitTemplate.convertAndSend(
                 RabbitMqConstants.ORDER_EXCHANGE,
                 RabbitMqConstants.ORDER_DLK_KEY,
                 dlxMessage,
                 processor,
                 new CorrelationData(messageId));
-        log.info("订单延时队列发送：队列名：{}，消息：{}，延时时间（毫秒）：{}", queueName, msg, times);
+        log.info("订单延时队列发送：消息id: {} 队列名：{}，消息：{}，延时时间（毫秒）：{}", messageId, queueName, msg, times);
     }
 
 }

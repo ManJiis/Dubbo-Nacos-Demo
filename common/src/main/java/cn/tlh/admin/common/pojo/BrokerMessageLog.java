@@ -22,7 +22,7 @@ public class BrokerMessageLog implements Serializable {
 
     private String messageId;
     private String message;
-    private Integer tryCount;
+    private Integer tryCount = 0;
     private String status;
     private LocalDateTime nextRetry;
     private LocalDateTime createTime;
