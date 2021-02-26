@@ -27,7 +27,7 @@ public class BuildDlxMessageUtils {
                 .message(JackJsonUtils.toJsonString(order))
                 .queue(RabbitMqConstants.ORDER_DELAY_QUEUE)
                 .exchange(RabbitMqConstants.ORDER_EXCHANGE)
-                .routingKey(RabbitMqConstants.ORDER_DLK_KEY).expiration(expirationTime == null ? 1000 * 60L : expirationTime).build();
+                .routingKey(RabbitMqConstants.ORDER_DLK_KEY).expiration(expirationTime == null ? 1000L * 60 : expirationTime).build();
     }
 
     /**
@@ -42,6 +42,6 @@ public class BuildDlxMessageUtils {
                 .message(JackJsonUtils.toJsonString(order))
                 .queue(RabbitMqConstants.ORDER_DELAY_QUEUE)
                 .exchange(RabbitMqConstants.ORDER_EXCHANGE)
-                .routingKey(RabbitMqConstants.ORDER_DLK_KEY).expiration(1000 * 60L).build();
+                .routingKey(RabbitMqConstants.ORDER_DLK_KEY).expiration(1000L * 60 * 5).build();
     }
 }

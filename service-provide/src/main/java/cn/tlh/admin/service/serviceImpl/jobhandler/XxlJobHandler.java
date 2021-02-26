@@ -60,7 +60,7 @@ public class XxlJobHandler {
      */
     @XxlJob("timeOutOrderReSendJobHandler")
     public void timeOutOrderReSendJobHandler() {
-        log.info("当前时间: {}, timeOutOrderReSendJobHandler start....", LocalDateTime.now());
+        log.info("订单消息重发定时任务 开始了....");
         // pull status = 0 and timeout message
         List<BrokerMessageLog> list = brokerMessageLogDao.query4StatusAndTimeoutMessage();
         list.forEach(messageLog -> {

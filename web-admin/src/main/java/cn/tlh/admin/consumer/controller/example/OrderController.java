@@ -8,6 +8,7 @@ import cn.tlh.admin.common.util.id.IdUtils;
 import cn.tlh.admin.service.OrderService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +48,7 @@ public class OrderController {
     }
 
     @GetMapping("add")
+    @ApiOperation("新增订单 MQ延时消息测试")
     public BusinessResponse add() {
         OrderReqVo vo = new OrderReqVo();
         vo.setId(IdUtils.snowflakeId().toString());
@@ -59,8 +61,6 @@ public class OrderController {
         vo.setMerName("杭州小笼包");
         vo.setBody("进货面粉");
         vo.setPayTimeStart(LocalDateTime.now());
-        vo.setPayTimeEnd(LocalDateTime.now().plusMinutes(1));
-        vo.setFinishTime(LocalDateTime.now().plusMinutes(1));
         vo.setCreateTime(LocalDate.now());
         return BusinessResponse.ok(this.orderService.addOrder(vo));
     }

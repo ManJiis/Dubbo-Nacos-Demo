@@ -87,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
         //--------------------- 插入消息记录表数据 end ----------------------------//
         // 发消息  默认1min
         mqService.sendDelayOrder(dlxMessage);
-        log.info("发送消息: orderId = [{}]", order.getId());
+        log.info("发送消息: messageId = [{}]", order.getId());
         return order;
     }
 }
