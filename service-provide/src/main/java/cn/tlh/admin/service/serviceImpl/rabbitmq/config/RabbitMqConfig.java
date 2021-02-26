@@ -48,10 +48,10 @@ public class RabbitMqConfig {
             }
         });
         // 2. ReturnCallback 消息接收确认 >>消息到达MQ Broker后未被队列接收, 就会回到这里
-        rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> {
+        rabbitTemplate.setReturnsCallback((returnCallback) -> {
             //表示消息发送到交换机，但是没有找到队列，这里记录日志
             log.warn("ReturnCallback -> 消息{}，发送到队列失败，应答码：{}，原因：{}，交换器: {}，路由键：{}",
-                    message, replyCode, replyText, exchange, routingKey);
+                    returnCallback.getMessage(), returnCallback.getReplyCode(), returnCallback.getReplyText(), returnCallback.getExchange(), returnCallback.getRoutingKey());
         });
         return rabbitTemplate;
     }

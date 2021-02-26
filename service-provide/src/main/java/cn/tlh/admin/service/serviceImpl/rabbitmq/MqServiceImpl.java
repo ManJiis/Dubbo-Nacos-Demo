@@ -1,7 +1,6 @@
 package cn.tlh.admin.service.serviceImpl.rabbitmq;
 
 import cn.tlh.admin.common.pojo.DlxMessage;
-import cn.tlh.admin.common.util.constants.RabbitMqConstants;
 import cn.tlh.admin.dao.BrokerMessageLogDao;
 import cn.tlh.admin.service.rabbitmq.MqService;
 import org.apache.dubbo.config.annotation.Service;
@@ -32,7 +31,6 @@ public class MqServiceImpl implements MqService {
     @Resource
     private BrokerMessageLogDao brokerMessageLogDao;
 
-
     @Override
     public void send(String messageId, String queueName, Object msg) {
         log.info("send msg，队列名：{}，消息： {}，CorrelationData：{}", queueName, msg, messageId);
@@ -40,23 +38,21 @@ public class MqServiceImpl implements MqService {
     }
 
     @Override
-    public void sendDelayOrder(String messageId, String queueName, String msg, Integer times) {
-        DlxMessage dlxMessage = new DlxMessage(messageId, queueName, msg, times);
+    public void sendDelayOrder(DlxMessage dlxMessage) {
         MessagePostProcessor processor = (message) -> {
 //            message.getMessageProperties().setDelay(times);
-            message.getMessageProperties().setExpiration(String.valueOf(times));
+            message.getMessageProperties().setExpiration(String.valueOf(dlxMessage.getExpiration()));
             return message;
         };
 
         // 当指定一个不存在的交换机，这样可以触发confirmCallback失败回调，进行重发尝试
         // 发送消息的时候将消息的deliveryMode设置为2，在Spring Boot中消息默认就是持久化的。
         rabbitTemplate.convertAndSend(
-                RabbitMqConstants.ORDER_EXCHANGE,
-                RabbitMqConstants.ORDER_DLK_KEY,
+                dlxMessage.getExchange(),
+                dlxMessage.getRoutingKey(),
                 dlxMessage,
                 processor,
-                new CorrelationData(messageId));
-        log.info("订单延时队列发送：消息id: {} 队列名：{}，消息：{}，延时时间（毫秒）：{}", messageId, queueName, msg, times);
+                new CorrelationData(dlxMessage.getMessageId()));
+        log.info("订单延时队列发送：消息id: {}, 消息：{}，延时时间（毫秒）：{}", dlxMessage.getMessageId(), dlxMessage, dlxMessage.getExpiration());
     }
-
 }

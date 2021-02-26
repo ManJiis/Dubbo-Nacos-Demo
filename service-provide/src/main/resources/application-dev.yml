@@ -65,7 +65,7 @@ spring:
     username: admin
     password: admin
     # 确保生产者到交换器exchange消息有没有发送成功,发送成功会回调生产者
-    publisher-confirm-type: simple
+    publisher-confirm-type: correlated
     # 消息在未被队列收到的情况下返回
     publisher-returns: true
     # 指定消息在没有被队列接收时是否强行退回还是直接丢弃
@@ -89,8 +89,6 @@ spring:
         retry:
           enabled: true
         acknowledge-mode: manual
-        concurrency: 1
-        max-concurrency: 10
         prefetch: 1
 # mybatis-plus
 mybatis-plus:

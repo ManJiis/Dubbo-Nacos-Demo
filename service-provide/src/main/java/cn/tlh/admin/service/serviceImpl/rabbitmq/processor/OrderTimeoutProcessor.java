@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -43,15 +44,15 @@ public class OrderTimeoutProcessor {
     public void process(Message<DlxMessage> message, Channel channel) {
         MessageHeaders headers = message.getHeaders();
         try {
-            log.info("======OrderTimeoutProcessor  message: {}", message);
+            log.info("======当前时间: {}, OrderTimeoutProcessor  message: {}", LocalDateTime.now(), message);
             DlxMessage dlxMessage = message.getPayload();
             Order order = new Order();
             // 交易状态 0:待支付 1:交易成功 2:交易失败
             order.setState(2);
             order.setErrorMsg("取消订单");
             UpdateWrapper<Order> updateWrapper = new UpdateWrapper<>();
-            orderDao.update(order, updateWrapper.eq("id", Objects.requireNonNull(dlxMessage).getContent()));
-            log.info("超时订单 订单号: [{}] 取消完毕......", dlxMessage.getContent());
+            orderDao.update(order, updateWrapper.eq("id", Objects.requireNonNull(dlxMessage).getMessage()));
+            log.info("超时订单 订单号: [{}] 取消完毕......", dlxMessage.getMessage());
 
             log.info("amqp_deliveryTag : {}", headers.get("amqp_deliveryTag"));
             /*
@@ -60,7 +61,7 @@ public class OrderTimeoutProcessor {
              */
             channel.basicAck(Long.parseLong(Objects.requireNonNull(headers.get("amqp_deliveryTag")).toString()), false);
         } catch (IOException e) {
-            log.error("======OrderTimeoutProcessor  message: {}", message);
+            log.error("======当前时间: {}, OrderTimeoutProcessor  message: {}", LocalDateTime.now(), message);
             log.error("amqp_deliveryTag : {}", headers.get("amqp_deliveryTag"));
             log.error("OrderTimeout Processor error: {}", e.getMessage());
         }

@@ -1,24 +1,24 @@
 package cn.tlh.admin.service.rabbitmq;
 
+import cn.tlh.admin.common.pojo.DlxMessage;
+
 /**
  * @author TANG
  */
 public interface MqService {
     /**
      * 正常发送
-     *  @param messageId 消息唯一Id  IdUtils.snowflakeId().toString()
+     *
+     * @param messageId 消息唯一Id  IdUtils.snowflakeId().toString()
      * @param queueName queueName
      * @param message   msg
      */
-    void send( String messageId,String queueName, Object message);
+    void send(String messageId, String queueName, Object message);
 
     /**
-     * 延时发送
+     * 延时消息
      *
-     * @param messageId  消息唯一Id  IdUtils.snowflakeId().toString()
-     * @param queueName 队列名称
-     * @param message   消息
-     * @param times     延时时间，单位毫秒
+     * @param dlxMessage 死信消息载体
      */
-    void sendDelayOrder(String messageId, String queueName, String message, Integer times);
+    void sendDelayOrder(DlxMessage dlxMessage);
 }
