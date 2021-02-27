@@ -55,18 +55,30 @@ public class RedissionTest {
     public void lockTest() throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         CountDownLatch countDownLatch = new CountDownLatch(10);
+        CountDownLatch startingGun = new CountDownLatch(1);
         final String recordId = "recordId_123";
         for (int i = 0; i < 10; i++) {
             executorService.execute(() -> {
-                countDownLatch.countDown();
-                log.info("开始并发执行: " + LocalTime.now());
-                tryLock(recordId);
+                try {
+                    // 线程阻塞
+                    startingGun.await();
+                    tryLock(recordId);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    countDownLatch.countDown();
+                }
             });
         }
+        // 线程集结完毕开始并发执行 startingGun -1
+        startingGun.countDown();
+        log.info("开始并发执行: " + LocalTime.now());
+
+        // 执行完毕的线程阻塞再次等待其他线程
+        countDownLatch.await();
         log.info("线程池完成:" + LocalTime.now());
         executorService.shutdown();
         log.info("线程池退出:" + LocalTime.now());
-        Thread.sleep(10000);
     }
 
     public void tryLock(String recordId) {
