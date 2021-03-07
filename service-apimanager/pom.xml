@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>sdnd</artifactId>
-        <groupId>cn.tlh.admin</groupId>
+        <groupId>top.b0x0</groupId>
         <version>1.0.0</version>
-        <relativePath/>
+        <!--        <relativePath/>-->
     </parent>
     <packaging>jar</packaging>
     <artifactId>service-apimanager</artifactId>
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-job-core</artifactId>
-<!--            <version>2.2.0</version>-->
+            <!--            <version>2.2.0</version>-->
         </dependency>
         <!-- ex: http://localhost:8080/actuator/health -->
         <dependency>
@@ -103,6 +103,10 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

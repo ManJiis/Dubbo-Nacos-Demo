@@ -14,13 +14,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * 文档地址: http://localhost:8030/doc.html
- * 只在dev和test环境下开启
+ * 只在dev和test,native环境下开启
  *
  * @author TANG
  */
 @Configuration
 @EnableSwagger2
-@Profile({"dev", "test"})
+@Profile({"dev", "test","native"})
 public class SwaggerConfig {
 
     @Bean
@@ -48,7 +48,7 @@ public class SwaggerConfig {
                 .title("sdnd接口文档")
                 // 文档接口的描述
                 .description("springboot集成dubbo, 使用nacos作为注册中心的demo")
-                .contact(new Contact("TANG", "", ""))
+                .contact(new Contact("TANG", "tanglinghan.github.io", "1902325071@qq.com"))
                 // 版本号
                 .version("1.0.0")
                 .build();

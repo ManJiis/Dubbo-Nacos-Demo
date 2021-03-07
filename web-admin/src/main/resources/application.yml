@@ -1,12 +1,12 @@
 server:
-  port: 8090
+  port: 8032
   # 使用IP无法访问应用 尝试添加tomcat启动参数  -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv6Addresses=false
   # 设置你的访问ip
   # https://stackoverflow.com/questions/23946369/how-to-configure-embedded-tomcat-integrated-with-spring-to-listen-requests-to-ip
 #  address: 0.0.0.0
 spring:
   profiles:
-    active: dev
+    active: native
   output:
     ansi:
       enabled: always

@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>sdnd</artifactId>
-        <groupId>cn.tlh.admin</groupId>
+        <groupId>top.b0x0</groupId>
         <version>1.0.0</version>
-        <relativePath/>
+<!--        <relativePath/>-->
     </parent>
     <packaging>jar</packaging>
     <artifactId>web-admin</artifactId>
@@ -156,7 +156,7 @@
             <version>20.0</version>
         </dependency>
         <dependency>
-            <groupId>cn.tlh.admin</groupId>
+            <groupId>top.b0x0</groupId>
             <artifactId>common</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>

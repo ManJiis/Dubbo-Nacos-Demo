@@ -1,8 +1,8 @@
+server:
+  port: 8031
 spring:
   profiles:
-    active: dev
-    include:
-      - api-config
+    active: native
   output:
     ansi:
       enabled: always

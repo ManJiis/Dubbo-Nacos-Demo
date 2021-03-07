@@ -2,7 +2,7 @@ server:
   port: 8030
 spring:
   profiles:
-    active: dev
+    active: native
     include:
       - api-config
   output:

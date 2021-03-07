@@ -24,15 +24,17 @@ public class RedissonConfig {
     @Value("${spring.redis.port}")
     private Integer redisPort;
 
-//    @Value("${spring.redis.password}")
-//    private String redisPassword;
+    @Value("${spring.redis.password}")
+    private String redisPassword;
 
     @Bean
     public RedissonClient getRedisson() {
         Config config = new Config();
         //单机模式  依次设置redis地址和密码
-        config.useSingleServer().
-                setAddress("redis://" + redisHost + ":" + redisPort);
+        config.useSingleServer()
+                .setAddress("redis://" + redisHost + ":" + redisPort)
+                .setPassword(redisPassword);
+
         //使用json序列化方式
         Codec codec = new JsonJacksonCodec();
         config.setCodec(codec);

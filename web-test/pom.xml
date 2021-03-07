@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>sdnd</artifactId>
-        <groupId>cn.tlh.admin</groupId>
+        <groupId>top.b0x0</groupId>
         <version>1.0.0</version>
-        <relativePath/>
+<!--        <relativePath/>-->
     </parent>
     <artifactId>web-test</artifactId>
     <version>1.0.0</version>
@@ -59,7 +59,7 @@
             <version>4.5.7</version>
         </dependency>
         <dependency>
-            <groupId>cn.tlh.admin</groupId>
+            <groupId>top.b0x0</groupId>
             <artifactId>common</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>
