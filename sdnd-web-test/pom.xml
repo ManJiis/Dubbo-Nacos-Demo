@@ -8,9 +8,9 @@
         <version>1.0.0</version>
 <!--        <relativePath/>-->
     </parent>
-    <artifactId>web-test</artifactId>
+    <artifactId>sdnd-web-test</artifactId>
     <version>1.0.0</version>
-    <name>web-test</name>
+    <name>${artifactId}</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

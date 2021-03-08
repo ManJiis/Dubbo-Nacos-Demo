@@ -11,7 +11,7 @@
         <!--        <relativePath>../pom.xml</relativePath>-->
     </parent>
     <packaging>jar</packaging>
-    <artifactId>service-provide</artifactId>
+    <artifactId>sdnd-service-provide</artifactId>
     <name>${project.artifactId}</name>
     <version>1.0.0</version>
 
@@ -49,12 +49,12 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>common-mapper</artifactId>
+            <artifactId>sdnd-common-mapper</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>service-api</artifactId>
+            <artifactId>sdnd-service-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!--        <dependency>

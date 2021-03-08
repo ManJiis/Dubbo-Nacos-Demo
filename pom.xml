@@ -13,19 +13,19 @@
 
     <artifactId>sdnd</artifactId>
     <groupId>top.b0x0</groupId>
-    <name>${project.artifactId}</name>
+    <name>${artifactId}</name>
     <packaging>pom</packaging>
     <version>1.0.0</version>
 
     <modules>
-        <module>common</module>
-        <module>common-mapper</module>
-        <module>service-api</module>
-        <module>service-provide</module>
-        <module>service-apimanager</module>
-        <module>web-admin</module>
+        <module>sdnd-common</module>
+        <module>sdnd-common-mapper</module>
+        <module>sdnd-service-api</module>
+        <module>sdnd-service-provide</module>
+<!--        <module>service-apimanager</module>-->
+        <module>sdnd-web-admin</module>
+        <module>sdnd-web-test</module>
         <module>xxl-job-admin</module>
-        <module>web-test</module>
     </modules>
 
     <properties>

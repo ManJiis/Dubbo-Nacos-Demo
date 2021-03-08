@@ -9,9 +9,9 @@
 <!--        <relativePath/>-->
     </parent>
 
-    <artifactId>common-mapper</artifactId>
+    <artifactId>sdnd-common-mapper</artifactId>
     <version>1.0.0</version>
-    <name>common-mapper</name>
+    <name>${artifactId}</name>
     <description>service of mapper (sql)</description>
 
     <properties>
@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>sdnd-common</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
