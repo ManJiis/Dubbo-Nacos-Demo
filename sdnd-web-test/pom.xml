@@ -60,7 +60,7 @@
         </dependency>
         <dependency>
             <groupId>top.b0x0</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>sdnd-common</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
