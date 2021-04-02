@@ -1,5 +1,5 @@
 # springboot-dubbo-nacos-demo
-基于springboot搭建dubbo，使用nacos作为注册中心
+基于springboot搭建dubbo，使用nacos作为注册中心, shiro_redis做权限.
 ## 项目结构
 
 sdnd  
