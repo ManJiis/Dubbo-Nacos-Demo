@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.tlh.admin.dao.SysUserDao">
+<mapper namespace="top.b0x0.admin.dao.SysUserDao">
 
-    <resultMap type="cn.tlh.admin.common.pojo.system.SysUser" id="SysUserMap">
+    <resultMap type="top.b0x0.admin.common.pojo.system.SysUser" id="SysUserMap">
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="deptId" column="dept_id" jdbcType="INTEGER"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
@@ -60,22 +60,22 @@
             </if>
         </where>
     </select>
-    <select id="findByUsername" resultType="cn.tlh.admin.common.pojo.system.SysUser">
+    <select id="findByUsername" resultType="top.b0x0.admin.common.pojo.system.SysUser">
         select * from sdnd.sys_user where username = #{username}
     </select>
-    <select id="findByEmail" resultType="cn.tlh.admin.common.pojo.system.SysUser">
+    <select id="findByEmail" resultType="top.b0x0.admin.common.pojo.system.SysUser">
         select * from sdnd.sys_user where email = #{email}
     </select>
-    <select id="findByPhone" resultType="cn.tlh.admin.common.pojo.system.SysUser">
+    <select id="findByPhone" resultType="top.b0x0.admin.common.pojo.system.SysUser">
         select * from sdnd.sys_user where phone = #{phone}
     </select>
-    <select id="findByRoleId" resultType="cn.tlh.admin.common.pojo.system.SysUser">
+    <select id="findByRoleId" resultType="top.b0x0.admin.common.pojo.system.SysUser">
         SELECT u.* FROM sys_user u, sys_users_roles r WHERE u.user_id = r.user_id AND r.role_id = #{roleId}
     </select>
-    <select id="findByDeptRoleId" resultType="cn.tlh.admin.common.pojo.system.SysUser">
+    <select id="findByDeptRoleId" resultType="top.b0x0.admin.common.pojo.system.SysUser">
         SELECT u.* FROM sys_user u, sys_users_roles r, sys_roles_depts d WHERE u.user_id = r.user_id AND r.role_id = d.role_id AND r.role_id = #{id} group by u.user_id
     </select>
-    <select id="findByMenuId" resultType="cn.tlh.admin.common.pojo.system.SysUser">
+    <select id="findByMenuId" resultType="top.b0x0.admin.common.pojo.system.SysUser">
         SELECT u.* FROM sys_user u, sys_users_roles ur, sys_roles_menus rm WHERE u.user_id = ur.user_id AND ur.role_id = rm.role_id AND rm.menu_id = #{id} group by u.user_id
     </select>
     <select id="countByJobs" resultType="java.lang.Integer">
@@ -98,6 +98,12 @@
                  open="(" separator="," close=")">
             #{item}
         </foreach>
+    </select>
+    <select id="listUser" resultType="top.b0x0.admin.common.pojo.system.SysUser">
+        select
+            user_id, dept_id, username, nick_name, gender, phone, email, avatar_name, avatar_path, password, is_admin,
+            enabled, create_by, update_by, pwd_reset_time, create_time, update_time
+        from sdnd.sys_user
     </select>
 
     <!--新增所有列-->

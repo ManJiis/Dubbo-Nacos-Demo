@@ -5,7 +5,6 @@ management:
         include: info, health, beans, env, metrics
 # spring
 spring:
-  # 开启aop
   aop:
     auto: true
   freemarker:
@@ -89,7 +88,7 @@ spring:
 # mybatis-plus
 mybatis-plus:
   #多个package用逗号或者分号分隔
-  typeAliasesPackage: cn.tlh.admin.common.pojo
+#  typeAliasesPackage: top.b0x0.admin.common.pojo
   mapper-locations: classpath:/mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -108,20 +107,20 @@ service:
   version: 1.0
 dubbo:
   application:
-    name: dubbo-${spring.application.name}
+    name: ${spring.application.name}
     qos-enable: false
     qos-accept-foreign-ip: false
   registry:
     address: nacos://127.0.0.1:8848
   scan:
-    basePackages: cn.tlh.admin.service
+    basePackages: top.b0x0.admin.service
   provider:
     timeout: 30000  #方法调用的超时时间
   #    retries: 3      # 失败重试次数，缺省是 2
   #    loadbalance: roundrobin  # 负载均衡算法 , 缺省是随机 random。还可以配置轮询 roundrobin、最不活跃优先 4 leastactive 和一致性哈希 consistenthash 等
   protocol:
-    # 随机端口
-        port: 20031
+        # 随机端口
+    port: 20031
 #    port: 20041
 ### xxl-job admin address list, such as "http://address" or "http://address01,http://address02"
 xxl:

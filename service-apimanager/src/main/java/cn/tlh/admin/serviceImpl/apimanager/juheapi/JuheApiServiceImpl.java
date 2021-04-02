@@ -1,8 +1,8 @@
 //package cn.tlh.admin.serviceImpl.apimanager.juheapi;
 //
-//import cn.tlh.admin.common.base.common.JuheResponse;
-//import cn.tlh.admin.common.util.http.HttpUtils;
-//import cn.tlh.admin.service.JuheApiService;
+//import top.b0x0.admin.common.vo.JuheResponse;
+//import top.b0x0.admin.common.util.http.HttpUtils;
+//import top.b0x0.admin.service.JuheApiService;
 //import com.alibaba.fastjson.JSON;
 //import org.apache.dubbo.config.annotation.Service;
 //import org.slf4j.Logger;
@@ -16,7 +16,7 @@
 //import java.util.HashMap;
 //import java.util.Map;
 //
-//import static cn.tlh.admin.common.util.constants.JuheApiConstants.*;
+//import static top.b0x0.admin.common.util.constants.JuheApiConstants.*;
 //
 ///**
 // * @author musui

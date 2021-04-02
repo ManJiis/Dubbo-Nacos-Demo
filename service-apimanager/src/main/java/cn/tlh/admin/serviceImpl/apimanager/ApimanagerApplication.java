@@ -1,6 +1,6 @@
 package cn.tlh.admin.serviceImpl.apimanager;
 
-import cn.tlh.admin.common.util.spring.SpringContextHolder;
+import top.b0x0.admin.common.util.spring.SpringContextHolder;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

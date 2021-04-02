@@ -1,0 +1,78 @@
+package top.b0x0.admin.dao;
+
+import top.b0x0.admin.common.pojo.system.SysMenu;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Set;
+
+/**
+ * 系统菜单(SysMenu)表数据库访问层
+ *
+ * @author TANG
+ * @since 2020-12-17 09:52:00
+ */
+public interface SysMenuDao {
+
+    /**
+     * 查询所有权限
+     */
+    Set<String> findAllPerm();
+
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param menuId 主键
+     * @return 实例对象
+     */
+    SysMenu queryById(Long menuId);
+
+    /**
+     * 通过实体作为筛选条件查询
+     *
+     * @param sysMenu 实例对象
+     * @return 对象列表
+     */
+    List<SysMenu> queryAll(SysMenu sysMenu);
+
+    /**
+     * 新增数据
+     *
+     * @param sysMenu 实例对象
+     * @return 影响行数
+     */
+    int insert(SysMenu sysMenu);
+
+    /**
+     * 批量新增数据（MyBatis原生foreach方法）
+     *
+     * @param entities List<SysMenu> 实例对象列表
+     * @return 影响行数
+     */
+    int insertBatch(@Param("entities") List<SysMenu> entities);
+
+    /**
+     * 批量新增或按主键更新数据（MyBatis原生foreach方法）
+     *
+     * @param entities List<SysMenu> 实例对象列表
+     * @return 影响行数
+     */
+    int insertOrUpdateBatch(@Param("entities") List<SysMenu> entities);
+
+    /**
+     * 修改数据
+     *
+     * @param sysMenu 实例对象
+     * @return 影响行数
+     */
+    int update(SysMenu sysMenu);
+
+    /**
+     * 通过主键删除数据
+     *
+     * @param menuId 主键
+     * @return 影响行数
+     */
+    int deleteById(Long menuId);
+
+}
