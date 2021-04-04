@@ -17,11 +17,10 @@
     <version>1.0.0</version>
 
     <modules>
+        <module>sdnd-api</module>
         <module>sdnd-common</module>
         <module>sdnd-common-mapper</module>
-        <module>sdnd-api</module>
         <module>sdnd-provide</module>
-        <!--        <module>service-apimanager</module>-->
         <module>sdnd-web</module>
         <module>sdnd-web-test</module>
         <module>xxl-job-admin</module>
@@ -37,12 +36,6 @@
         <mybatis-plus-boot-starter.version>3.1.2</mybatis-plus-boot-starter.version>
         <pagehelper.version>5.2.0</pagehelper.version>
         <spring-boot.version>2.4.2</spring-boot.version>
-<!--        <spring-boot-starter-data-redis.version>2.4.0</spring-boot-starter-data-redis.version>-->
-<!--        <spring-boot-starter-data-redis.version>2.4.0</spring-boot-starter-data-redis.version>-->
-<!--        <spring-boot-starter-aop.version>2.4.0</spring-boot-starter-aop.version>-->
-<!--        <spring-boot-starter-amqp.version>2.1.5.RELEASE</spring-boot-starter-amqp.version>-->
-<!--        <spring-boot-starter-websocket.version>2.0.4.RELEASE</spring-boot-starter-websocket.version>-->
-<!--        <spring-boot-starter-freemarker.version>2.1.5.RELEASE</spring-boot-starter-freemarker.version>-->
         <shiro-spring-boot-web-starter.version>1.4.1</shiro-spring-boot-web-starter.version>
         <shiro-redis-spring-boot-starter.version>3.2.1</shiro-redis-spring-boot-starter.version>
         <shiro-redis.version>3.2.3</shiro-redis.version>
@@ -65,23 +58,8 @@
 
     <dependencyManagement>
 
-        <!--        <dependencies>
-                    <dependency>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-dependencies</artifactId>
-                        <version>${spring.boot.version}</version>
-                        <scope>import</scope>
-                        <type>pom</type>
-                    </dependency>
-                </dependencies>-->
-
         <dependencies>
-            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
-<!--            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-validation</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>-->
+
             <!-- xxl-job 分布式任务调度平台-->
             <!-- https://mvnrepository.com/artifact/com.xuxueli/xxl-job-core -->
             <dependency>
@@ -89,6 +67,7 @@
                 <artifactId>xxl-job-core</artifactId>
                 <version>${xxl-job-core.version}</version>
             </dependency>
+
             <!-- redis 分布式锁-->
             <!-- https://mvnrepository.com/artifact/org.redisson/redisson-spring-boot-starter -->
             <dependency>
@@ -96,6 +75,7 @@
                 <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>${redisson-spring-boot-starter.version}</version>
             </dependency>
+
             <!-- http -->
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
@@ -112,45 +92,27 @@
                 <artifactId>commons-httpclient</artifactId>
                 <version>${commons-httpclient.version}</version>
             </dependency>
+
             <!-- jwt -->
             <dependency>
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
                 <version>3.8.2</version>
             </dependency>
-            <!--模板引擎-->
-<!--            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-freemarker</artifactId>
-                <version>${spring-boot-starter-freemarker.version}</version>
-            </dependency>-->
-            <!-- shiro -->
+
+            <!-- shiro-redis -->
+
             <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-spring-boot-web-starter</artifactId>
-                <version>${shiro-spring-boot-web-starter.version}</version>
+                <groupId>org.crazycake</groupId>
+                <artifactId>shiro-redis</artifactId>
+                <version>${shiro-redis.version}</version>
             </dependency>
-            <!--            <dependency>
-                            <groupId>org.crazycake</groupId>
-                            <artifactId>shiro-redis</artifactId>
-                            <version>${shiro-redis.version}</version>
-                        </dependency>-->
             <dependency>
                 <groupId>org.crazycake</groupId>
                 <artifactId>shiro-redis-spring-boot-starter</artifactId>
                 <version>${shiro-redis-spring-boot-starter.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-spring</artifactId>
-                <version>${shiro-spring.version}</version>
-            </dependency>
-            <!-- Spring boot websocket -->
-<!--            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-websocket</artifactId>
-                <version>${spring-boot-starter-websocket.version}</version>
-            </dependency>-->
+
             <!-- excel工具 -->
             <dependency>
                 <groupId>org.apache.poi</groupId>
@@ -208,18 +170,6 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
-            <!-- rabbitmq -->
-<!--            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-amqp</artifactId>
-                <version>${spring-boot-starter-amqp.version}</version>
-            </dependency>-->
-            <!-- redis -->
-<!--            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis</artifactId>
-                <version>${spring-boot-starter-data-redis.version}</version>
-            </dependency>-->
             <!-- json解析 阿里巴巴fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -289,12 +239,6 @@
                 <artifactId>nacos-client</artifactId>
                 <version>${nacos.version}</version>
             </dependency>
-            <!-- aop -->
-<!--            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-aop</artifactId>
-                <version>${spring-boot-starter-aop.version}</version>
-            </dependency>-->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>

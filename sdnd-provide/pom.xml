@@ -27,13 +27,14 @@
         <dependency>
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-job-core</artifactId>
-            <!--            <version>2.3.0</version>-->
         </dependency>
-        <!-- ex: http://localhost:8080/actuator/health -->
+
+        <!-- ex: http://localhost:8031/actuator/health -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
         <!-- redis 分布式锁-->
         <!-- https://mvnrepository.com/artifact/org.redisson/redisson-spring-boot-starter -->
         <dependency>
@@ -41,6 +42,8 @@
             <artifactId>redisson-spring-boot-starter</artifactId>
             <version>3.13.6</version>
         </dependency>
+
+
         <!--模板引擎-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -76,24 +79,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--        <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter</artifactId>
-                </dependency>-->
-        <!--        <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-log4j2</artifactId>
-                </dependency>-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+
         <!-- Dubbo -->
         <dependency>
             <groupId>org.apache.dubbo</groupId>

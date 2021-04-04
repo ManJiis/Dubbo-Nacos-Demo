@@ -1,14 +1,7 @@
 package top.b0x0.admin.consumer.shiro;
 
 import cn.hutool.core.util.ArrayUtil;
-import top.b0x0.admin.common.pojo.system.SysRole;
-import top.b0x0.admin.common.pojo.system.SysUser;
-import top.b0x0.admin.common.util.constants.Constants;
-import top.b0x0.admin.dao.SysMenuDao;
-import top.b0x0.admin.dao.SysRoleDao;
-import top.b0x0.admin.dao.SysUserDao;
 import com.alibaba.fastjson.JSON;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
@@ -16,13 +9,18 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.Authorizer;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import top.b0x0.admin.common.pojo.system.SysRole;
+import top.b0x0.admin.common.pojo.system.SysUser;
+import top.b0x0.admin.common.util.constants.Constants;
+import top.b0x0.admin.dao.SysMenuDao;
+import top.b0x0.admin.dao.SysRoleDao;
+import top.b0x0.admin.dao.SysUserDao;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -137,14 +135,14 @@ public class MyAuthorizingRealm extends AuthorizingRealm implements Authorizer {
         super.clearCache(principalCollection);
     }
 
-    public static void main(String[] args) {
-        String s = DigestUtils.sha256Hex("123456" + "RGrgG00X1E0tUxJKhE5y");
-        for (int i = 0; i <= 15; i++) {
-            s = DigestUtils.sha256Hex(s + "RGrgG00X1E0tUxJKhE5y");
-        }
-        System.out.println(s);
-
-        SimpleHash simpleHash = new SimpleHash(ShiroUtils.HASH_ALGORITHM_NAME, "123456", "RGrgG00X1E0tUxJKhE5y", 16);
-        System.out.println(simpleHash);
-    }
+//    public static void main(String[] args) {
+//        String s = DigestUtils.sha256Hex("123456" + "RGrgG00X1E0tUxJKhE5y");
+//        for (int i = 0; i <= 15; i++) {
+//            s = DigestUtils.sha256Hex(s + "RGrgG00X1E0tUxJKhE5y");
+//        }
+//        System.out.println(s);
+//
+//        SimpleHash simpleHash = new SimpleHash(ShiroUtils.HASH_ALGORITHM_NAME, "123456", "RGrgG00X1E0tUxJKhE5y", 16);
+//        System.out.println(simpleHash);
+//    }
 }

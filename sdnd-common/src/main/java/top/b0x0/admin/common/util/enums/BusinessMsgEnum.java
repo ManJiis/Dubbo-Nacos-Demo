@@ -26,11 +26,11 @@ public enum BusinessMsgEnum {
     /**
      * 消息码
      */
-    private Integer code;
+    private final Integer code;
     /**
      * 消息内容
      */
-    private String msg;
+    private final String msg;
 
     private BusinessMsgEnum(Integer code, String msg) {
         this.code = code;

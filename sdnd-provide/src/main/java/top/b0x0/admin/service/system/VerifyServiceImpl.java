@@ -7,7 +7,7 @@ import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
 import top.b0x0.admin.common.vo.req.EmailVo;
-import top.b0x0.admin.common.exception.myexception.BusinessErrorException;
+import top.b0x0.admin.common.exception.BusinessErrorException;
 import top.b0x0.admin.common.util.redis.RedisTemplateUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;

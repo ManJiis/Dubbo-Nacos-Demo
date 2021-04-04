@@ -3,7 +3,7 @@ package top.b0x0.admin.service.system;
 import cn.hutool.extra.mail.Mail;
 import cn.hutool.extra.mail.MailAccount;
 import top.b0x0.admin.common.vo.req.EmailVo;
-import top.b0x0.admin.common.exception.myexception.BusinessErrorException;
+import top.b0x0.admin.common.exception.BusinessErrorException;
 import top.b0x0.admin.common.pojo.system.EmailConfig;
 import top.b0x0.admin.common.util.EncryptUtils;
 import top.b0x0.admin.dao.EmailConfigDao;

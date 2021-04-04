@@ -7,6 +7,8 @@ import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
+import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -26,8 +28,9 @@ import java.util.Map;
 
 /**
  * Shiro配置
+ *
  * @author TANG
- * @since  2020-12-21
+ * @since 2020-12-21
  */
 @Configuration
 public class ShiroConfig {
@@ -60,7 +63,6 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边
         // authc：所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
-
         filterChainDefinitionMap.put("/**", "anon");
 
         filterChainDefinitionMap.put("/swagger/**", "anon");
@@ -74,8 +76,28 @@ public class ShiroConfig {
 //        filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         // 配置拦截器,实现无权限返回401,而不是跳转到登录页
-//        filters.put("authc", new ShiroLoginFilter());
+        filters.put("authc", new ShiroLoginFilter());
         return shiroFilterFactoryBean;
+    }
+
+    @Bean
+    public ShiroFilterChainDefinition defaultShiroFilterChainDefinition() {
+        DefaultShiroFilterChainDefinition defaultShiroFilterChainDefinition = new DefaultShiroFilterChainDefinition();
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        filterChainDefinitionMap.put("/**", "anon");
+
+        filterChainDefinitionMap.put("/swagger/**", "anon");
+        filterChainDefinitionMap.put("/v2/**", "anon");
+        filterChainDefinitionMap.put("/webjars/**", "anon");
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/doc.html/**", "anon");
+        filterChainDefinitionMap.put("/system/limit/**", "anon");
+        filterChainDefinitionMap.put("/system/auth/**", "anon");
+//        filterChainDefinitionMap.put("/**", "authc");
+        defaultShiroFilterChainDefinition.addPathDefinitions(filterChainDefinitionMap);
+
+        return defaultShiroFilterChainDefinition;
     }
 
     /**

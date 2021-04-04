@@ -1,6 +1,6 @@
 package top.b0x0.admin.consumer.aspect;
 
-import top.b0x0.admin.common.exception.myexception.BusinessErrorException;
+import top.b0x0.admin.common.exception.BusinessErrorException;
 import top.b0x0.admin.common.util.StringUtils;
 import top.b0x0.admin.common.util.spring.RequestHolder;
 import top.b0x0.admin.consumer.annotaion.AccessLimit;

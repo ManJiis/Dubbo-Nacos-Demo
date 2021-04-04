@@ -2,7 +2,7 @@ server:
   port: 8031
 spring:
   profiles:
-    active: dev
+    active: native
   output:
     ansi:
       enabled: always

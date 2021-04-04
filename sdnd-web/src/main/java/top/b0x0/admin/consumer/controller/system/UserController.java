@@ -10,7 +10,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import top.b0x0.admin.common.dto.RoleSmallDto;
 import top.b0x0.admin.common.dto.UserDto;
-import top.b0x0.admin.common.exception.myexception.BusinessErrorException;
+import top.b0x0.admin.common.exception.BusinessErrorException;
 import top.b0x0.admin.common.mapstruct.UserMapper;
 import top.b0x0.admin.common.pojo.system.SysUser;
 import top.b0x0.admin.common.util.EncryptUtils;

@@ -57,6 +57,7 @@
             </exclusions>
         </dependency>
         <!-- Apache http end-->
+        <!-- jwt -->
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
@@ -66,20 +67,7 @@
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>1.4.0</version>
-        </dependency>
-        <!-- shiro -->
-        <!--        <dependency>
-                    <groupId>org.apache.shiro</groupId>
-                    <artifactId>shiro-spring-boot-web-starter</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.crazycake</groupId>
-                    <artifactId>shiro-redis-spring-boot-starter</artifactId>
-                </dependency>-->
+
         <!-- Spring boot websocket -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -148,10 +136,7 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>
-        <!--        <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-web</artifactId>
-                </dependency>-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>

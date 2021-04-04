@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 /**
  * 统一返回对象
  *
- * @param <Object>
- * @author ling
+ * @author TANG
  */
 @Data
 @AllArgsConstructor
@@ -21,9 +20,9 @@ public class BusinessResponse {
     private Integer code;
     private String message;
 
-    // ------------------ 成功模板 ------------------------ //
+    /********************** 成功模板 **********************/
     public static BusinessResponse ok() {
-        return new BusinessResponse("", 0, "操作成功！");
+        return new BusinessResponse("", 200, "操作成功！");
     }
 
     public static BusinessResponse ok(Integer code, String msg) {
@@ -38,7 +37,7 @@ public class BusinessResponse {
         return new BusinessResponse(data, code, msg);
     }
 
-    // ------------------ 失败模板 ------------------------ //
+    /********************** 失败模板 **********************/
     public static BusinessResponse fail(String message) {
         return new BusinessResponse("", 400, message);
     }
@@ -54,7 +53,7 @@ public class BusinessResponse {
     /**
      * 使用自定义异常作为参数传递状态码和提示信息
      *
-     * @param msgEnum
+     * @param msgEnum BusinessMsgEnum
      */
     public static BusinessResponse fail(BusinessMsgEnum msgEnum) {
         return new BusinessResponse("", msgEnum.code(), msgEnum.msg());

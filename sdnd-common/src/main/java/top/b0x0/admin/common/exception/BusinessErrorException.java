@@ -1,11 +1,11 @@
-package top.b0x0.admin.common.exception.myexception;
+package top.b0x0.admin.common.exception;
 
 import top.b0x0.admin.common.util.enums.BusinessMsgEnum;
 
 /**
  * 自定义业务异常
  *
- * @author ling
+ * @author TANG
  */
 public class BusinessErrorException extends RuntimeException {
 

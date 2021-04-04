@@ -5,7 +5,7 @@ import top.b0x0.admin.common.vo.BusinessResponse;
 import top.b0x0.admin.common.dto.RoleDto;
 import top.b0x0.admin.common.mapstruct.RoleMapper;
 import top.b0x0.admin.common.vo.req.RoleReqVo;
-import top.b0x0.admin.common.exception.myexception.BusinessErrorException;
+import top.b0x0.admin.common.exception.BusinessErrorException;
 import top.b0x0.admin.common.pojo.system.SysRole;
 import top.b0x0.admin.consumer.annotaion.Log;
 import top.b0x0.admin.service.system.RoleService;

@@ -1,5 +1,5 @@
 
-package top.b0x0.admin.common.exception.myexception;
+package top.b0x0.admin.common.exception;
 
 import org.springframework.util.StringUtils;
 
