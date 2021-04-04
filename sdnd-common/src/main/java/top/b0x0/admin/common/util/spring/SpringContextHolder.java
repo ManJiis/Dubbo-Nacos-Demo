@@ -1,6 +1,7 @@
 package top.b0x0.admin.common.util.spring;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
@@ -14,9 +15,9 @@ import java.util.*;
  * @author TANG
  * @date 2019-01-07
  */
-@Slf4j
 @Component
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
+    private static final Logger log = LoggerFactory.getLogger(SpringContextHolder.class);
 
     private static ApplicationContext applicationContext = null;
     private static final List<CallBack> CALL_BACKS = new ArrayList<>();
@@ -24,7 +25,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 
     private static final Set<String> BEAN_NAME_SET = new HashSet<>();
 
-    public static Set<String> getBeanNameSet() {
+    public static Set<String> getBeanNames() {
         return BEAN_NAME_SET;
     }
 

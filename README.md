@@ -4,12 +4,11 @@
 
 sdnd  
 ├── admin_docs -- 文档,SQL文件等  
+├── sdnd-api -- 接口定义层  
 ├── sdnd-common -- 工具类及通用代码  
 ├── sdnd-common-mapper -- 数据持久层  
-├── sdnd-service-api -- 接口定义层(Service)  
-├── ~~sdnd-service-apimanager -- 8030 第三方接口服务(ServiceImpl)~~   
-├── sdnd-service-provide -- 8031 服务提供者(ServiceImpl)   
-├── sdnd-web-admin -- 8032 消费者(Controller)   
+├── sdnd-provide -- 8031 生产者  
+├── sdnd-web -- 8032 消费者  
 ├── sdnd-web-test -- 测试模块  
 └── xxl-job-admin -- 8080 XXL-JOB分布式任务调度平台 2.3.0版本  
 

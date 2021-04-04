@@ -30,7 +30,7 @@ public class SpringContextHolderTest {
 
     @Test
     public void getBeanNameSet() {
-        Set<String> beanNameSet = SpringContextHolder.getBeanNameSet();
+        Set<String> beanNameSet = SpringContextHolder.getBeanNames();
         int i = 0;
         for (String s : beanNameSet) {
             i++;

@@ -12,7 +12,7 @@
 
     <artifactId>sdnd-common</artifactId>
     <version>1.0.0</version>
-    <name>${artifactId}</name>
+    <name>${project.artifactId}</name>
 
     <description>service of common ( ex: util pojo )</description>
 

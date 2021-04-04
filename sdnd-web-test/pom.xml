@@ -10,7 +10,7 @@
     </parent>
     <artifactId>sdnd-web-test</artifactId>
     <version>1.0.0</version>
-    <name>${artifactId}</name>
+    <name>${project.artifactId}</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

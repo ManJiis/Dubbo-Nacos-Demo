@@ -1,0 +1,2 @@
+paramReceiveFilter=top.b0x0.admin.service.config.ParamReceiveFilter
+paramPassFilter=top.b0x0.admin.consumer.config.ParamPassFilter

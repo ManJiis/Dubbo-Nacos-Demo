@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=top.b0x0.admin.service.config.MybatisInterceptorAutoConfiguration
