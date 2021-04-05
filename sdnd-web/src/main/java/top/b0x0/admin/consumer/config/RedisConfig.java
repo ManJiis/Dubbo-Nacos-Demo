@@ -19,9 +19,10 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
+ * redis config
+ *
  * @author TANG
- * @description: redis config
- * @date: 2020-11-27
+ * @since 2020-11-27
  */
 @Slf4j
 @Configuration
@@ -32,17 +33,13 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Bean(name = "redisTemplate")
     @ConditionalOnMissingBean(name = "redisTemplate")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        // 设置序列化
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         RedisSerializer<?> stringSerializer = new StringRedisSerializer();
-        // 创建对象
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         // 默认序列化
 //        redisTemplate.setDefaultSerializer(jackson2JsonRedisSerializer);
-        // 设置键（key）的序列化采用StringRedisSerializer。
         redisTemplate.setKeySerializer(stringSerializer);
         redisTemplate.setHashKeySerializer(stringSerializer);
-        // value值的序列化采用 fastJsonRedisSerializer
         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
         // 启用默认序列化方式

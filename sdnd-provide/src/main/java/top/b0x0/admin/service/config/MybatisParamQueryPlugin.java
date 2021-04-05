@@ -8,7 +8,7 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import top.b0x0.admin.common.util.spring.SpringContextHolder;
-import top.b0x0.admin.service.system.UserService;
+import top.b0x0.admin.service.module.system.UserService;
 
 import java.lang.reflect.Field;
 import java.util.Map;

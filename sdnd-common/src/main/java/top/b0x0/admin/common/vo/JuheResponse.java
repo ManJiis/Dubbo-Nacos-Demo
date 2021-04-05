@@ -5,8 +5,9 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
+ * 聚合api响应数据格式
+ *
  * @author musui
- * @description 聚合api响应数据格式
  */
 @Data
 public class JuheResponse implements Serializable {

@@ -30,19 +30,19 @@ public enum BusinessMsgEnum {
     /**
      * 消息内容
      */
-    private final String msg;
+    private final String message;
 
-    private BusinessMsgEnum(Integer code, String msg) {
+    private BusinessMsgEnum(Integer code, String message) {
         this.code = code;
-        this.msg = msg;
+        this.message = message;
     }
 
-    public Integer code() {
+    public Integer getCode() {
         return code;
     }
 
-    public String msg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
 }

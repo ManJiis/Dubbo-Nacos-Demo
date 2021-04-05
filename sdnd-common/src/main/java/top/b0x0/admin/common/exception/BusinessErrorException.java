@@ -27,8 +27,8 @@ public class BusinessErrorException extends RuntimeException {
     }
 
     public BusinessErrorException(BusinessMsgEnum businessMsgEnum) {
-        this.code = businessMsgEnum.code();
-        this.message = businessMsgEnum.msg();
+        this.code = businessMsgEnum.getCode();
+        this.message = businessMsgEnum.getMessage();
     }
 
     public Integer getCode() {

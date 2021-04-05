@@ -24,8 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 聚合api调用
+ *
  * @author musui
- * @description 调用聚合api
  */
 @RestController
 @RequestMapping("juhe")
@@ -36,7 +37,7 @@ public class JuheApiController {
     @Reference(version = "${service.version}", check = false)
     JuheApiService juheApiService;
 
-    @GetMapping("todayOnhistory/queryEvent")
+    @GetMapping("todayOnhistory/query")
     @ApiOperation("历史上的今天")
     public JuheResponse getTodayInHistory() {
         return juheApiService.getTodayInHistory();

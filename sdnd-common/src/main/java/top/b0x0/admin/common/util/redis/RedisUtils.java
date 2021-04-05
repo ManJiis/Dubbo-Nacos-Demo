@@ -2,32 +2,45 @@ package top.b0x0.admin.common.util.redis;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Circle;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResults;
+import org.springframework.data.geo.Point;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisGeoCommands;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisConnectionUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author /
+ * 注解@SuppressWarnings使用 https://www.cnblogs.com/perfei456/p/8962167.html
+ * redis工具类
+ *
+ * @author TANG
+ * @since 2020/12/04
  */
-//@Component
-//@SuppressWarnings({"unchecked", "all"})
+@Component
+@SuppressWarnings({"unchecked", "all"})
+@AllArgsConstructor
 public class RedisUtils {
     private static final Logger log = LoggerFactory.getLogger(RedisUtils.class);
-    private RedisTemplate<Object, Object> redisTemplate;
-    //    @Value("${jwt.online-key}")
-    private String onlineKey;
 
-    public RedisUtils(RedisTemplate<Object, Object> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
+    @Autowired
+    RedisTemplate<String, Object> redisTemplate;
+
+    //    @Value("${jwt.online-key}")
+    private final String onlineKey;
+
 
     /**
      * 指定缓存失效时间
@@ -72,7 +85,7 @@ public class RedisUtils {
      * @param key 键 不能为null
      * @return 时间(秒) 返回0代表为永久有效
      */
-    public long getExpire(Object key) {
+    public Long getExpire(String key) {
         return redisTemplate.getExpire(key, TimeUnit.SECONDS);
     }
 
@@ -143,7 +156,7 @@ public class RedisUtils {
      * @param key 键
      * @return true 存在 false不存在
      */
-    public boolean hasKey(String key) {
+    public Boolean hasKey(String key) {
         try {
             return redisTemplate.hasKey(key);
         } catch (Exception e) {
@@ -155,21 +168,21 @@ public class RedisUtils {
     /**
      * 删除缓存
      *
-     * @param key 可以传一个值 或多个
+     * @param keys 可以传一个值 或多个
      */
     public void del(String... keys) {
         if (keys != null && keys.length > 0) {
             if (keys.length == 1) {
-                boolean result = redisTemplate.delete(keys[0]);
+                Boolean result = redisTemplate.delete(keys[0]);
                 log.debug("--------------------------------------------");
-                log.debug(new StringBuilder("删除缓存：").append(keys[0]).append("，结果：").append(result).toString());
+                log.debug("删除缓存：" + keys[0] + "，结果：" + result);
                 log.debug("--------------------------------------------");
             } else {
-                Set<Object> keySet = new HashSet<>();
+                Set<String> keySet = new HashSet<>();
                 for (String key : keys) {
-                    keySet.addAll(redisTemplate.keys(key));
+                    keySet.addAll(Objects.requireNonNull(redisTemplate.keys(key)));
                 }
-                long count = redisTemplate.delete(keySet);
+                Long count = redisTemplate.delete(keySet);
                 log.debug("--------------------------------------------");
                 log.debug("成功删除缓存：" + keySet.toString());
                 log.debug("缓存删除数量：" + count + "个");
@@ -193,8 +206,8 @@ public class RedisUtils {
     /**
      * 批量获取
      *
-     * @param keys
-     * @return
+     * @param keys List<String>
+     * @return List<Object>
      */
     public List<Object> multiGet(List<String> keys) {
         List list = redisTemplate.opsForValue().multiGet(Sets.newHashSet(keys));
@@ -335,7 +348,7 @@ public class RedisUtils {
      * @param value 值
      * @return true 成功 false失败
      */
-    public boolean hset(String key, String item, Object value) {
+    public boolean hPut(String key, String item, Object value) {
         try {
             redisTemplate.opsForHash().put(key, item, value);
             return true;
@@ -354,7 +367,7 @@ public class RedisUtils {
      * @param time  时间(秒) 注意:如果已存在的hash表有时间,这里将会替换原有的时间
      * @return true 成功 false失败
      */
-    public boolean hset(String key, String item, Object value, long time) {
+    public boolean hPut(String key, String item, Object value, long time) {
         try {
             redisTemplate.opsForHash().put(key, item, value);
             if (time > 0) {
@@ -373,7 +386,7 @@ public class RedisUtils {
      * @param key  键 不能为null
      * @param item 项 可以使多个 不能为null
      */
-    public void hdel(String key, Object... item) {
+    public void hDel(String key, Object... item) {
         redisTemplate.opsForHash().delete(key, item);
     }
 
@@ -394,9 +407,9 @@ public class RedisUtils {
      * @param key  键
      * @param item 项
      * @param by   要增加几(大于0)
-     * @return
+     * @return /
      */
-    public double hincr(String key, String item, double by) {
+    public double hIncr(String key, String item, double by) {
         return redisTemplate.opsForHash().increment(key, item, by);
     }
 
@@ -406,9 +419,9 @@ public class RedisUtils {
      * @param key  键
      * @param item 项
      * @param by   要减少记(小于0)
-     * @return
+     * @return /
      */
-    public double hdecr(String key, String item, double by) {
+    public double hDecr(String key, String item, double by) {
         return redisTemplate.opsForHash().increment(key, item, -by);
     }
 
@@ -418,7 +431,7 @@ public class RedisUtils {
      * 根据key获取Set中的所有值
      *
      * @param key 键
-     * @return
+     * @return /
      */
     public Set<Object> sGet(String key) {
         try {
@@ -486,7 +499,7 @@ public class RedisUtils {
      * 获取set缓存的长度
      *
      * @param key 键
-     * @return
+     * @return /
      */
     public long sGetSetSize(String key) {
         try {
@@ -506,8 +519,7 @@ public class RedisUtils {
      */
     public long setRemove(String key, Object... values) {
         try {
-            Long count = redisTemplate.opsForSet().remove(key, values);
-            return count;
+            return redisTemplate.opsForSet().remove(key, values);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return 0;
@@ -522,7 +534,7 @@ public class RedisUtils {
      * @param key   键
      * @param start 开始
      * @param end   结束 0 到 -1代表所有值
-     * @return
+     * @return /
      */
     public List<Object> lGet(String key, long start, long end) {
         try {
@@ -537,7 +549,7 @@ public class RedisUtils {
      * 获取list缓存的长度
      *
      * @param key 键
-     * @return
+     * @return /
      */
     public long lGetListSize(String key) {
         try {
@@ -553,7 +565,7 @@ public class RedisUtils {
      *
      * @param key   键
      * @param index 索引 index>=0时， 0 表头，1 第二个元素，依次类推；index<0时，-1，表尾，-2倒数第二个元素，依次类推
-     * @return
+     * @return /
      */
     public Object lGetIndex(String key, long index) {
         try {
@@ -569,7 +581,7 @@ public class RedisUtils {
      *
      * @param key   键
      * @param value 值
-     * @return
+     * @return /
      */
     public boolean lSet(String key, Object value) {
         try {
@@ -587,7 +599,7 @@ public class RedisUtils {
      * @param key   键
      * @param value 值
      * @param time  时间(秒)
-     * @return
+     * @return /
      */
     public boolean lSet(String key, Object value, long time) {
         try {
@@ -607,7 +619,7 @@ public class RedisUtils {
      *
      * @param key   键
      * @param value 值
-     * @return
+     * @return /
      */
     public boolean lSet(String key, List<Object> value) {
         try {
@@ -625,7 +637,7 @@ public class RedisUtils {
      * @param key   键
      * @param value 值
      * @param time  时间(秒)
-     * @return
+     * @return /
      */
     public boolean lSet(String key, List<Object> value, long time) {
         try {
@@ -680,15 +692,98 @@ public class RedisUtils {
      * @param ids    id
      */
     public void delByKeys(String prefix, Set<Long> ids) {
-        Set<Object> keys = new HashSet<>();
+        Set<String> keys = new HashSet<>();
         for (Long id : ids) {
-            keys.addAll(redisTemplate.keys(new StringBuffer(prefix).append(id).toString()));
+            keys.addAll(Objects.requireNonNull(redisTemplate.keys(new StringBuffer(prefix).append(id).toString())));
         }
-        long count = redisTemplate.delete(keys);
+        Long count = redisTemplate.delete(keys);
         // 此处提示可自行删除
         log.debug("--------------------------------------------");
         log.debug("成功删除缓存：" + keys.toString());
         log.debug("缓存删除数量：" + count + "个");
         log.debug("--------------------------------------------");
+    }
+
+
+    /**
+     * add redis:geo
+     * 添加地理位置的坐标。
+     *
+     * @param key   key
+     * @param point point
+     * @param pName pName
+     * @return Long
+     */
+    public Long geoAdd(String key, Point point, String pName) {
+        return redisTemplate.opsForGeo().add(key, point, pName);
+    }
+
+    /**
+     * geo批量插入
+     *
+     * @param key   key
+     * @param point point
+     * @return /
+     */
+    public Long geoBatchAdd(String key, Map point) {
+        return redisTemplate.boundGeoOps(key).add(point);
+    }
+
+    /**
+     * get redis:geo
+     * 获取地理位置的坐标。可根据坐标名称批量获取
+     *
+     * @param key     key
+     * @param memList memList
+     * @return List<Point>
+     */
+    public List<Point> geoGet(String key, List<String> memList) {
+        return redisTemplate.opsForGeo().position(key, memList);
+    }
+
+    /**
+     * nearByXY redis:geo
+     * 根据给定的经纬度坐标来获取指定范围内的地理位置集合。
+     * --------------------------------------------------------------------------------------
+     * georadius key longtitude latitude radius m|km|ft|mi [WITHCOORD] [WITHDIST] [WITHHASH] [COUNT count] [ASC|DESC]
+     * georadius命令参数:
+     * radius 半径长度，必选项。后面的 m 、 km 、 ft 、 mi 、是长度单位选项，四选一。
+     * WITHCOORD 将位置元素的经度和维度也一并返回，非必选。
+     * WITHDIST 在返回位置元素的同时， 将位置元素与中心点的距离也一并返回。 距离的单位和查询单位一致，非必选。
+     * WITHHASH 返回位置的52位精度的 Geohash 值，非必选。可能其它一些偏向底层的 LBS 应用服务需要这个。
+     * COUNT 返回符合条件的位置元素的数量，非必选。比如返回前10个，以避免出现符合的结果太多而出现性能问题。
+     * ASC / DESC 排序方式，非必选。默认情况下返回未排序，但是大多数我们需要进行排序。参照中心位置，从近到远使用 ASC ，从远到近使用 DESC 。
+     * --------------------------------------------------------------------------------------
+     *
+     * @param key    key
+     * @param circle 面积对象 (坐标,范围) new Circle(new Point(x,y), new Distance(5, Metrics.KILOMETERS)) 半径5km的范围
+     * @return GeoResults
+     */
+    public GeoResults<RedisGeoCommands.GeoLocation<Object>> nearByXy(String key, Circle circle) {
+        /*
+         * 使用 GeoRadiusCommandArgs 封装 GEORADIUS 的一些可选命令参数
+         * includeDistance 包含距离
+         * includeCoordinates 包含经纬度
+         * sortAscending 正序排序
+         * limit 限定返回的记录数
+         */
+        RedisGeoCommands.GeoRadiusCommandArgs args = RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeDistance().includeCoordinates().sortAscending();
+        return (GeoResults<RedisGeoCommands.GeoLocation<Object>>) redisTemplate.opsForGeo().radius(key, circle, args);
+    }
+
+
+    /**
+     * 根据指定的地点查询半径在指定范围内的位置
+     * <p>
+     * redis命令：georadiusbymember key 北京 100 km WITHDIST WITHCOORD ASC COUNT 5
+     */
+    public GeoResults<RedisGeoCommands.GeoLocation<Object>> nearByPlace(String key, String member, Distance distance, long count) {
+        // includeDistance 包含距离
+        // includeCoordinates 包含经纬度
+        // sortAscending 正序排序
+        // limit 限定返回的记录数
+        RedisGeoCommands.GeoRadiusCommandArgs args = RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs()
+                .includeDistance().includeCoordinates().sortAscending().limit(count);
+        return redisTemplate.opsForGeo().radius(key, member, distance, args);
     }
 }

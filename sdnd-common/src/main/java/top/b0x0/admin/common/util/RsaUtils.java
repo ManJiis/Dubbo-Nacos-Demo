@@ -36,8 +36,10 @@ public class RsaUtils {
      */
     private static void test1(RsaKeyPair keyPair) throws Exception {
         System.out.println("***************** 公钥加密私钥解密开始 *****************");
-        String text1 = encryptByPublicKey(keyPair.getPublicKey(), RsaUtils.SRC);
-        String text2 = decryptByPrivateKey(keyPair.getPrivateKey(), text1);
+        String publicKey = keyPair.getPublicKey();
+        String privateKey = keyPair.getPrivateKey();
+        String text1 = encryptByPublicKey(publicKey, RsaUtils.SRC);
+        String text2 = decryptByPrivateKey(privateKey, text1);
         System.out.println("加密前：" + RsaUtils.SRC);
         System.out.println("加密后：" + text1);
         System.out.println("解密后：" + text2);

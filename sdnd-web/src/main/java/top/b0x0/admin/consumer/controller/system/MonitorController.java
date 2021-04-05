@@ -1,7 +1,7 @@
 package top.b0x0.admin.consumer.controller.system;
 
 import top.b0x0.admin.common.vo.BusinessResponse;
-import top.b0x0.admin.service.system.MonitorService;
+import top.b0x0.admin.service.module.system.MonitorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.Reference;

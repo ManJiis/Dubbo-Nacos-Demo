@@ -1,8 +1,7 @@
 package top.b0x0.admin.consumer;
 
-import top.b0x0.admin.common.util.redis.RedisTemplateUtils;
-import top.b0x0.admin.common.util.spring.SpringContextHolder;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +11,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import top.b0x0.admin.common.util.spring.SpringContextHolder;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -22,6 +22,7 @@ import java.net.UnknownHostException;
  */
 @EnableDubbo
 @SpringBootApplication
+@MapperScan("top.b0x0.admin.dao")
 public class WebAdminApplication extends SpringBootServletInitializer {
 
     static Logger log = LoggerFactory.getLogger(WebAdminApplication.class);
@@ -53,8 +54,4 @@ public class WebAdminApplication extends SpringBootServletInitializer {
         return new SpringContextHolder();
     }
 
-    @Bean
-    public RedisTemplateUtils redisTemplateUtil() {
-        return new RedisTemplateUtils();
-    }
 }

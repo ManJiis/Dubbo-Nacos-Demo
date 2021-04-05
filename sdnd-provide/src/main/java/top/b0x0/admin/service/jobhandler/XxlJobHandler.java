@@ -6,7 +6,7 @@ import top.b0x0.admin.common.pojo.Order;
 import top.b0x0.admin.common.util.constants.RabbitMqConstants;
 import top.b0x0.admin.common.util.json.JackJsonUtils;
 import top.b0x0.admin.dao.BrokerMessageLogDao;
-import top.b0x0.admin.service.rabbitmq.MqService;
+import top.b0x0.admin.service.module.mq.MqService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;

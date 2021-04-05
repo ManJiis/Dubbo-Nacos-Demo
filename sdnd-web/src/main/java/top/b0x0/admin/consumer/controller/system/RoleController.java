@@ -8,7 +8,7 @@ import top.b0x0.admin.common.vo.req.RoleReqVo;
 import top.b0x0.admin.common.exception.BusinessErrorException;
 import top.b0x0.admin.common.pojo.system.SysRole;
 import top.b0x0.admin.consumer.annotaion.Log;
-import top.b0x0.admin.service.system.RoleService;
+import top.b0x0.admin.service.module.system.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.Reference;

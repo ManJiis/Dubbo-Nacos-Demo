@@ -7,7 +7,7 @@ import top.b0x0.admin.common.util.json.JackJsonUtils;
 import top.b0x0.admin.common.util.spring.RequestHolder;
 import top.b0x0.admin.consumer.annotaion.Log;
 import top.b0x0.admin.consumer.shiro.ShiroUtils;
-import top.b0x0.admin.service.system.LogService;
+import top.b0x0.admin.service.module.system.LogService;
 import org.apache.dubbo.config.annotation.Reference;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;

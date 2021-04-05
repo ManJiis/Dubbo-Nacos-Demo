@@ -5,7 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotBlank;
 
 
 /**
@@ -19,7 +20,7 @@ public class AuthUserReq {
 
     @NotBlank(message = "登录账号不能为空")
     @ApiModelProperty("登录账号")
-    private String loginAccount;
+    private String username;
 
     @NotBlank(message = "登录密码不能为空")
     @ApiModelProperty("登录密码")

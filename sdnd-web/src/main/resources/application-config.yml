@@ -1,0 +1,50 @@
+task:
+  pool:
+    # 核心线程池大小
+    core-pool-size: 10
+    # 最大线程数
+    max-pool-size: 30
+    # 活跃时间
+    keep-alive-seconds: 60
+    # 队列容量
+    queue-capacity: 50
+# 文件存储路径
+file:
+  mac:
+    path: ~/file/
+    avatar: ~/avatar/
+  linux:
+    path: /home/eladmin/file/
+    avatar: /home/eladmin/avatar/
+  windows:
+    path: C:\eladmin\file\
+    avatar: C:\eladmin\avatar\
+  # 文件大小 /M
+  maxSize: 100
+  avatarMaxSize: 5
+
+#七牛云
+qiniu:
+  # 文件大小 /M
+  max-size: 15
+
+#邮箱验证码有效时间/秒
+code:
+  expiration: 300
+
+#登录图形验证码有效时间/分钟
+loginCode:
+  expiration: 1
+
+#是否单点登录
+single:
+  login: true
+
+#密码加密传输，前端公钥加密，后端私钥解密
+rsa:
+  public_key: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7B8JPOvj53EH/r0MHqW0uo9Z7MBXPR38hrbOJNyDLWxLpN7wiE92SnbJ95ykYyiqZnOfpHNh0Di3dclwED6TqcH2EICC7C2Ba6Z/X+BnSpy9PHXSTO6wE7Ak4jDMRpmIERMOclUizIjpckUM9oJ9jKoGE0yTBquOraiqKqFeUdQIDAQAB
+  private_key: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBALsHwk86+PncQf+vQwepbS6j1nswFc9HfyGts4k3IMtbEuk3vCIT3ZKdsn3nKRjKKpmc5+kc2HQOLd1yXAQPpOpwfYQgILsLYFrpn9f4GdKnL08ddJM7rATsCTiMMxGmYgREw5yVSLMiOlyRQz2gn2MqgYTTJMGq46tqKoqoV5R1AgMBAAECgYEAj/Rx59/hQRf6KJ2yfxQ2OF7cuCaTst46CScUeDnZYQxxatZ+VNBri+0bNHMXG8CHt4KgsbmFFRbQ0JC0KGAOMx7tZiKBIjHbqc9F/n4e2QPLE4WTfhGV0uqIG7yTRcs3jVkttNHzJlMVZrvS5i0VxLhtmmD4bp2bj6HQ/HgODmECQQDpC1m8IYwcp1f2JNms8+iSfc/n0e6YemamHMZgmRKYH0SjGIRtnPAjptnK1h2jfLREoq00cMjNRo6lXQpNbdh5AkEAzXQUHJhDXVlal5peTrwDT4cbznrm/kAqdDZ/4S0VjQSkefNp4pRelWxBoXyo3h9J+tgNh3SKlwyuRKJ5SlxU3QJBAK1j5ZMlPrM/CyI3jsGxBDSiaSLpPmWyhFdJh4vtuDj44r+aiUVpA/7ysI7LOmgea525j7c5xx18Rrvger7bYLkCQBlyOA92mFlWeM7wEqAjzzEpZbtEI5n37oooOdx0zgeCPLDSAhpLEA/nsZVDsFKag3orCjntqECfFHJxwR4Bo40CQB237wZA5ovbhtNwZFWTxuaizHMtJRdZvkeHA69HlApR7OnovA2L3Fz2ks2WPLdtFx9/lIGyBFYr8z5rHbLPNhI=
+
+# sm.ms 图床的 token
+smms:
+  token: 1oOP3ykFDI0K6ifmtvU7c8Y1eTWZSlyl

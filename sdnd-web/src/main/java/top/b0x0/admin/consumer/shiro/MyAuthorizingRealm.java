@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.b0x0.admin.common.pojo.system.SysRole;
 import top.b0x0.admin.common.pojo.system.SysUser;
-import top.b0x0.admin.common.util.constants.Constants;
+import top.b0x0.admin.common.util.constants.CommonConstants;
 import top.b0x0.admin.dao.SysMenuDao;
 import top.b0x0.admin.dao.SysRoleDao;
 import top.b0x0.admin.dao.SysUserDao;
@@ -55,7 +55,7 @@ public class MyAuthorizingRealm extends AuthorizingRealm implements Authorizer {
         log.info("==============授权---登录用户的信息===============:{}", JSON.toJSONString(user));
         Set<String> permsList = new HashSet<>();
         // 系统管理员，拥有全部权限
-        if (ArrayUtil.contains(Constants.ADMINS, userId)) {
+        if (ArrayUtil.contains(CommonConstants.ADMINS, userId)) {
             permsList = sysMenuDao.findAllPerm();
             log.info("==============授权---系统管理员，拥有全部权限===============:{}", JSON.toJSONString(permsList));
         } else {
@@ -82,8 +82,7 @@ public class MyAuthorizingRealm extends AuthorizingRealm implements Authorizer {
                 "\n==============认证---token===============:\r\n" +
                         JSON.toJSONString(authToken) + "\n\r" +
                         "=========================================");
-        // 查询用户信息
-//        SysUser user = sysUserDao.findByPhone((String) authToken.getPrincipal());
+        // SysUser user = sysUserDao.findByPhone((String) authToken.getPrincipal());
         SysUser user = sysUserDao.findByUsername((String) authToken.getPrincipal());
         log.info(
                 "\n==============认证---用户信息===============\n\r" +
@@ -92,11 +91,11 @@ public class MyAuthorizingRealm extends AuthorizingRealm implements Authorizer {
         if (user == null || StringUtils.isBlank(user.getPassword())) {
             throw new UnknownAccountException();
         }
-        if (user.getEnabled() == Constants.SYS_USER_STATUS_PROHIBIT) {
+        if (user.getEnabled() == CommonConstants.SYS_USER_STATUS_PROHIBIT) {
             throw new LockedAccountException();
         }
         ByteSource byteSource = new ByteSource(user.getSalt());
-//        ByteSource byteSource = ByteSource.Util.bytes(user.getSalt());
+        // ByteSource byteSource = ByteSource.Util.bytes(user.getSalt());
         return new SimpleAuthenticationInfo(user, user.getPassword(), byteSource, getName());
     }
 

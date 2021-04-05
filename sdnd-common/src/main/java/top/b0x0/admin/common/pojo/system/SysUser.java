@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.Set;
 
 /**
  * 系统用户(SysUser)实体类
@@ -32,10 +32,14 @@ public class SysUser implements Serializable {
     @TableId(type = IdType.INPUT)
     @ApiModelProperty(value = "ID", hidden = true)
     private Long userId;
-    /**
-     * 部门名称
-     */
+
     private Long deptId;
+
+    @ApiModelProperty(value = "用户角色")
+    private Set<SysRole> roles;
+
+    @ApiModelProperty(value = "用户岗位")
+    private Set<SysJob> jobs;
 
     @ApiModelProperty(value = "用户名称")
     private String username;
@@ -91,23 +95,23 @@ public class SysUser implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "更新时间", hidden = true)
     private LocalDateTime updateTime;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SysUser user = (SysUser) o;
-        return Objects.equals(userId, user.userId) &&
-                Objects.equals(username, user.username);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(userId, username);
-    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//            return true;
+//        }
+//        if (o == null || getClass() != o.getClass()) {
+//            return false;
+//        }
+//        SysUser user = (SysUser) o;
+//        return Objects.equals(userId, user.userId) &&
+//                Objects.equals(username, user.username);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(userId, username);
+//    }
 
 }

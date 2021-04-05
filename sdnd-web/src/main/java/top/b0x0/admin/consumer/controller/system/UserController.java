@@ -5,33 +5,32 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import top.b0x0.admin.common.dto.RoleSmallDto;
 import top.b0x0.admin.common.dto.UserDto;
 import top.b0x0.admin.common.exception.BusinessErrorException;
 import top.b0x0.admin.common.mapstruct.UserMapper;
 import top.b0x0.admin.common.pojo.system.SysUser;
-import top.b0x0.admin.common.util.EncryptUtils;
 import top.b0x0.admin.common.util.RsaUtils;
 import top.b0x0.admin.common.util.StringUtils;
-import top.b0x0.admin.common.util.constants.Constants;
+import top.b0x0.admin.common.util.constants.CommonConstants;
 import top.b0x0.admin.common.util.enums.CodeEnum;
 import top.b0x0.admin.common.util.properties.RsaProperties;
 import top.b0x0.admin.common.vo.BusinessResponse;
 import top.b0x0.admin.common.vo.req.UserPassReqVo;
-import top.b0x0.admin.common.vo.req.UserQueryReqVo;
+import top.b0x0.admin.common.vo.req.UserQueryReq;
 import top.b0x0.admin.consumer.annotaion.Log;
 import top.b0x0.admin.consumer.shiro.ShiroUtils;
-import top.b0x0.admin.service.system.RoleService;
-import top.b0x0.admin.service.system.UserService;
-import top.b0x0.admin.service.system.VerifyService;
+import top.b0x0.admin.service.module.system.RoleService;
+import top.b0x0.admin.service.module.system.UserService;
+import top.b0x0.admin.service.module.system.VerifyService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -56,21 +55,15 @@ public class UserController {
     @ApiOperation("查询用户")
     @GetMapping
 //    @RequiresPermissions("@el.check('SysUser:list')")
-    public BusinessResponse query(UserQueryReqVo userQueryReqVo) {
-
-        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes());
-        HttpServletRequest request = servletRequestAttributes.getRequest();
-        String token = request.getHeader("token");
-        System.out.println("消费者 token = " + token);
-
-        return BusinessResponse.ok(userService.selectList2(userQueryReqVo));
+    public BusinessResponse query(UserQueryReq userQueryReq) {
+        return BusinessResponse.ok(userService.selectList(userQueryReq));
     }
 
     @ApiOperation("导出用户数据")
     @GetMapping(value = "/download")
     // @RequiresPermissions("@el.check('SysUser:list')")
-    public void download(HttpServletResponse response, UserQueryReqVo userQueryReqVo) throws IOException {
-        List<SysUser> records = userService.selectList(userQueryReqVo).getRecords();
+    public void download(HttpServletResponse response, UserQueryReq userQueryReq) throws IOException {
+        List<SysUser> records = userService.selectList(userQueryReq).getList();
         List<UserDto> userDtoList = userMapper.toDto(records);
         userService.download(userDtoList, response);
     }
@@ -80,15 +73,14 @@ public class UserController {
     @PostMapping("/add")
     // @RequiresPermissions("@el.check('SysUser:add')")
     public BusinessResponse create(@Validated @RequestBody SysUser user) {
-//        checkLevel(user);
-        String generateSalt = EncryptUtils.generateSalt();
+        checkLevel(user);
+        String generateSalt = ShiroUtils.generateSalt();
         if (StringUtils.isBlank(user.getPassword())) {
             // 默认密码 123456
-            user.setPassword(ShiroUtils.sha256(Constants.DEFAULT_PASSWORD, generateSalt));
+            user.setPassword(ShiroUtils.sha256(CommonConstants.DEFAULT_PASSWORD, generateSalt));
         } else {
             user.setPassword(ShiroUtils.sha256(user.getPassword(), generateSalt));
         }
-        System.out.println("generateSalt = " + generateSalt);
         user.setSalt(generateSalt);
         userService.create(user, ShiroUtils.getUserEntity());
         return BusinessResponse.ok();
@@ -180,10 +172,8 @@ public class UserController {
      * @param resources /
      */
     private void checkLevel(SysUser resources) {
-//        Integer currentLevel = Collections.min(roleService.findByUsersId(SecurityUtils.getCurrentUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
-        Integer currentLevel = 2;
-//        Integer optLevel = roleService.findByRoles(resources.getRoles());
-        Integer optLevel = 1;
+        Integer currentLevel = Collections.min(roleService.findByUsersId(ShiroUtils.getUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
+        Integer optLevel = roleService.findByRoles(resources.getRoles());
         if (currentLevel > optLevel) {
             throw new BusinessErrorException("角色权限不足");
         }

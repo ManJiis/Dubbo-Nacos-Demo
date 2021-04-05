@@ -20,7 +20,7 @@ import top.b0x0.admin.common.exception.BusinessErrorException;
 import top.b0x0.admin.common.exception.EntityExistException;
 import top.b0x0.admin.common.exception.EntityNotFoundException;
 import top.b0x0.admin.common.util.ThrowableUtils;
-import top.b0x0.admin.common.util.constants.Constants;
+import top.b0x0.admin.common.util.constants.CommonConstants;
 import top.b0x0.admin.common.util.enums.BusinessMsgEnum;
 import top.b0x0.admin.common.vo.BusinessResponse;
 
@@ -155,7 +155,7 @@ public class GlobalExceptionHandler {
         List<String> collect = fieldErrors.stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return BusinessResponse.fail(collect, 400, Constants.BAD_REQUEST_MSG);
+        return BusinessResponse.fail(collect, 400, CommonConstants.BAD_REQUEST_MSG);
     }
 
     /**
@@ -167,7 +167,7 @@ public class GlobalExceptionHandler {
         List<String> collect = fieldErrors.stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return BusinessResponse.fail(collect, 400, Constants.BAD_REQUEST_MSG);
+        return BusinessResponse.fail(collect, 400, CommonConstants.BAD_REQUEST_MSG);
     }
 
     /**
@@ -179,6 +179,6 @@ public class GlobalExceptionHandler {
         List<String> collect = constraintViolations.stream()
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.toList());
-        return BusinessResponse.fail(collect, 400, Constants.BAD_REQUEST_MSG);
+        return BusinessResponse.fail(collect, 400, CommonConstants.BAD_REQUEST_MSG);
     }
 }

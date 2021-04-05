@@ -1,9 +1,10 @@
 package top.b0x0.admin.common.util.redis;
 
 /**
+ * redis key
+ *
  * @author TANG
- * @date: 2020-6-11
- * @description: 关于缓存的Key集合
+ * @since 2020/6/11
  */
 public class RedisCacheKey {
 

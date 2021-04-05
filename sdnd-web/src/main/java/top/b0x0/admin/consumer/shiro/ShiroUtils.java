@@ -6,6 +6,8 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 
+import java.security.SecureRandom;
+
 /**
  * Shiro工具类
  *
@@ -23,6 +25,8 @@ public class ShiroUtils {
      */
     public final static int HASH_ITERATIONS = 16;
 
+    private static final String ORGIN_STR = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
     /**
      * 生成随机盐
      *
@@ -35,6 +39,15 @@ public class ShiroUtils {
 
     public static String getRandomSalt() {
         return new SecureRandomNumberGenerator().nextBytes(6).toHex();
+    }
+
+    public static String generateSalt() {
+        StringBuilder builder = new StringBuilder();
+        SecureRandom secureRandom = new SecureRandom();
+        for (int i = 0; i < 20; i++) {
+            builder.append(ORGIN_STR.charAt(secureRandom.nextInt(ORGIN_STR.length())));
+        }
+        return builder.toString();
     }
 
     /**
