@@ -192,17 +192,20 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
-            <dependency>
-                <artifactId>pagehelper</artifactId>
-                <groupId>com.github.pagehelper</groupId>
-                <version>${pagehelper.version}</version>
-            </dependency>
+
             <!-- mybatis-plus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
+            <!-- 分页组件 -->
+            <dependency>
+                <artifactId>pagehelper</artifactId>
+                <groupId>com.github.pagehelper</groupId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+
             <!-- Dubbo Spring Boot Starter -->
             <dependency>
                 <groupId>org.apache.dubbo</groupId>

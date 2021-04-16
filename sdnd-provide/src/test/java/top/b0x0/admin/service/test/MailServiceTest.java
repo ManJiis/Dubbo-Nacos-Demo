@@ -8,7 +8,7 @@ import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
 import top.b0x0.admin.common.pojo.system.EmailConfig;
 import top.b0x0.admin.dao.EmailConfigDao;
-import top.b0x0.admin.service.ServiceProvideApplication;
+import top.b0x0.admin.service.SdndServiceApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ServiceProvideApplication.class)
+@SpringBootTest(classes = SdndServiceApplication.class)
 public class MailServiceTest {
 
     @Autowired(required = false)

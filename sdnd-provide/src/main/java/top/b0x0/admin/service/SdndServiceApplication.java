@@ -16,11 +16,11 @@ import org.springframework.web.client.RestTemplate;
 @MapperScan("top.b0x0.admin.dao")
 @EnableDubbo
 @EnableAsync
-public class ServiceProvideApplication {
+public class SdndServiceApplication {
 
     public static void main(String[] args) {
         System.out.println("====================== The service to starting....");
-        SpringApplication.run(ServiceProvideApplication.class, "hello", "world");
+        SpringApplication.run(SdndServiceApplication.class, "hello", "world");
         System.out.println("====================== The service to started");
     }
 

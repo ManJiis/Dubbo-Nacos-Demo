@@ -23,12 +23,12 @@ import java.net.UnknownHostException;
 @EnableDubbo
 @SpringBootApplication
 @MapperScan("top.b0x0.admin.dao")
-public class WebAdminApplication extends SpringBootServletInitializer {
+public class SdndWebApplication extends SpringBootServletInitializer {
 
-    static Logger log = LoggerFactory.getLogger(WebAdminApplication.class);
+    static Logger log = LoggerFactory.getLogger(SdndWebApplication.class);
 
     public static void main(String[] args) throws UnknownHostException {
-        ConfigurableApplicationContext applicationContext = SpringApplication.run(WebAdminApplication.class, args);
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(SdndWebApplication.class, args);
         Environment env = applicationContext.getEnvironment();
         String host = InetAddress.getLocalHost().getHostAddress();
         String port = env.getProperty("server.port");
@@ -46,7 +46,7 @@ public class WebAdminApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(WebAdminApplication.class);
+        return application.sources(SdndWebApplication.class);
     }
 
     @Bean

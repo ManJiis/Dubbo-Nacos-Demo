@@ -39,6 +39,11 @@
       "name": "xxl.job.executor.logretentiondays",
       "type": "java.lang.String",
       "description": "Description for xxl.job.executor.logretentiondays."
+    },
+    {
+      "name": "service.version",
+      "type": "java.lang.String",
+      "description": "Description for service.version."
     }
   ]
 }

@@ -1,0 +1,56 @@
+service:
+  version: 1.0
+management:
+  endpoints:
+    web:
+      exposure:
+        include:  info, health, beans, env, metrics
+  endpoint:
+    health:
+      show-details: always
+spring:
+  aop:
+    auto: true
+  freemarker:
+    check-template-location: false #检查模板路径是否存在
+  application:
+    name: sdnd-consumer
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/sdnd?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root@123
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: musui@redis@1487
+    timeout: 5000
+    jedis:
+      pool:
+        # 连接池中的最大空闲连接，默认值也是8。
+        max-idle: 500
+        # 连接池中的最小空闲连接，默认值也是0。
+        min-idle: 50
+        # 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
+        max-active: 1000
+        # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException
+        max-wait: 2000
+dubbo:
+  application:
+    name: dubbo-consumer
+    qos-enable: false
+    qos-accept-foreign-ip: false
+  registry:
+    address: nacos://127.0.0.1:8848
+  consumer:
+    timeout: 30000
+  filter: paramPassFilter
+shiro-redis:
+  session-dao:
+    #    expire: 3600
+    expire: -2  # 想要自定义session过期时间,需将值设为-2
+  redis-manager:
+    host: 127.0.0.1:6379
+    timeout: 50000
+  cache-manager:
+    expire: 3600

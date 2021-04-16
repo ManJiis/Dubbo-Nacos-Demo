@@ -7,10 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import top.b0x0.admin.common.vo.JuheResponse;
 import top.b0x0.admin.service.JuheApiService;
-import top.b0x0.admin.service.ServiceProvideApplication;
+import top.b0x0.admin.service.SdndServiceApplication;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ServiceProvideApplication.class)
+@SpringBootTest(classes = SdndServiceApplication.class)
 public class JuheApiServiceImplTest {
 
     @Reference(version = "${service.version}", check = false)

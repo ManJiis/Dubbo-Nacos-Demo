@@ -1,7 +1,7 @@
 package top.b0x0.admin.service.test;
 
 import top.b0x0.admin.dao.OrderDao;
-import top.b0x0.admin.service.ServiceProvideApplication;
+import top.b0x0.admin.service.SdndServiceApplication;
 import lombok.Builder;
 import lombok.Data;
 import org.junit.Test;
@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ServiceProvideApplication.class)
+@SpringBootTest(classes = SdndServiceApplication.class)
 public class RedisServiceImplTest {
 
     @Resource

@@ -1,4 +1,4 @@
-package top.b0x0.admin.consumer.config;
+package top.b0x0.admin.consumer.filter;
 
 import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.common.extension.Activate;
@@ -12,15 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 /**
+ * 上游Filter
  * 参数由此传入RpcContext, 方便生产者接收
  *
  * @author musui
  * @since 2021/4/4
  */
 @Activate(group = CommonConstants.CONSUMER)
-public class ParamPassFilter implements Filter {
+public class UpStreamFilter implements Filter {
 
-    private static final Logger log = LoggerFactory.getLogger(ParamPassFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(UpStreamFilter.class);
 
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {

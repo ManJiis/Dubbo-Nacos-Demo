@@ -14,5 +14,21 @@
       "name": "rsa.private_key",
       "type": "java.lang.String",
       "description": "Description for rsa.private_key."
+    },
+    {
+      "name": "task.pool.core-pool-size",
+      "type": "java.lang.String",
+      "description": "Description for task.pool.core-pool-size."
+    },
+    {
+      "name": "service.version",
+      "type": "java.lang.String",
+      "description": "Description for service.version."
+    },
+    {
+      "name": "dubbo.filter",
+      "type": "java.lang.String",
+      "description": "Description for dubbo.filter."
     }
-  ] }
+  ]
+}

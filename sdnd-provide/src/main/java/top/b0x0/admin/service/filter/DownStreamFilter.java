@@ -1,4 +1,4 @@
-package top.b0x0.admin.service.config;
+package top.b0x0.admin.service.filter;
 
 import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.commons.lang3.StringUtils;
@@ -8,15 +8,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 下游Filter
  * 接收消费者传递过来的参数
  *
  * @author musui
  * @since 2021/4/4
  */
 @Activate(group = CommonConstants.PROVIDER)
-public class ParamReceiveFilter implements Filter {
+public class DownStreamFilter implements Filter {
 
-    private static final Logger log = LoggerFactory.getLogger(ParamReceiveFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(DownStreamFilter.class);
 
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {

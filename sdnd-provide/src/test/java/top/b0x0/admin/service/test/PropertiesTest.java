@@ -1,7 +1,7 @@
 package top.b0x0.admin.service.test;
 
 import top.b0x0.admin.common.util.properties.ActEnvProperties;
-import top.b0x0.admin.service.ServiceProvideApplication;
+import top.b0x0.admin.service.SdndServiceApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +15,7 @@ import java.util.Properties;
  * @date 2021-02-13
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ServiceProvideApplication.class)
+@SpringBootTest(classes = SdndServiceApplication.class)
 public class PropertiesTest {
 
     @Test

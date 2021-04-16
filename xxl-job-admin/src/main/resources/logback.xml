@@ -2,7 +2,7 @@
 <configuration debug="false" scan="true" scanPeriod="1 seconds">
 
     <contextName>logback</contextName>
-    <property name="log.path" value="/data/applogs/sdnd/xxl-job/xxl-job-admin.log"/>
+    <property name="log.path" value="/tmp/sdnd/xxl-job/xxl-job-admin.log"/>
 
     <!--输出到控制台-->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
