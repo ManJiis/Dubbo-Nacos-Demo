@@ -1,6 +1,6 @@
 package top.b0x0.admin.consumer.controller.system;
 
-import top.b0x0.admin.common.vo.BusinessResponse;
+import top.b0x0.admin.common.vo.R;
 import top.b0x0.admin.service.module.system.MonitorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +26,7 @@ public class MonitorController {
     @GetMapping("getSystemInfo")
     @ApiOperation("查询服务监控")
     // @RequiresPermissions("@el.check('monitor:list')")
-    public BusinessResponse query() {
-        return BusinessResponse.ok(serverService.getServers());
+    public R query() {
+        return R.ok(serverService.getServers());
     }
 }

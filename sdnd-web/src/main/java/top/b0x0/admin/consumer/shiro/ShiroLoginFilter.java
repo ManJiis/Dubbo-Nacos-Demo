@@ -1,16 +1,15 @@
 package top.b0x0.admin.consumer.shiro;
 
-import top.b0x0.admin.common.vo.BusinessResponse;
 import com.alibaba.fastjson.JSON;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import top.b0x0.admin.common.vo.R;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 
 
 /**
@@ -47,12 +46,26 @@ public class ShiroLoginFilter extends FormAuthenticationFilter {
             resp.setHeader("Access-Control-Allow-Credentials", "true");
             resp.setContentType("application/json; charset=utf-8");
             resp.setCharacterEncoding("UTF-8");
-            BusinessResponse businessResponse = BusinessResponse.fail(401, "没有登录或登陆已过期，请重新登录");
-            PrintWriter out = resp.getWriter();
-            out.println(JSON.toJSONString(businessResponse));
-            out.flush();
-            out.close();
+            R businessResponse = R.fail(401, "没有登录或登陆已过期，请重新登录");
+            resp.getWriter().write(JSON.toJSONString(businessResponse));
+            resp.flushBuffer();
             return false;
         }
+    }
+
+    /**
+     * 配置跨域
+     *
+     * @param response /
+     */
+    private void crossDomainConfig(HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE, PATCH");
+        response.setHeader("Access-Control-Expose-Headers", "*");
+        response.setHeader("Access-Control-Allow-Headers", "Authentication,Origin, X-Requested-With, Content-Type, " + "Accept, x-access-token");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires ", "-1");
     }
 }

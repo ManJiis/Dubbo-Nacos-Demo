@@ -16,7 +16,7 @@ import top.b0x0.admin.common.util.StringUtils;
 import top.b0x0.admin.common.util.constants.CommonConstants;
 import top.b0x0.admin.common.util.enums.CodeEnum;
 import top.b0x0.admin.common.util.properties.RsaProperties;
-import top.b0x0.admin.common.vo.BusinessResponse;
+import top.b0x0.admin.common.vo.R;
 import top.b0x0.admin.common.vo.req.UserPassReqVo;
 import top.b0x0.admin.common.vo.req.UserQueryReq;
 import top.b0x0.admin.consumer.annotaion.Log;
@@ -55,8 +55,8 @@ public class UserController {
     @ApiOperation("查询用户")
     @GetMapping
 //    @RequiresPermissions("@el.check('SysUser:list')")
-    public BusinessResponse query(UserQueryReq userQueryReq) {
-        return BusinessResponse.ok(userService.selectList(userQueryReq));
+    public R query(UserQueryReq userQueryReq) {
+        return R.ok(userService.selectList(userQueryReq));
     }
 
     @ApiOperation("导出用户数据")
@@ -72,47 +72,47 @@ public class UserController {
     @ApiOperation("新增用户")
     @PostMapping("/add")
     // @RequiresPermissions("@el.check('SysUser:add')")
-    public BusinessResponse create(@Validated @RequestBody SysUser user) {
+    public R create(@Validated @RequestBody SysUser user) {
         checkLevel(user);
         String generateSalt = ShiroUtils.generateSalt();
         if (StringUtils.isBlank(user.getPassword())) {
             // 默认密码 123456
-            user.setPassword(ShiroUtils.sha256(CommonConstants.DEFAULT_PASSWORD, generateSalt));
+            user.setPassword(ShiroUtils.sha256Pass(CommonConstants.DEFAULT_PASSWORD, generateSalt));
         } else {
-            user.setPassword(ShiroUtils.sha256(user.getPassword(), generateSalt));
+            user.setPassword(ShiroUtils.sha256Pass(user.getPassword(), generateSalt));
         }
         user.setSalt(generateSalt);
         userService.create(user, ShiroUtils.getUserEntity());
-        return BusinessResponse.ok();
+        return R.ok();
     }
 
     @Log(description = "修改用户")
     @ApiOperation("修改用户")
     @PutMapping("/update")
     // @RequiresPermissions("@el.check('SysUser:edit')")
-    public BusinessResponse update(@Validated @RequestBody SysUser resources) {
+    public R update(@Validated @RequestBody SysUser resources) {
 //        checkLevel(resources);
         userService.update(resources);
-        return BusinessResponse.ok();
+        return R.ok();
     }
 
     @Log(description = "修改用户：个人中心")
     @ApiOperation("修改用户：个人中心")
     @PutMapping(value = "center")
-    public BusinessResponse center(@Validated @RequestBody SysUser resources) {
+    public R center(@Validated @RequestBody SysUser resources) {
         Long userId = ShiroUtils.getUserId();
         if (!resources.getUserId().equals(userId)) {
             throw new BusinessErrorException("不能修改他人资料");
         }
         userService.updateCenter(resources);
-        return BusinessResponse.ok();
+        return R.ok();
     }
 
     @Log(description = "删除用户")
     @ApiOperation("删除用户")
     @DeleteMapping("/del")
     // @RequiresPermissions("@el.check('SysUser:del')")
-    public BusinessResponse delete(@RequestBody Set<Long> ids) {
+    public R delete(@RequestBody Set<Long> ids) {
         Integer currentUserId = 1;
         List<Integer> integerList = new ArrayList<>();
         integerList.add(currentUserId);
@@ -125,12 +125,12 @@ public class UserController {
             }
         }
         userService.delete(ids);
-        return BusinessResponse.ok();
+        return R.ok();
     }
 
     @ApiOperation("修改密码")
     @PostMapping(value = "/updatePass")
-    public BusinessResponse updatePass(@RequestBody UserPassReqVo passVo) throws Exception {
+    public R updatePass(@RequestBody UserPassReqVo passVo) throws Exception {
         String oldPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, passVo.getOldPass());
         String newPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, passVo.getNewPass());
         // SecurityUtils.getCurrentUsername()
@@ -142,19 +142,19 @@ public class UserController {
             throw new BusinessErrorException("新密码不能与旧密码相同");
         }
         userService.updatePass(SysUser.getUsername(), passwordEncoder.encode(newPass));*/
-        return BusinessResponse.ok();
+        return R.ok();
     }
 
     @ApiOperation("修改头像")
     @PostMapping(value = "/updateAvatar")
-    public BusinessResponse updateAvatar(@RequestParam MultipartFile avatar) {
-        return BusinessResponse.ok(userService.updateAvatar(avatar));
+    public R updateAvatar(@RequestParam MultipartFile avatar) {
+        return R.ok(userService.updateAvatar(avatar));
     }
 
     @Log(description = "修改邮箱")
     @ApiOperation("修改邮箱")
     @PostMapping(value = "/updateEmail/{code}")
-    public BusinessResponse updateEmail(@PathVariable String code, @RequestBody SysUser SysUser) throws Exception {
+    public R updateEmail(@PathVariable String code, @RequestBody SysUser SysUser) throws Exception {
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, SysUser.getPassword());
         // String currentUsername = SecurityUtils.getCurrentUsername()
         SysUser userDto = userService.findByName("currentUsername");
@@ -163,7 +163,7 @@ public class UserController {
         }*/
         verificationCodeService.validated(CodeEnum.EMAIL_RESET_EMAIL_CODE.getKey() + SysUser.getEmail(), code);
         userService.updateEmail(userDto.getUsername(), SysUser.getEmail());
-        return BusinessResponse.ok();
+        return R.ok();
     }
 
     /**

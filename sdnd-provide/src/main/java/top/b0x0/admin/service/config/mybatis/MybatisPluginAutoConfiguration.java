@@ -1,9 +1,10 @@
-package top.b0x0.admin.service.config;
+package top.b0x0.admin.service.config.mybatis;
 
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.github.pagehelper.autoconfigure.PageHelperAutoConfiguration;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
@@ -13,10 +14,9 @@ import java.util.List;
  * @author musui
  * @since 2021-04-02
  */
-//@Component
 @Configuration
-@AutoConfigureAfter(PaginationInterceptor.class)
-//@AutoConfigureAfter({PaginationInterceptor.class, PageBoundSqlInterceptors.class})
+@ConditionalOnBean({SqlSessionFactory.class})
+@AutoConfigureAfter({PageHelperAutoConfiguration.class})
 public class MybatisPluginAutoConfiguration {
 //public class MybatisInterceptorAutoConfiguration implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -25,12 +25,10 @@ public class MybatisPluginAutoConfiguration {
 
     @PostConstruct
     public void addMyInterceptor() {
-        MybatisParamQueryPlugin interceptor = new MybatisParamQueryPlugin();
+        MybatisQueryPlugin interceptor = new MybatisQueryPlugin();
 
         for (SqlSessionFactory sqlSessionFactory : sqlSessionFactoryList) {
             sqlSessionFactory.getConfiguration().addInterceptor(interceptor);
-            System.out.println("sqlSessionFactory = " + sqlSessionFactory);
-            System.out.println("Interceptors() = " + sqlSessionFactory.getConfiguration().getInterceptors());
         }
 
     }

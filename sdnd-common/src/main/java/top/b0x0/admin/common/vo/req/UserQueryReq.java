@@ -1,6 +1,7 @@
-
 package top.b0x0.admin.common.vo.req;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 public class UserQueryReq extends PageVo implements Serializable {
     private static final long serialVersionUID = 8234558996610141904L;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
     private String email;
     private String username;

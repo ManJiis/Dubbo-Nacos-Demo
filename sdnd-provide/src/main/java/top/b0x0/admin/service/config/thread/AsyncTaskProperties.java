@@ -1,7 +1,8 @@
 
-package top.b0x0.admin.common.config.thread;
+package top.b0x0.admin.service.config.thread;
 
 import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-//@ConfigurationProperties(prefix = "task.pool")
+@ConfigurationProperties(prefix = "task.pool")
 public class AsyncTaskProperties {
     /**
      * # 核心线程池大小

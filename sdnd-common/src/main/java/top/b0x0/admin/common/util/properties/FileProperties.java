@@ -1,4 +1,3 @@
-
 package top.b0x0.admin.common.util.properties;
 
 import top.b0x0.admin.common.util.constants.ElAdminConstant;
@@ -31,20 +30,6 @@ public class FileProperties {
 
     private ElPath windows;
 
-    //# 文件存储路径
-    //file:
-    //  mac:
-    //    path: ~/file/
-    //    avatar: ~/avatar/
-    //  linux:
-    //    path: /home/eladmin/file/
-    //    avatar: /home/eladmin/avatar/
-    //  windows:
-    //    path: C:\eladmin\file\
-    //    avatar: C:\eladmin\avatar\
-    //  # 文件大小 /M
-    //  maxSize: 100
-    //  avatarMaxSize: 5
 
     public ElPath getPath() {
         String os = System.getProperty("os.name");

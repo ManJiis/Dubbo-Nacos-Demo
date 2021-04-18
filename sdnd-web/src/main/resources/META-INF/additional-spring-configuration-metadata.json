@@ -29,6 +29,26 @@
       "name": "dubbo.filter",
       "type": "java.lang.String",
       "description": "Description for dubbo.filter."
+    },
+    {
+      "name": "shiro-redis.session-dao.expire",
+      "type": "java.lang.String",
+      "description": "Description for shiro-redis.session-dao.expire."
+    },
+    {
+      "name": "shiro-redis.redis-manager.host",
+      "type": "java.lang.String",
+      "description": "Description for shiro-redis.redis-manager.host."
+    },
+    {
+      "name": "shiro-redis.redis-manager.timeout",
+      "type": "java.lang.String",
+      "description": "Description for shiro-redis.redis-manager.timeout."
+    },
+    {
+      "name": "shiro-redis.cache-manager.expire",
+      "type": "java.lang.String",
+      "description": "Description for shiro-redis.cache-manager.expire."
     }
   ]
 }

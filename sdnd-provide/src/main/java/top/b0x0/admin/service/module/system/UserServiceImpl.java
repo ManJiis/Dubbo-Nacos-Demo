@@ -18,10 +18,10 @@ import top.b0x0.admin.common.exception.EntityNotFoundException;
 import top.b0x0.admin.common.pojo.system.SysUser;
 import top.b0x0.admin.common.util.StringUtils;
 import top.b0x0.admin.common.util.constants.CommonConstants;
-import top.b0x0.admin.common.util.redis.RedisCacheKey;
-import top.b0x0.admin.common.util.redis.RedisUtils;
+import top.b0x0.admin.common.util.constants.RedisCacheKey;
 import top.b0x0.admin.common.vo.req.UserQueryReq;
 import top.b0x0.admin.dao.SysUserDao;
+import top.b0x0.admin.service.util.RedisUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -63,7 +63,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageInfo<SysUser> selectList(UserQueryReq userQueryReq) {
         PageHelper.startPage(userQueryReq.getPageNum(), userQueryReq.getPageSize());
-        return new PageInfo<SysUser>(sysUserDao.listUser(new DataScope()));
+        List<SysUser> userList = sysUserDao.listUser(new DataScope());
+        return new PageInfo<>(userList);
     }
 
     @Override

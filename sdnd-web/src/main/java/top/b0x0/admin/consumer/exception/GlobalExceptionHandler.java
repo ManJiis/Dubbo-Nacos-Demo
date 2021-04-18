@@ -22,7 +22,7 @@ import top.b0x0.admin.common.exception.EntityNotFoundException;
 import top.b0x0.admin.common.util.ThrowableUtils;
 import top.b0x0.admin.common.util.constants.CommonConstants;
 import top.b0x0.admin.common.util.enums.BusinessMsgEnum;
-import top.b0x0.admin.common.vo.BusinessResponse;
+import top.b0x0.admin.common.vo.R;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -43,8 +43,8 @@ public class GlobalExceptionHandler {
      * shiro未授权异常
      */
     @ExceptionHandler({UnauthorizedException.class, AuthorizationException.class})
-    public BusinessResponse unauthorizedExceptionHandler() {
-        return BusinessResponse.fail(403, "No permission!");
+    public R unauthorizedExceptionHandler() {
+        return R.fail(403, "No permission!");
     }
 
     /**
@@ -54,21 +54,21 @@ public class GlobalExceptionHandler {
      * @return /
      */
     @ExceptionHandler(ShiroException.class)
-    public BusinessResponse handleShiroException(ShiroException e) {
+    public R handleShiroException(ShiroException e) {
         if (e instanceof UnknownAccountException) {
             log.error("ShiroException -->UnknownAccountException {}", "账号不存在");
-            return BusinessResponse.fail("账号不存在");
+            return R.fail("账号不存在");
         } else if (e instanceof IncorrectCredentialsException) {
             log.error("ShiroException -->IncorrectCredentialsException {}", "密码错误");
-            return BusinessResponse.fail("密码错误");
+            return R.fail("密码错误");
         } else if (e instanceof LockedAccountException) {
             log.error("ShiroException -->LockedAccountException {}", "账户已被禁用");
-            return BusinessResponse.fail("账户已被禁用");
+            return R.fail("账户已被禁用");
         } else if (e instanceof AuthorizationException) {
             log.error("ShiroException -->AuthorizationException {}", "没有权限");
-            return BusinessResponse.fail("没有权限");
+            return R.fail("没有权限");
         }
-        return BusinessResponse.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
+        return R.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
     }
 
     /**
@@ -79,9 +79,9 @@ public class GlobalExceptionHandler {
      * @return /
      */
     @ExceptionHandler(RpcException.class)
-    public BusinessResponse rpcExceptionHandler(RpcException e) {
+    public R rpcExceptionHandler(RpcException e) {
         log.error("服务器运行异常 Message: " + e.getMessage());
-        return BusinessResponse.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
+        return R.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
     }
 
     /**
@@ -91,9 +91,9 @@ public class GlobalExceptionHandler {
      * @return /
      */
     @ExceptionHandler(Exception.class)
-    public BusinessResponse handleUnexpectedServer(Exception ex) {
+    public R handleUnexpectedServer(Exception ex) {
         log.error("系统异常：", ex);
-        return BusinessResponse.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
+        return R.fail(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
     }
 
     /**
@@ -103,32 +103,32 @@ public class GlobalExceptionHandler {
      * @return /
      */
     @ExceptionHandler(BusinessErrorException.class)
-    public BusinessResponse handleBusinessError(BusinessErrorException bex) {
+    public R handleBusinessError(BusinessErrorException bex) {
         Integer code = bex.getCode();
         String message = bex.getMessage();
-        return BusinessResponse.fail(code, message);
+        return R.fail(code, message);
     }
 
     /**
      * 处理 EntityExist
      */
     @ExceptionHandler(value = EntityExistException.class)
-    public BusinessResponse entityExistException(EntityExistException e) {
+    public R entityExistException(EntityExistException e) {
         // 打印堆栈信息
         log.error(ThrowableUtils.getStackTrace(e));
         String message = e.getMessage();
-        return BusinessResponse.fail(400, message);
+        return R.fail(400, message);
     }
 
     /**
      * 处理 EntityNotFound
      */
     @ExceptionHandler(value = EntityNotFoundException.class)
-    public BusinessResponse entityNotFoundException(EntityNotFoundException e) {
+    public R entityNotFoundException(EntityNotFoundException e) {
         // 打印堆栈信息
         log.error(ThrowableUtils.getStackTrace(e));
         String message = e.getMessage();
-        return BusinessResponse.fail(400, message);
+        return R.fail(400, message);
     }
 
 
@@ -139,9 +139,9 @@ public class GlobalExceptionHandler {
      * @return /
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public BusinessResponse handleHttpMessageNotReadableException(MissingServletRequestParameterException ex) {
+    public R handleHttpMessageNotReadableException(MissingServletRequestParameterException ex) {
         log.error("缺少请求参数，{}", ex.getMessage());
-        return BusinessResponse.fail(400, "缺少必要的请求参数");
+        return R.fail(400, "缺少必要的请求参数");
     }
 
     //  Validated 请求参数校验异常处理
@@ -150,35 +150,35 @@ public class GlobalExceptionHandler {
      * <1> 处理 form data方式调用接口校验失败抛出的异常
      */
     @ExceptionHandler(BindException.class)
-    public BusinessResponse bindExceptionHandler(BindException e) {
+    public R bindExceptionHandler(BindException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         List<String> collect = fieldErrors.stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return BusinessResponse.fail(collect, 400, CommonConstants.BAD_REQUEST_MSG);
+        return R.fail(collect, 400, CommonConstants.BAD_REQUEST_MSG);
     }
 
     /**
      * <2> 处理 json 请求体调用接口校验失败抛出的异常
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public BusinessResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+    public R methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         List<String> collect = fieldErrors.stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return BusinessResponse.fail(collect, 400, CommonConstants.BAD_REQUEST_MSG);
+        return R.fail(collect, 400, CommonConstants.BAD_REQUEST_MSG);
     }
 
     /**
      * <3> 处理单个参数校验失败抛出的异常
      */
     @ExceptionHandler(ConstraintViolationException.class)
-    public BusinessResponse constraintViolationExceptionHandler(ConstraintViolationException e) {
+    public R constraintViolationExceptionHandler(ConstraintViolationException e) {
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
         List<String> collect = constraintViolations.stream()
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.toList());
-        return BusinessResponse.fail(collect, 400, CommonConstants.BAD_REQUEST_MSG);
+        return R.fail(collect, 400, CommonConstants.BAD_REQUEST_MSG);
     }
 }

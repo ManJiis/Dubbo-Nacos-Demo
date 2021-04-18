@@ -21,8 +21,8 @@ import top.b0x0.admin.common.util.RsaUtils;
 import top.b0x0.admin.common.util.constants.CommonConstants;
 import top.b0x0.admin.common.util.jwt.JwtUtil;
 import top.b0x0.admin.common.util.jwt.Token;
-import top.b0x0.admin.common.util.redis.RedisCacheKey;
-import top.b0x0.admin.common.vo.BusinessResponse;
+import top.b0x0.admin.common.util.constants.RedisCacheKey;
+import top.b0x0.admin.common.vo.R;
 import top.b0x0.admin.common.vo.req.AuthUserReq;
 import top.b0x0.admin.consumer.annotaion.rest.AnonymousGetMapping;
 import top.b0x0.admin.consumer.shiro.ShiroUtils;
@@ -63,7 +63,7 @@ public class LoginController {
 
     @ApiOperation("登录")
     @PostMapping(value = "/login")
-    public BusinessResponse login(@Validated @RequestBody AuthUserReq userVo, HttpServletRequest request) throws Exception {
+    public R login(@Validated @RequestBody AuthUserReq userVo, HttpServletRequest request) throws Exception {
         // 前端传过来公钥加密的密码 这里进行解密
 //        String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, userVo.getPassword());
         String password = RsaUtils.decryptByPrivateKey(privateKey, userVo.getPassword());
@@ -103,25 +103,25 @@ public class LoginController {
             put("user", byName);
         }};
         System.out.println("subject.getSessionId = " + subject.getSession().getId());
-        return BusinessResponse.ok(returnMap);
+        return R.ok(returnMap);
     }
 
     @ApiOperation("退出")
     @PostMapping("/logout")
-    public BusinessResponse logout() {
+    public R logout() {
         SecurityUtils.getSubject().logout();
-        return BusinessResponse.ok("loginout success");
+        return R.ok("loginout success");
     }
 
     @ApiOperation("获取当前登录用户信息")
     @GetMapping(value = "/currentUserInfo")
-    public BusinessResponse getUserInfo() {
-        return BusinessResponse.ok(ShiroUtils.getUserEntity());
+    public R getUserInfo() {
+        return R.ok(ShiroUtils.getUserEntity());
     }
 
     @ApiOperation("获取验证码")
     @AnonymousGetMapping(value = "/code")
-    public BusinessResponse getCode(String uuid) {
+    public R getCode(String uuid) {
         // 算术类型 https://gitee.com/whvse/EasyCaptcha
         ArithmeticCaptcha captcha = new ArithmeticCaptcha(111, 36);
         // 几位数运算，默认是两位
@@ -139,7 +139,7 @@ public class LoginController {
         Map<String, Object> imgResult = new HashMap<String, Object>(2);
         imgResult.put("img", captcha.toBase64());
         imgResult.put("uuid", uuid);
-        return BusinessResponse.ok(imgResult);
+        return R.ok(imgResult);
     }
 
     private String getVerifyKey(String codeType, String uuid) {

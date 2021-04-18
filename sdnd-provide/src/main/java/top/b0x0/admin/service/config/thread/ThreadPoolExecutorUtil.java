@@ -1,5 +1,5 @@
 
-package top.b0x0.admin.common.config.thread;
+package top.b0x0.admin.service.config.thread;
 
 
 import top.b0x0.admin.common.util.spring.SpringContextHolder;

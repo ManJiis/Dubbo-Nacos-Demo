@@ -1,6 +1,6 @@
 package top.b0x0.admin.service.test;
 
-import top.b0x0.admin.common.util.properties.ActEnvProperties;
+import top.b0x0.admin.common.util.properties.CommonApplicationProperties;
 import top.b0x0.admin.service.SdndServiceApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +10,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Properties;
 
 /**
+ * propertise测试
+ *
  * @author TANG
- * @description propertise测试
  * @date 2021-02-13
  */
 @RunWith(SpringRunner.class)
@@ -20,7 +21,10 @@ public class PropertiesTest {
 
     @Test
     public void test1() {
-        Properties properties = ActEnvProperties.getProperties();
-        System.out.println("current ActEnv = " + properties.getProperty("ActEnv"));
+        Properties properties = CommonApplicationProperties.getProperties();
+        System.out.println("current ActEnv = " + properties.getProperty("oss.profiles.active"));
+        for (Object key : properties.keySet()) {
+            System.out.println(key + " = " + properties.get(key));
+        }
     }
 }

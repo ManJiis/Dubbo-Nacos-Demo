@@ -1,6 +1,6 @@
 package top.b0x0.admin.consumer.controller.example;
 
-import top.b0x0.admin.common.vo.BusinessResponse;
+import top.b0x0.admin.common.vo.R;
 import top.b0x0.admin.common.vo.req.SayHelloVo;
 import top.b0x0.admin.common.util.enums.BusinessMsgEnum;
 import top.b0x0.admin.service.ProvideService;
@@ -26,19 +26,19 @@ public class ConsumerController {
     ProvideService provideService;
 
     @GetMapping("/hello")
-    public BusinessResponse sayHello(@Validated SayHelloVo vo) {
+    public R sayHello(@Validated SayHelloVo vo) {
         String sayHello = provideService.sayHello("消费者 " + vo.getName() + " 访问了....");
-        return BusinessResponse.ok(sayHello);
+        return R.ok(sayHello);
     }
 
     @GetMapping("/hello1")
-    public BusinessResponse sayHello1(@NotNull(message = "name不能为空") String name) {
+    public R sayHello1(@NotNull(message = "name不能为空") String name) {
         String sayHello = provideService.sayHello("消费者 " + name + " 访问了....");
-        return BusinessResponse.ok(sayHello);
+        return R.ok(sayHello);
     }
 
     @GetMapping("/error")
-    public BusinessResponse error() {
-        return BusinessResponse.fail(BusinessMsgEnum.PARMETER_EXCEPTION);
+    public R error() {
+        return R.fail(BusinessMsgEnum.PARMETER_EXCEPTION);
     }
 }

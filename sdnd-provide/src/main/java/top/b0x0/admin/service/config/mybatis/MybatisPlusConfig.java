@@ -1,4 +1,4 @@
-package top.b0x0.admin.service.config;
+package top.b0x0.admin.service.config.mybatis;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;

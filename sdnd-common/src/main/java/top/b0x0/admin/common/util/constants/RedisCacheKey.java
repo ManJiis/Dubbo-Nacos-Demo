@@ -1,4 +1,4 @@
-package top.b0x0.admin.common.util.redis;
+package top.b0x0.admin.common.util.constants;
 
 /**
  * redis key

@@ -1,7 +1,7 @@
 
 package top.b0x0.admin.consumer.controller.system;
 
-import top.b0x0.admin.common.vo.BusinessResponse;
+import top.b0x0.admin.common.vo.R;
 import top.b0x0.admin.common.util.DateUtils;
 import top.b0x0.admin.consumer.annotaion.AccessLimit;
 import top.b0x0.admin.consumer.annotaion.LimitType;
@@ -44,22 +44,22 @@ public class LimitController {
     @ApiOperation("限流测试 -- 方式: 默认")
     @AccessLimit(description = "system/limit", keyPrefix = "api_limit", period = 60, count = 10)
     @GetMapping("/customer")
-    public BusinessResponse limitByCustomer() {
+    public R limitByCustomer() {
         String date = DateUtils.localDateTimeFormatyMdHms(LocalDateTime.now());
         RedisAtomicInteger limitCounter = new RedisAtomicInteger("limitCounterByCustomer", Objects.requireNonNull(redisTemplate.getConnectionFactory()));
         int incrementAndGet = limitCounter.incrementAndGet();
         log.info("------------>> 当前时间: " + date + " 累计访问次数：" + incrementAndGet);
-        return BusinessResponse.ok("当前时间: " + date + " 接口累计访问次数：" + incrementAndGet);
+        return R.ok("当前时间: " + date + " 接口累计访问次数：" + incrementAndGet);
     }
 
     @ApiOperation("限流测试 -- 方式: IP")
     @AccessLimit(description = "system/limit", keyPrefix = "api_limit", period = 60, count = 10, limitType = LimitType.IP)
     @GetMapping("/ip")
-    public BusinessResponse limitByIp() {
+    public R limitByIp() {
         String date = DateUtils.localDateTimeFormatyMdHms(LocalDateTime.now());
         RedisAtomicInteger limitCounter = new RedisAtomicInteger("limitCounterByIp", Objects.requireNonNull(redisTemplate.getConnectionFactory()));
         int incrementAndGet = limitCounter.incrementAndGet();
         log.info("------------>> 当前时间: " + date + " 累计访问次数：" + incrementAndGet);
-        return BusinessResponse.ok("当前时间: " + date + " 接口累计访问次数：" + incrementAndGet);
+        return R.ok("当前时间: " + date + " 接口累计访问次数：" + incrementAndGet);
     }
 }

@@ -1,6 +1,6 @@
 package top.b0x0.admin.consumer.controller.example;
 
-import top.b0x0.admin.common.vo.BusinessResponse;
+import top.b0x0.admin.common.vo.R;
 import top.b0x0.admin.common.vo.req.OrderReqPageVo;
 import top.b0x0.admin.common.vo.req.OrderReqVo;
 import top.b0x0.admin.common.pojo.Order;
@@ -36,20 +36,20 @@ public class OrderController {
 
 
     @GetMapping("one")
-    public BusinessResponse selectOne(String id) {
+    public R selectOne(String id) {
         Order order = this.orderService.queryById(id);
-        return BusinessResponse.ok(order);
+        return R.ok(order);
     }
 
     @GetMapping("list")
-    public BusinessResponse selectList(OrderReqPageVo orderReqPageVo) {
+    public R selectList(OrderReqPageVo orderReqPageVo) {
         IPage<Order> orderPage = this.orderService.queryList(orderReqPageVo);
-        return BusinessResponse.ok(orderPage);
+        return R.ok(orderPage);
     }
 
     @GetMapping("add")
     @ApiOperation("新增订单 MQ延时消息测试")
-    public BusinessResponse add() {
+    public R add() {
         OrderReqVo vo = new OrderReqVo();
         vo.setId(IdUtils.snowflakeId().toString());
         vo.setOrderSource(0);
@@ -62,7 +62,7 @@ public class OrderController {
         vo.setBody("进货面粉");
         vo.setPayTimeStart(LocalDateTime.now());
         vo.setCreateTime(LocalDate.now());
-        return BusinessResponse.ok(this.orderService.addOrder(vo));
+        return R.ok(this.orderService.addOrder(vo));
     }
 
 }

@@ -1,4 +1,4 @@
-package top.b0x0.admin.common.util.redis;
+package top.b0x0.admin.service.util;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -39,7 +39,7 @@ public class RedisUtils {
     RedisTemplate<String, Object> redisTemplate;
 
     //    @Value("${jwt.online-key}")
-    private final String onlineKey;
+//    private final String onlineKey;
 
 
     /**

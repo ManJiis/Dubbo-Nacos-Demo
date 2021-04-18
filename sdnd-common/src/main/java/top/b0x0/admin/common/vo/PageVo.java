@@ -14,8 +14,8 @@ import java.io.Serializable;
 public class PageVo implements Serializable {
     private static final long serialVersionUID = 3469184515892456937L;
 
-    public int pageNum = 1;
+    public Integer pageNum = 1;
 
-    public int pageSize = 20;
+    public Integer pageSize = 20;
 
 }

@@ -1,6 +1,6 @@
 package top.b0x0.admin.consumer.controller.system;
 
-import top.b0x0.admin.common.vo.BusinessResponse;
+import top.b0x0.admin.common.vo.R;
 import top.b0x0.admin.common.vo.req.EmailVo;
 import top.b0x0.admin.common.util.enums.CodeBiEnum;
 import top.b0x0.admin.common.util.enums.CodeEnum;
@@ -31,18 +31,18 @@ public class VerifyController {
 
     @PostMapping(value = "/resetEmail")
     @ApiOperation("重置邮箱，发送验证码")
-    public BusinessResponse resetEmail(@RequestParam String email) {
+    public R resetEmail(@RequestParam String email) {
         EmailVo emailVo = verificationCodeService.sendEmail(email, CodeEnum.EMAIL_RESET_EMAIL_CODE.getKey());
         emailService.send(emailVo, emailService.find());
-        return BusinessResponse.ok();
+        return R.ok();
     }
 
     @PostMapping(value = "/email/resetPass")
     @ApiOperation("重置密码，发送验证码")
-    public BusinessResponse resetPass(@ApiParam() @RequestParam String email) {
+    public R resetPass(@ApiParam() @RequestParam String email) {
         EmailVo emailVo = verificationCodeService.sendEmail(email, CodeEnum.EMAIL_RESET_PWD_CODE.getKey());
         emailService.send(emailVo, emailService.find());
-        return BusinessResponse.ok();
+        return R.ok();
     }
 
     @GetMapping(value = "/validated")
@@ -52,7 +52,7 @@ public class VerifyController {
             @ApiImplicitParam(value = "验证码", name = "code"),
             @ApiImplicitParam(value = "修改类型(1:旧邮箱修改邮箱 2:通过邮箱修改密码)", name = "codeBi")
     })
-    public BusinessResponse validated(@RequestParam @Email String email, @RequestParam String code, @RequestParam Integer codeBi) {
+    public R validated(@RequestParam @Email String email, @RequestParam String code, @RequestParam Integer codeBi) {
         CodeBiEnum biEnum = CodeBiEnum.find(codeBi);
         switch (Objects.requireNonNull(biEnum)) {
             // 旧邮箱修改邮箱
@@ -66,6 +66,6 @@ public class VerifyController {
             default:
                 break;
         }
-        return BusinessResponse.ok();
+        return R.ok();
     }
 }

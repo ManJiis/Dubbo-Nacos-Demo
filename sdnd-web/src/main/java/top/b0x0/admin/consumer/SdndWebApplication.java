@@ -20,6 +20,7 @@ import java.net.UnknownHostException;
 /**
  * @author TANG
  */
+//@NacosPropertySource(dataId = "nacos-config-web", autoRefreshed = true)
 @EnableDubbo
 @SpringBootApplication
 @MapperScan("top.b0x0.admin.dao")

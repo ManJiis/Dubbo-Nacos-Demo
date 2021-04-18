@@ -1,6 +1,6 @@
 package top.b0x0.admin.consumer.controller.system;
 
-import top.b0x0.admin.common.vo.BusinessResponse;
+import top.b0x0.admin.common.vo.R;
 import top.b0x0.admin.common.vo.req.LogReqVo;
 import top.b0x0.admin.consumer.annotaion.Log;
 import top.b0x0.admin.service.module.system.LogService;
@@ -45,42 +45,42 @@ public class LogController {
     @GetMapping("/get")
     @ApiOperation("日志查询")
     // @RequiresPermissions("@el.check()")
-    public BusinessResponse query(LogReqVo logReqVo) {
+    public R query(LogReqVo logReqVo) {
         logReqVo.setLogType("INFO");
-        return BusinessResponse.ok(logService.selectList(logReqVo));
+        return R.ok(logService.selectList(logReqVo));
     }
 
     @GetMapping(value = "/getUserLog")
     @ApiOperation("用户日志查询")
-    public BusinessResponse queryUserLog(LogReqVo logReqVo) {
+    public R queryUserLog(LogReqVo logReqVo) {
         logReqVo.setLogType("INFO");
 //        String currentUsername = SecurityUtils.getCurrentUsername();
         logReqVo.setUsername("currentUsername");
-        return BusinessResponse.ok(logService.queryAllByUser(logReqVo));
+        return R.ok(logService.queryAllByUser(logReqVo));
     }
 
     @GetMapping(value = "/error/{id}")
     @ApiOperation("日志异常详情查询")
     // @RequiresPermissions("@el.check()")
-    public BusinessResponse queryErrorLogs(@PathVariable Long id) {
-        return BusinessResponse.ok(logService.findByErrDetail(id));
+    public R queryErrorLogs(@PathVariable Long id) {
+        return R.ok(logService.findByErrDetail(id));
     }
 
     @DeleteMapping(value = "/del/error")
     @Log(description = "删除所有ERROR日志")
     @ApiOperation("删除所有ERROR日志")
     // @RequiresPermissions("@el.check()")
-    public BusinessResponse delAllErrorLog() {
+    public R delAllErrorLog() {
         logService.delAllByError();
-        return BusinessResponse.ok();
+        return R.ok();
     }
 
     @DeleteMapping(value = "/del/info")
     @Log(description = "删除所有INFO日志")
     @ApiOperation("删除所有INFO日志")
     // @RequiresPermissions("@el.check()")
-    public BusinessResponse delAllInfoLog() {
+    public R delAllInfoLog() {
         logService.delAllByInfo();
-        return BusinessResponse.ok();
+        return R.ok();
     }
 }

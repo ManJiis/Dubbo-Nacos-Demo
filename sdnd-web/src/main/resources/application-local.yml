@@ -1,10 +1,13 @@
-service:
-  version: 1.0
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: info, health, beans, env, metrics
 management:
   endpoints:
     web:
       exposure:
-        include:  info, health, beans, env, metrics
+        include: '*'
   endpoint:
     health:
       show-details: always
@@ -12,7 +15,8 @@ spring:
   aop:
     auto: true
   freemarker:
-    check-template-location: false #检查模板路径是否存在
+    # 检查模板路径是否存在
+    check-template-location: false
   application:
     name: sdnd-consumer
   datasource:
@@ -23,7 +27,7 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
-    password: musui@redis@1487
+    password: redis
     timeout: 5000
     jedis:
       pool:
@@ -35,15 +39,20 @@ spring:
         max-active: 1000
         # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException
         max-wait: 2000
+service:
+  version: 1.0.0
 dubbo:
   application:
     name: dubbo-consumer
     qos-enable: false
     qos-accept-foreign-ip: false
   registry:
-    address: nacos://127.0.0.1:8848
+    # nacos集群配置
+    address: nacos://127.0.0.1:8841?backup=127.0.0.1:8842
   consumer:
     timeout: 30000
+    # 关闭所有服务的启动时检查：(没有提供者时报错)
+    check: false
   filter: paramPassFilter
 shiro-redis:
   session-dao:

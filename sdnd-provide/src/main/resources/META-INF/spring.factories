@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=top.b0x0.admin.service.config.MybatisPluginAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=top.b0x0.admin.service.config.mybatis.MybatisPluginAutoConfiguration

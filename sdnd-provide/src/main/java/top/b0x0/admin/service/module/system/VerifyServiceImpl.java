@@ -6,13 +6,14 @@ import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
-import top.b0x0.admin.common.util.redis.RedisUtils;
-import top.b0x0.admin.common.vo.req.EmailVo;
-import top.b0x0.admin.common.exception.BusinessErrorException;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import top.b0x0.admin.common.exception.BusinessErrorException;
+import top.b0x0.admin.common.vo.req.EmailVo;
+import top.b0x0.admin.service.util.RedisUtils;
 
 import java.util.Collections;
 
@@ -25,8 +26,8 @@ import java.util.Collections;
 // @RequiredArgsConstructor
 public class VerifyServiceImpl implements VerifyService {
 
-    //    @Value("${code.expiration}")
-    private Integer expiration = 300;
+    @Value("${code.expiration}")
+    private Integer expiration;
 
     @Autowired(required = false)
     RedisUtils redisUtils;

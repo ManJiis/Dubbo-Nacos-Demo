@@ -66,7 +66,7 @@ public class ShiroUtils {
      * @param salt     /
      * @return /
      */
-    public static String sha256(String password, String salt) {
+    public static String sha256Pass(String password, String salt) {
         return new SimpleHash(HASH_ALGORITHM_NAME, password, salt, HASH_ITERATIONS).toString();
     }
 
@@ -88,15 +88,15 @@ public class ShiroUtils {
         return getUserEntity().getUserId();
     }
 
-    public static void main(String[] args) {
-        String randomSalt = getRandomSalt(6);
-        String pass1 = ShiroUtils.sha256("admin", randomSalt);
-        String pass2 = ShiroUtils.sha256("guest", randomSalt);
-        System.out.println("salt = " + randomSalt + " pass1 = " + pass1 + " pass1.length() = " + pass1.length());
-        System.out.println("salt = " + randomSalt + " pass2 = " + pass2 + " pass2.length() = " + pass2.length());
-        String randomSalt1 = getRandomSalt();
-        String pass3 = ShiroUtils.sha256("admin", randomSalt1);
-        System.out.println("salt = " + randomSalt1 + " pass3 = " + pass1 + " pass3.length() = " + pass3.length());
-
-    }
+//    public static void main(String[] args) {
+//        String randomSalt = getRandomSalt(6);
+//        String pass1 = ShiroUtils.sha256Pass("admin", randomSalt);
+//        String pass2 = ShiroUtils.sha256Pass("guest", randomSalt);
+//        System.out.println("salt = " + randomSalt + " pass1 = " + pass1 + " pass1.length() = " + pass1.length());
+//        System.out.println("salt = " + randomSalt + " pass2 = " + pass2 + " pass2.length() = " + pass2.length());
+//        String randomSalt1 = getRandomSalt();
+//        String pass3 = ShiroUtils.sha256Pass("admin", randomSalt1);
+//        System.out.println("salt = " + randomSalt1 + " pass3 = " + pass1 + " pass3.length() = " + pass3.length());
+//
+//    }
 }

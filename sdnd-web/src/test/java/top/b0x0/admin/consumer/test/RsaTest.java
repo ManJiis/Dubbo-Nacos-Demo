@@ -21,7 +21,7 @@ public class RsaTest {
     public void test2() {
         String salt = ShiroUtils.generateSalt();
         System.out.println("salt = " + salt);
-        System.out.println("ShiroUtils.sha256 = " + ShiroUtils.sha256(CommonConstants.DEFAULT_PASSWORD, salt));
+        System.out.println("ShiroUtils.sha256 = " + ShiroUtils.sha256Pass(CommonConstants.DEFAULT_PASSWORD, salt));
         //salt = pBUqvDltJh58ZbfFPKPq
         //ShiroUtils.sha256 = 269559d07d31d06df604a1b7028ec38f5a19573adf917edcd3dec4a5e63af3f1
     }

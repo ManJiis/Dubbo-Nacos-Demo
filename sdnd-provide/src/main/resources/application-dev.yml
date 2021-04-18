@@ -116,6 +116,8 @@ dubbo:
     basePackages: top.b0x0.admin.service
   provider:
     timeout: 30000  #方法调用的超时时间
+    # 防止消费者绕过注册中心访问提供者, 随机token令牌，使用UUID生成
+    token: true
   #    retries: 3      # 失败重试次数，缺省是 2
   #    loadbalance: roundrobin  # 负载均衡算法 , 缺省是随机 random。还可以配置轮询 roundrobin、最不活跃优先 4 leastactive 和一致性哈希 consistenthash 等
   filter: paramReceiveFilter
@@ -145,40 +147,6 @@ xxl:
       logpath: /data/applogs/sdnd/xxl-job/jobhandler
       ### 执行器日志文件保存天数 [选填] ： 过期日志自动清理, 限制值大于等于3时生效; 否则, 如-1, 关闭自动清理功能；
       logretentiondays: 30
-
-task:
-  pool:
-    # 核心线程池大小
-    core-pool-size: 10
-    # 最大线程数
-    max-pool-size: 30
-    # 活跃时间
-    keep-alive-seconds: 60
-    # 队列容量
-    queue-capacity: 50
-
-# 文件存储路径
-file:
-  mac:
-    path: ~/file/
-    avatar: ~/avatar/
-  linux:
-    path: /home/eladmin/file/
-    avatar: /home/eladmin/avatar/
-  windows:
-    path: C:\eladmin\file\
-    avatar: C:\eladmin\avatar\
-  # 文件大小 /M
-  maxSize: 100
-  avatarMaxSize: 5
-
-#密码加密传输，前端公钥加密，后端私钥解密
-rsa:
-  private_key: MIIBUwIBADANBgkqhkiG9w0BAQEFAASCAT0wggE5AgEAAkEA0vfvyTdGJkdbHkB8mp0f3FE0GYP3AYPaJF7jUd1M0XxFSE2ceK3k2kw20YvQ09NJKk+OMjWQl9WitG9pB6tSCQIDAQABAkA2SimBrWC2/wvauBuYqjCFwLvYiRYqZKThUS3MZlebXJiLB+Ue/gUifAAKIg1avttUZsHBHrop4qfJCwAI0+YRAiEA+W3NK/RaXtnRqmoUUkb59zsZUBLpvZgQPfj1MhyHDz0CIQDYhsAhPJ3mgS64NbUZmGWuuNKp5coY2GIj/zYDMJp6vQIgUueLFXv/eZ1ekgz2Oi67MNCk5jeTF2BurZqNLR3MSmUCIFT3Q6uHMtsB9Eha4u7hS31tj1UWE+D+ADzp59MGnoftAiBeHT7gDMuqeJHPL4b+kC+gzV4FGTfhR9q3tTbklZkD2A==
-
-#邮箱验证码有效时间/秒
-code:
-  expiration: 300
 
 juhe:
   # 历史上的今天

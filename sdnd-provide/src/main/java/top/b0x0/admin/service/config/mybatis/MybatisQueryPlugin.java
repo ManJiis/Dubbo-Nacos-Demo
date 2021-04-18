@@ -1,5 +1,6 @@
-package top.b0x0.admin.service.config;
+package top.b0x0.admin.service.config.mybatis;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.dubbo.rpc.RpcContext;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -7,8 +8,7 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import top.b0x0.admin.common.util.spring.SpringContextHolder;
-import top.b0x0.admin.service.module.system.UserService;
+import top.b0x0.admin.common.pojo.system.SysUser;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -21,33 +21,31 @@ import java.util.Properties;
  * @since 2021-04-01
  */
 @Intercepts(@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}))
-//@Component
-//@Lazy(false)
-public class MybatisParamQueryPlugin implements Interceptor {
+public class MybatisQueryPlugin implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         System.out.println("=============== mybatis query interceptor START ==============");
         Object[] args = invocation.getArgs();
-        int i = 0;
-        for (Object arg : args) {
-            if (arg instanceof MappedStatement) {
-                MappedStatement mappedStatement = (MappedStatement) arg;
-                if (mappedStatement.getSqlCommandType() != SqlCommandType.SELECT) {
-                    return invocation.proceed();
-                }
-                continue;
+        if (args[0] instanceof MappedStatement) {
+            MappedStatement mappedStatement = (MappedStatement) args[0];
+            if (mappedStatement.getSqlCommandType() != SqlCommandType.SELECT) {
+                return invocation.proceed();
             }
-            if (arg instanceof Map) {
-                Map<?, ?> map = (Map<?, ?>) arg;
-                System.out.println("mybatis interceptor start map = " + map);
-                if (map.containsKey("ds")) {
-
-                    RpcContext rpcContext = RpcContext.getContext();
-                    String token = rpcContext.getAttachment("loginToken");
-                    System.out.println("mybatis interceptor token = " + token);
-                    UserService userService = SpringContextHolder.getBean(UserService.class);
-                    System.out.println("mybatis interceptor user = " + userService.findByName("admin"));
+        } else {
+            return invocation.proceed();
+        }
+        if (args[1] instanceof Map) {
+            Map<?, ?> map = (Map<?, ?>) args[1];
+            System.out.println("mybatis interceptor start map = " + map);
+            if (map.containsKey("ds")) {
+                RpcContext rpcContext = RpcContext.getContext();
+                String token = rpcContext.getAttachment("loginToken");
+                System.out.println("loginToken token = " + token);
+                String loginUser = rpcContext.getAttachment("loginUser");
+                if (loginUser != null) {
+                    SysUser sysUser = JSON.parseObject(loginUser, SysUser.class);
+                    System.out.println("sysUser = " + sysUser);
 
                     Object ds = map.get("ds");
                     Field[] declaredFields = ds.getClass().getDeclaredFields();
@@ -65,6 +63,7 @@ public class MybatisParamQueryPlugin implements Interceptor {
                 }
                 System.out.println("mybatis interceptor end map = " + map);
             }
+
         }
         return invocation.proceed();
     }

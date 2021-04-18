@@ -1,4 +1,4 @@
-package top.b0x0.admin.service.module.system;
+package top.b0x0.admin.consumer.controller.system;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

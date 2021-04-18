@@ -44,6 +44,31 @@
       "name": "service.version",
       "type": "java.lang.String",
       "description": "Description for service.version."
+    },
+    {
+      "name": "task.pool.core-pool-size",
+      "type": "java.lang.String",
+      "description": "Description for task.pool.core-pool-size."
+    },
+    {
+      "name": "task.pool.max-pool-size",
+      "type": "java.lang.String",
+      "description": "Description for task.pool.max-pool-size."
+    },
+    {
+      "name": "task.pool.keep-alive-seconds",
+      "type": "java.lang.String",
+      "description": "Description for task.pool.keep-alive-seconds."
+    },
+    {
+      "name": "task.pool.queue-capacity",
+      "type": "java.lang.String",
+      "description": "Description for task.pool.queue-capacity."
+    },
+    {
+      "name": "dubbo.filter",
+      "type": "java.lang.String",
+      "description": "Description for dubbo.filter."
     }
   ]
 }

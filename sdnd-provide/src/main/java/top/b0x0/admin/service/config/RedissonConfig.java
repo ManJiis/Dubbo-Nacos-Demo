@@ -13,8 +13,9 @@ import org.springframework.context.annotation.Configuration;
 
 
 /**
+ * 分布式锁配置
+ *
  * @author musui
- * @description 分布式锁配置
  * @date 2021-02-12
  */
 @Configuration

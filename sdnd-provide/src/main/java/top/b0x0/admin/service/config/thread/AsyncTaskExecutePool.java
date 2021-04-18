@@ -1,5 +1,5 @@
 
-package top.b0x0.admin.common.config.thread;
+package top.b0x0.admin.service.config.thread;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -41,7 +41,7 @@ public class AsyncTaskExecutePool implements AsyncConfigurer {
         //活跃时间
         executor.setKeepAliveSeconds(config.getKeepAliveSeconds());
         //线程名字前缀
-        executor.setThreadNamePrefix("el-async-");
+        executor.setThreadNamePrefix("sdnd-async-");
         // setRejectedExecutionHandler：当pool已经达到max size的时候，如何处理新任务
         // CallerRunsPolicy：不在新线程中执行任务，而是由调用者所在的线程来执行
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());

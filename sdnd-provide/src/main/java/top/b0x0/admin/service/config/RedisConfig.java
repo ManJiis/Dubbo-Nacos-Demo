@@ -19,9 +19,10 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
+ * redisTemplate config
+ *
  * @author TANG
- * @description: redis config
- * @date: 2020-11-27
+ * @date 2020-11-27
  */
 @Slf4j
 @Configuration

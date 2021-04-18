@@ -71,6 +71,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/doc.html/**", "anon");
+
         filterChainDefinitionMap.put("/system/limit/**", "anon");
         filterChainDefinitionMap.put("/system/auth/**", "anon");
 //        filterChainDefinitionMap.put("/**", "authc");
@@ -84,16 +85,16 @@ public class ShiroConfig {
     public ShiroFilterChainDefinition defaultShiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition defaultShiroFilterChainDefinition = new DefaultShiroFilterChainDefinition();
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/**", "anon");
-
-        filterChainDefinitionMap.put("/swagger/**", "anon");
-        filterChainDefinitionMap.put("/v2/**", "anon");
-        filterChainDefinitionMap.put("/webjars/**", "anon");
-        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
-        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
-        filterChainDefinitionMap.put("/doc.html/**", "anon");
-        filterChainDefinitionMap.put("/system/limit/**", "anon");
-        filterChainDefinitionMap.put("/system/auth/**", "anon");
+//        filterChainDefinitionMap.put("/**", "anon");
+//
+//        filterChainDefinitionMap.put("/swagger/**", "anon");
+//        filterChainDefinitionMap.put("/v2/**", "anon");
+//        filterChainDefinitionMap.put("/webjars/**", "anon");
+//        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+//        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+//        filterChainDefinitionMap.put("/doc.html/**", "anon");
+//        filterChainDefinitionMap.put("/system/limit/**", "anon");
+//        filterChainDefinitionMap.put("/system/auth/**", "anon");
 //        filterChainDefinitionMap.put("/**", "authc");
         defaultShiroFilterChainDefinition.addPathDefinitions(filterChainDefinitionMap);
 

@@ -1,7 +1,7 @@
 package top.b0x0.admin.consumer.controller.system;
 
 import cn.hutool.core.lang.Dict;
-import top.b0x0.admin.common.vo.BusinessResponse;
+import top.b0x0.admin.common.vo.R;
 import top.b0x0.admin.common.dto.RoleDto;
 import top.b0x0.admin.common.mapstruct.RoleMapper;
 import top.b0x0.admin.common.vo.req.RoleReqVo;
@@ -43,8 +43,8 @@ public class RoleController {
     @ApiOperation("获取单个role")
     @GetMapping(value = "/{id}")
     // @RequiresPermissions("@el.check('roles:list')")
-    public BusinessResponse query(@PathVariable Long id) {
-        return BusinessResponse.ok(roleService.findById(id));
+    public R query(@PathVariable Long id) {
+        return R.ok(roleService.findById(id));
     }
 
     @ApiOperation("导出角色数据")
@@ -59,55 +59,55 @@ public class RoleController {
     @ApiOperation("查询角色")
     @GetMapping
     // @RequiresPermissions("@el.check('roles:list')")
-    public BusinessResponse query(RoleReqVo roleReqVo) {
-        return BusinessResponse.ok(roleService.selectList(roleReqVo));
+    public R query(RoleReqVo roleReqVo) {
+        return R.ok(roleService.selectList(roleReqVo));
     }
 
     @ApiOperation("获取用户级别")
     @GetMapping(value = "/level")
-    public BusinessResponse getLevel() {
-        return BusinessResponse.ok(Dict.create().set("level", getLevels(null)));
+    public R getLevel() {
+        return R.ok(Dict.create().set("level", getLevels(null)));
     }
 
     @Log(description = "新增角色")
     @ApiOperation("新增角色")
     @PostMapping
     // @RequiresPermissions("@el.check('roles:add')")
-    public BusinessResponse create(@Validated @RequestBody SysRole resources) {
+    public R create(@Validated @RequestBody SysRole resources) {
         if (resources.getRoleId() != null) {
             throw new BusinessErrorException("A new " + ENTITY_NAME + " cannot already have an ID");
         }
         getLevels(resources.getLevel());
         roleService.create(resources);
-        return BusinessResponse.ok();
+        return R.ok();
     }
 
     @Log(description = "修改角色")
     @ApiOperation("修改角色")
     @PutMapping
     // @RequiresPermissions("@el.check('roles:edit')")
-    public BusinessResponse update(@Validated(SysRole.class) @RequestBody SysRole resources) {
+    public R update(@Validated(SysRole.class) @RequestBody SysRole resources) {
         getLevels(resources.getLevel());
         roleService.update(resources);
-        return BusinessResponse.ok();
+        return R.ok();
     }
 
     @Log(description = "修改角色菜单")
     @ApiOperation("修改角色菜单")
     @PutMapping(value = "/menu")
     // @RequiresPermissions("@el.check('roles:edit')")
-    public BusinessResponse updateMenu(@RequestBody SysRole resources) {
+    public R updateMenu(@RequestBody SysRole resources) {
         RoleDto SysRole = roleService.findById(resources.getRoleId());
         getLevels(SysRole.getLevel());
         roleService.updateMenu(resources, SysRole);
-        return BusinessResponse.ok();
+        return R.ok();
     }
 
     @Log(description = "删除角色")
     @ApiOperation("删除角色")
     @DeleteMapping
     // @RequiresPermissions("@el.check('roles:del')")
-    public BusinessResponse delete(@RequestBody Set<Long> ids) {
+    public R delete(@RequestBody Set<Long> ids) {
         for (Long id : ids) {
             RoleDto SysRole = roleService.findById(id);
             getLevels(SysRole.getLevel());
@@ -115,7 +115,7 @@ public class RoleController {
         // 验证是否被用户关联
         roleService.verification(ids);
         roleService.delete(ids);
-        return BusinessResponse.ok();
+        return R.ok();
     }
 
     /**
