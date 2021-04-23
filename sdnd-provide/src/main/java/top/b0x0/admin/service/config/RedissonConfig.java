@@ -1,15 +1,14 @@
 package top.b0x0.admin.service.config;
 
-import top.b0x0.admin.common.util.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.codec.Codec;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
-import org.redisson.spring.data.connection.RedissonConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import top.b0x0.admin.common.util.StringUtils;
 
 
 /**
@@ -45,10 +44,10 @@ public class RedissonConfig {
         return Redisson.create(config);
     }
 
-    @Bean
-    public RedissonConnectionFactory redissonConnectionFactory(RedissonClient redisson) {
-        return new RedissonConnectionFactory(redisson);
-    }
+//    @Bean
+//    public RedissonConnectionFactory redissonConnectionFactory(RedissonClient redisson) {
+//        return new RedissonConnectionFactory(redisson);
+//    }
 }
 
 
