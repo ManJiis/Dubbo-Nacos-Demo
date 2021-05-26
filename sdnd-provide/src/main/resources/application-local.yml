@@ -62,8 +62,8 @@ spring:
   rabbitmq:
     host: 127.0.0.1
     port: 5672
-    username: admin
-    password: admin
+    username: guest
+    password: guest
     # 确保生产者到交换器exchange消息有没有发送成功,发送成功会回调生产者
     publisher-confirm-type: correlated
     # 消息在未被队列收到的情况下返回

@@ -4,7 +4,6 @@ import top.b0x0.admin.common.pojo.system.SysLog;
 import top.b0x0.admin.common.util.StringUtils;
 import top.b0x0.admin.common.util.ThrowableUtils;
 import top.b0x0.admin.common.util.json.JackJsonUtils;
-import top.b0x0.admin.common.util.spring.RequestHolder;
 import top.b0x0.admin.consumer.annotaion.Log;
 import top.b0x0.admin.consumer.shiro.ShiroUtils;
 import top.b0x0.admin.service.module.system.LogService;
@@ -78,7 +77,8 @@ public class LogAspect {
         HttpServletRequest request = RequestHolder.getHttpServletRequest();
         SysLog log = new SysLog();
         log.setLogType("ERROR");
-        String ip = StringUtils.getIp(request);
+        // TODO
+        String ip = "";
         String cityInfo = StringUtils.getCityInfo(ip);
         // 异常信息
         log.setExceptionDetail(ThrowableUtils.getStackTrace(e).getBytes());
@@ -116,9 +116,11 @@ public class LogAspect {
         }
         // 操作描述
         String description = getAnnotationValue(joinPoint);
-        String ip = StringUtils.getIp(request);
+        // TODO
+        String ip = "StringUtils.getIp(request)";
         String cityInfo = StringUtils.getCityInfo(ip);
-        String browser = StringUtils.getBrowser(request);
+        // TODO
+        String browser = "StringUtils.getBrowser(request)";
         log.setRequestIp(ip);
         log.setAddress(cityInfo);
         log.setMethod(actionMethod);

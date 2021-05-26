@@ -3,13 +3,10 @@ package top.b0x0.admin.common.util;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import top.b0x0.admin.common.util.constants.ElAdminConstant;
-import eu.bitwalker.useragentutils.Browser;
-import eu.bitwalker.useragentutils.UserAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import top.b0x0.admin.common.util.constants.ElAdminConstant;
 
-import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Calendar;
@@ -113,32 +110,32 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /**
      * 获取ip地址
      */
-    public static String getIp(HttpServletRequest request) {
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        String comma = ",";
-        String localhost = "127.0.0.1";
-        if (ip.contains(comma)) {
-            ip = ip.split(",")[0];
-        }
-        if (localhost.equals(ip)) {
-            // 获取本机真正的ip地址
-            try {
-                ip = InetAddress.getLocalHost().getHostAddress();
-            } catch (UnknownHostException e) {
-                log.error(e.getMessage(), e);
-            }
-        }
-        return ip;
-    }
+//    public static String getIp(HttpServletRequest request) {
+//        String ip = request.getHeader("x-forwarded-for");
+//        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
+//            ip = request.getHeader("Proxy-Client-IP");
+//        }
+//        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
+//            ip = request.getHeader("WL-Proxy-Client-IP");
+//        }
+//        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
+//            ip = request.getRemoteAddr();
+//        }
+//        String comma = ",";
+//        String localhost = "127.0.0.1";
+//        if (ip.contains(comma)) {
+//            ip = ip.split(",")[0];
+//        }
+//        if (localhost.equals(ip)) {
+//            // 获取本机真正的ip地址
+//            try {
+//                ip = InetAddress.getLocalHost().getHostAddress();
+//            } catch (UnknownHostException e) {
+//                log.error(e.getMessage(), e);
+//            }
+//        }
+//        return ip;
+//    }
 
     /**
      * 根据ip获取详细地址
@@ -150,11 +147,11 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
 
-    public static String getBrowser(HttpServletRequest request) {
-        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
-        Browser browser = userAgent.getBrowser();
-        return browser.getName();
-    }
+//    public static String getBrowser(HttpServletRequest request) {
+//        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
+//        Browser browser = userAgent.getBrowser();
+//        return browser.getName();
+//    }
 
     /**
      * 获得当天是周几

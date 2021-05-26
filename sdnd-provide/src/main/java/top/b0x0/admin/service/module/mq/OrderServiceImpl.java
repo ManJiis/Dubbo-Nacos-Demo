@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 
-import static top.b0x0.admin.common.util.BuildDlxMessageUtils.buildOrderDelayDlxMessage;
+import static top.b0x0.admin.common.helper.BuildDlxMessageHelper.buildOrderDelayDlxMessage;
 import static top.b0x0.admin.common.util.constants.RabbitMqConstants.MSG_SENDING;
 
 /**

@@ -2,7 +2,6 @@ package top.b0x0.admin.consumer.aspect;
 
 import top.b0x0.admin.common.exception.BusinessErrorException;
 import top.b0x0.admin.common.util.StringUtils;
-import top.b0x0.admin.common.util.spring.RequestHolder;
 import top.b0x0.admin.consumer.annotaion.AccessLimit;
 import top.b0x0.admin.consumer.annotaion.LimitType;
 import com.google.common.collect.ImmutableList;
@@ -50,7 +49,8 @@ public class AccessLimitAspect {
         LimitType limitType = accessLimit.limitType();
         String key = accessLimit.key();
         if (limitType == LimitType.IP) {
-            key = StringUtils.getIp(request);
+            // TODO
+            key = "StringUtils.getIp(request)";
             log.info("------------>限流 LimitType = " + LimitType.IP);
         } else {
             key = signatureMethod.getName();

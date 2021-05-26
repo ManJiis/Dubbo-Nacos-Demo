@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-import static top.b0x0.admin.common.util.BuildDlxMessageUtils.buildOrderDelayDlxMessage;
+import static top.b0x0.admin.common.helper.BuildDlxMessageHelper.buildOrderDelayDlxMessage;
 
 /**
  * XxlJob开发示例（Bean模式）

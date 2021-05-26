@@ -1,4 +1,4 @@
-package top.b0x0.admin.common.util;
+package top.b0x0.admin.common.helper;
 
 import top.b0x0.admin.common.pojo.DlxMessage;
 import top.b0x0.admin.common.pojo.Order;
@@ -12,7 +12,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
  * @author TANG
  * @since 2021-02-26
  */
-public class BuildDlxMessageUtils {
+public class BuildDlxMessageHelper {
 
     /**
      * 构建延时订单消息

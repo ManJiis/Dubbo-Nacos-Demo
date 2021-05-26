@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
+import top.b0x0.admin.common.util.EnvUtils;
 import top.b0x0.admin.common.util.spring.SpringContextHolder;
 
 /**
@@ -20,6 +21,8 @@ public class SdndServiceApplication {
         System.out.println("====================== 服务开始启动.... ====================== ");
 //        SpringApplication.run(SdndServiceApplication.class, "hello", "world");
         SpringApplication.run(SdndServiceApplication.class, args);
+        String ossActive = EnvUtils.getOssActive();
+        System.out.println("ossActive = " + ossActive);
         System.out.println("====================== 服务启动结束 ====================== ");
     }
 
