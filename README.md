@@ -21,13 +21,12 @@ sdnd
 - [x] 消息可靠性投递
 - [x] 处理消息重复消费
 6. 邮件发送
-7. 使用logback记录日志,控制台彩色打印
-8. 集成分布式任务调度平台XXL-JOB 2.3.0版本
-9. 添加分布式锁[Redission](https://github.com/redisson/redisson )(service-provide模块测试类RedissionTest)
-10. 添加接口限流功能(@AccessLimit注解)
-11. 使用screw导出数据库文档(web-test模块下测试类ScrewApplicationTests)
-12. [数据+模板生成PDF](https://github.com/tanglinghan/pdf-demo)
-13. - [ ] CompletableFuture异步编程
+7. 集成分布式任务调度平台XXL-JOB 2.3.0版本
+8. 添加分布式锁[Redission](https://github.com/redisson/redisson )(service-provide模块测试类RedissionTest)
+9. 添加接口限流功能(@AccessLimit注解)
+10. 使用screw导出数据库文档(web-test模块下测试类ScrewApplicationTests)
+11. [数据+模板生成PDF](https://github.com/tanglinghan/pdf-demo)
+12. - [ ] CompletableFuture异步编程
 
 
 本地swagger文档地址：http://localhost:8032/doc.html
