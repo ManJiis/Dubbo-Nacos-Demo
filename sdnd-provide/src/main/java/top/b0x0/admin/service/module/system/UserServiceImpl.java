@@ -60,12 +60,12 @@ public class UserServiceImpl implements UserService {
         return sysUserDao.findByPhone(phone);
     }
 
-    @Override
-    public PageInfo<SysUser> selectList(UserQueryReq userQueryReq) {
-        PageHelper.startPage(userQueryReq.getPageNum(), userQueryReq.getPageSize());
-        List<SysUser> userList = sysUserDao.listUser(new DataScope());
-        return new PageInfo<>(userList);
-    }
+//    @Override
+//    public PageInfo<SysUser> selectList(UserQueryReq userQueryReq) {
+//        PageHelper.startPage(userQueryReq.getPageNum(), userQueryReq.getPageSize());
+//        List<SysUser> userList = sysUserDao.listUser(new DataScope());
+//        return new PageInfo<>(userList);
+//    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -179,28 +179,28 @@ public class UserServiceImpl implements UserService {
         flushCache(username);
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Map<String, String> updateAvatar(MultipartFile multipartFile) {
-//        String currentUsername = SecurityUtils.getCurrentUsername();
-        SysUser sysUser = sysUserDao.findByUsername("currentUsername");
-        String oldPath = sysUser.getAvatarPath();
-//        File file = FileUtil.upload(multipartFile, properties.getPath().getAvatar());
-        File file = new File(oldPath);
-        sysUser.setAvatarPath(Objects.requireNonNull(file).getPath());
-        sysUser.setAvatarName(file.getName());
-        sysUserDao.insert(sysUser);
-        if (StringUtils.isNotBlank(oldPath)) {
-//            FileUtil.del(oldPath);
-        }
-//        @NotBlank String username = sysUser.getUsername();
-        String username = sysUser.getUsername();
-//        redisUtils.del(CacheKey.USER_NAME + username);
-        flushCache(username);
-        return new HashMap<String, String>(1) {{
-            put("avatar", file.getName());
-        }};
-    }
+//    @Override
+//    @Transactional(rollbackFor = Exception.class)
+//    public Map<String, String> updateAvatar(MultipartFile multipartFile) {
+////        String currentUsername = SecurityUtils.getCurrentUsername();
+//        SysUser sysUser = sysUserDao.findByUsername("currentUsername");
+//        String oldPath = sysUser.getAvatarPath();
+////        File file = FileUtil.upload(multipartFile, properties.getPath().getAvatar());
+//        File file = new File(oldPath);
+//        sysUser.setAvatarPath(Objects.requireNonNull(file).getPath());
+//        sysUser.setAvatarName(file.getName());
+//        sysUserDao.insert(sysUser);
+//        if (StringUtils.isNotBlank(oldPath)) {
+////            FileUtil.del(oldPath);
+//        }
+////        @NotBlank String username = sysUser.getUsername();
+//        String username = sysUser.getUsername();
+////        redisUtils.del(CacheKey.USER_NAME + username);
+//        flushCache(username);
+//        return new HashMap<String, String>(1) {{
+//            put("avatar", file.getName());
+//        }};
+//    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -210,23 +210,24 @@ public class UserServiceImpl implements UserService {
         flushCache(username);
     }
 
-    @Override
-    public void download(List<UserDto> queryAll, HttpServletResponse response) throws IOException {
-        List<Map<String, Object>> list = new ArrayList<>();
-        for (UserDto userDTO : queryAll) {
-            List<String> roles = userDTO.getRoles().stream().map(RoleSmallDto::getName).collect(Collectors.toList());
-            Map<String, Object> map = new LinkedHashMap<>();
-            map.put("用户名", userDTO.getUsername());
-            map.put("角色", roles);
-            map.put("邮箱", userDTO.getEmail());
-            map.put("状态", userDTO.getEnabled() == 1 ? "启用" : "禁用");
-            map.put("手机号码", userDTO.getPhone());
-            map.put("修改密码的时间", userDTO.getPwdResetTime());
-            map.put("创建日期", userDTO.getCreateTime());
-            list.add(map);
-        }
-//        FileUtil.downloadExcel(list, response);
-    }
+//    @Override
+////    public void download(List<UserDto> queryAll, HttpServletResponse response) throws IOException {
+//    public void download(List<UserDto> queryAll) throws IOException {
+//        List<Map<String, Object>> list = new ArrayList<>();
+//        for (UserDto userDTO : queryAll) {
+//            List<String> roles = userDTO.getRoles().stream().map(RoleSmallDto::getName).collect(Collectors.toList());
+//            Map<String, Object> map = new LinkedHashMap<>();
+//            map.put("用户名", userDTO.getUsername());
+//            map.put("角色", roles);
+//            map.put("邮箱", userDTO.getEmail());
+//            map.put("状态", userDTO.getEnabled() == 1 ? "启用" : "禁用");
+//            map.put("手机号码", userDTO.getPhone());
+//            map.put("修改密码的时间", userDTO.getPwdResetTime());
+//            map.put("创建日期", userDTO.getCreateTime());
+//            list.add(map);
+//        }
+////        FileUtil.downloadExcel(list, response);
+//    }
 
     /**
      * 清理缓存

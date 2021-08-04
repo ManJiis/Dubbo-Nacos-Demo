@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>sdnd</artifactId>
+        <artifactId>dubbo-nacos-demo</artifactId>
         <groupId>top.b0x0</groupId>
         <version>1.0.0</version>
 <!--        <relativePath/>-->
@@ -28,6 +28,11 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>sdnd-common</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <version>3.4.0</version>
         </dependency>
     </dependencies>
 </project>

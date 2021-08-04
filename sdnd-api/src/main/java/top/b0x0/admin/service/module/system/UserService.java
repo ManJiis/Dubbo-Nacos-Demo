@@ -1,13 +1,13 @@
 
 package top.b0x0.admin.service.module.system;
 
-import com.github.pagehelper.PageInfo;
-import org.springframework.web.multipart.MultipartFile;
+//import com.github.pagehelper.PageInfo;
+//import org.springframework.web.multipart.MultipartFile;
 import top.b0x0.admin.common.dto.UserDto;
 import top.b0x0.admin.common.pojo.system.SysUser;
 import top.b0x0.admin.common.vo.req.UserQueryReq;
 
-import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +79,7 @@ public interface UserService {
      * @param file 文件
      * @return /
      */
-    Map<String, String> updateAvatar(MultipartFile file);
+//    Map<String, String> updateAvatar(MultipartFile file);
 
     /**
      * 修改邮箱
@@ -96,7 +96,7 @@ public interface UserService {
      * @param userQueryReq 条件
      * @return /
      */
-    PageInfo<SysUser> selectList(UserQueryReq userQueryReq);
+//    PageInfo<SysUser> selectList(UserQueryReq userQueryReq);
 
     /**
      * 导出数据
@@ -105,7 +105,7 @@ public interface UserService {
      * @param response /
      * @throws IOException /
      */
-    void download(List<UserDto> queryAll, HttpServletResponse response) throws IOException;
+//    void download(List<UserDto> queryAll, HttpServletResponse response) throws IOException;
 
     /**
      * 用户自助修改资料

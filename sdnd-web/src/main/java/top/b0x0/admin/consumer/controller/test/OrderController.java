@@ -1,4 +1,4 @@
-package top.b0x0.admin.consumer.controller.example;
+package top.b0x0.admin.consumer.controller.test;
 
 import top.b0x0.admin.common.vo.R;
 import top.b0x0.admin.common.vo.req.OrderReqPageVo;

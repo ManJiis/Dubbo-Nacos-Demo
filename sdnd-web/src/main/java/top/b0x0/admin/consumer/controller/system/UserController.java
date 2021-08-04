@@ -52,21 +52,21 @@ public class UserController {
 
     UserMapper userMapper;
 
-    @ApiOperation("查询用户")
-    @GetMapping
-//    @RequiresPermissions("@el.check('SysUser:list')")
-    public R query(UserQueryReq userQueryReq) {
-        return R.ok(userService.selectList(userQueryReq));
-    }
-
-    @ApiOperation("导出用户数据")
-    @GetMapping(value = "/download")
-    // @RequiresPermissions("@el.check('SysUser:list')")
-    public void download(HttpServletResponse response, UserQueryReq userQueryReq) throws IOException {
-        List<SysUser> records = userService.selectList(userQueryReq).getList();
-        List<UserDto> userDtoList = userMapper.toDto(records);
-        userService.download(userDtoList, response);
-    }
+//    @ApiOperation("查询用户")
+//    @GetMapping
+////    @RequiresPermissions("@el.check('SysUser:list')")
+//    public R query(UserQueryReq userQueryReq) {
+//        return R.ok(userService.selectList(userQueryReq));
+//    }
+//
+//    @ApiOperation("导出用户数据")
+//    @GetMapping(value = "/download")
+//    // @RequiresPermissions("@el.check('SysUser:list')")
+//    public void download(HttpServletResponse response, UserQueryReq userQueryReq) throws IOException {
+//        List<SysUser> records = userService.selectList(userQueryReq).getList();
+//        List<UserDto> userDtoList = userMapper.toDto(records);
+//        userService.download(userDtoList, response);
+//    }
 
     @Log(description = "新增用户")
     @ApiOperation("新增用户")
@@ -145,11 +145,11 @@ public class UserController {
         return R.ok();
     }
 
-    @ApiOperation("修改头像")
-    @PostMapping(value = "/updateAvatar")
-    public R updateAvatar(@RequestParam MultipartFile avatar) {
-        return R.ok(userService.updateAvatar(avatar));
-    }
+//    @ApiOperation("修改头像")
+//    @PostMapping(value = "/updateAvatar")
+//    public R updateAvatar(@RequestParam MultipartFile avatar) {
+//        return R.ok(userService.updateAvatar(avatar));
+//    }
 
     @Log(description = "修改邮箱")
     @ApiOperation("修改邮箱")

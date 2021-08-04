@@ -3,7 +3,7 @@ package top.b0x0.admin.dao;
 import top.b0x0.admin.common.vo.req.RoleReqVo;
 import top.b0x0.admin.common.pojo.system.SysRole;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+//import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -83,7 +83,7 @@ public interface SysRoleDao {
      * @param roleReqVo 实例对象
      * @return 对象列表
      */
-    IPage<SysRole> selectList(Page<SysRole> page, RoleReqVo roleReqVo);
+//    IPage<SysRole> selectList(Page<SysRole> page, RoleReqVo roleReqVo);
 
     /**
      * 新增数据

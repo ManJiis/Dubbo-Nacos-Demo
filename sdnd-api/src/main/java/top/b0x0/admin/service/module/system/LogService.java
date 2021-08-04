@@ -4,7 +4,7 @@ import top.b0x0.admin.common.vo.req.LogReqVo;
 import top.b0x0.admin.common.pojo.system.SysLog;
 import org.springframework.scheduling.annotation.Async;
 
-import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -49,7 +49,8 @@ public interface LogService {
      * @param response /
      * @throws IOException /
      */
-    void download(List<SysLog> logs, HttpServletResponse response) throws IOException;
+//    void download(List<SysLog> logs, HttpServletResponse response) throws IOException;
+    void download(List<SysLog> logs) throws IOException;
 
     /**
      * 删除所有错误日志

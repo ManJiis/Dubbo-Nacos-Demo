@@ -6,7 +6,6 @@ import top.b0x0.admin.common.dto.RoleSmallDto;
 import top.b0x0.admin.common.pojo.system.SysRole;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -84,7 +83,7 @@ public interface RoleService {
      * @param roleReqVo 条件
      * @return /
      */
-    IPage<SysRole> selectList(RoleReqVo roleReqVo);
+//    IPage<SysRole> selectList(RoleReqVo roleReqVo);
 
     /**
      * 导出数据
@@ -93,7 +92,7 @@ public interface RoleService {
      * @param response /
      * @throws IOException /
      */
-    void download(List<RoleDto> queryAll, HttpServletResponse response) throws IOException;
+//    void download(List<RoleDto> queryAll) throws IOException;
 
     /**
      * 获取用户权限信息
