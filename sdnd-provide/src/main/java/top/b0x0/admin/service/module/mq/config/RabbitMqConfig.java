@@ -41,6 +41,7 @@ public class RabbitMqConfig {
             if (ack) {
                 log.info("消息确认到达交换器 消息Id: [{}] ", correlationData.getId());
                 //如果confirm返回成功 则进行更新消息投递状态
+                // TODO 状态还有点小问题
                 brokerMessageLogDao.changeBrokerMessageLogStatus(messageId, RabbitMqConstants.MSG_SEND_SUCCESS, LocalDateTime.now());
             } else {
                 //表示消息成功发送到服务器，但是没有找到交换器，这里可以记录日志，方便后续处理

@@ -60,7 +60,7 @@ public class OrderProcessor {
 
             int i = 1 / 0;
 
-            /*
+            /*  channel.basicAck 之前出异常了 消息状态会变成nack 服务重启才会重新消费,考虑做幂等性处理
              *  consumer处理成功后，通知broker删除队列中的消息
              *  第二个参数取值为 false 时，表示通知 RabbitMQ 当前消息被确认
              *  如果为 true，则额外将比第一个参数指定的 delivery tag小的消息一并确认, 表示支持批量确认机制以减少网络流量
@@ -70,6 +70,13 @@ public class OrderProcessor {
         } catch (Exception e) {
             log.error("======confirmPaymentProcess  error: {}", e.getMessage());
             log.error("message: {}", message);
+            //重新放入队列
+//            channel.basicNack(Long.parseLong(Objects.requireNonNull(headers.get("amqp_deliveryTag")).toString()), false, true);
+
+            //抛弃此条消息
+//            channel.basicNack(Long.parseLong(Objects.requireNonNull(headers.get("amqp_deliveryTag")).toString()), false, false);
+
+            e.printStackTrace();
         }
     }
 
